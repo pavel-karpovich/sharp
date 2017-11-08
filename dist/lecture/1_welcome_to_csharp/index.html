@@ -1117,6 +1117,190 @@ class Program
 						<i>try...catch...finally</i>
 					</blockquote>
 				</section>
+				<section>
+					<h2>try-catch-finally</h2>
+					<blockquote>
+						Блок <i>try</i> охватывает код, в котором предполгается возможность получения исключительной ситуации.
+					</blockquote>
+					<blockquote>
+						В блоке <i>catch</i> размещаются обработчики исключений. Сюда выполние программы переходит после
+						перехвата исключения в блоке <i>try</i>.
+					</blockquote>
+					<blockquote>
+						Блок <i>finally</i> предназначен для обязательно выполняющегося кода, как при генерации исключения, так и без него.
+					</blockquote>
+				</section>
+				<section>
+					<h3>Структура обработки исключений</h3>
+					<pre>
+						<code class="cs">
+try
+{
+	/* код программы */
+}
+catch
+{
+	/* обработка исключений */
+}
+finally
+{
+	/* обязательный код */
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cs">
+static void Main(string[] args)
+{
+    int[] a = new int[4];
+    try
+    {
+        a[5] = 4; // тут возникнет исключение, так как у нас в массиве только 4 элемента
+        Console.WriteLine("Завершение блока try");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Ошибка: " + ex.Message);
+    }
+    finally
+    {
+        Console.WriteLine("Блок finally");
+    }
+    Console.ReadLine();
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Блок <i>catch</i></h2>
+					<blockquote>
+						Как вы могли заметить, после ключевого слова <i>catch</i> в скобках записывается тип перехватываемых исключений.
+						Для разных исключений можно записывать несколько блоков <i>catch</i>.
+					</blockquote>
+					<pre>
+						<code class="cs">
+try
+{
+     
+ }
+catch (FileNotFoundException e)
+{
+    // Обработка исключения, возникшего при отсутствии файла
+}
+catch (IOException e)
+{
+    // Обработка исключений ввода-вывода
+}
+catch
+{
+	// Обработка любых других исключений
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Фильтры исключений</h2>
+					<blockquote>
+						Существует возможность обрабатывать исключения в зависимости от каких-то заданных условий 
+						при помощи ключевого слова <i>when</i>:
+					</blockquote>
+					<pre>
+						<code class="cs">
+int x = 1;
+int y = 0;
+ 
+try
+{
+    int result = x / y;
+}
+catch(Exception ex) when (y==0)
+{
+    Console.WriteLine("y не должен быть равен 0");
+}
+catch(Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h1>Оператор <i>throw</i></h1>
+					<blockquote>
+						Чтобы самому прописывать случаи создания исключений, используется оператор <i>throw</i>.
+					</blockquote>
+					<pre>
+						<code class="cs">
+static void Main(string[] args)
+{
+    try
+    {
+        string message = Console.ReadLine();
+        if (message.Length > 6)
+        {
+            throw new Exception("Длина строки больше 6 символов");
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine("Ошибка: " + e.Message);
+    }
+    Console.ReadLine();
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Механизмы встроенной проверки</h2>
+					<blockquote>
+						Не во всех случаях оптимально применять конструкции <i>try...catch</i>. В классах 
+						.NET Framework имеется множество методов для выполнения различных проверок, например 
+						метод <i>TryParse()</i> класса <i>Int32</i>.
+					</blockquote>
+					<pre>
+						<code class="cs">
+void f1()
+{
+    Console.WriteLine("Введите число");
+    int x = Int32.Parse(Console.ReadLine());	// исключение
+ 
+    x *= x;
+    Console.WriteLine("Квадрат числа: " + x);
+    Console.Read();
+}
+
+void f2()
+{
+	Console.WriteLine("Введите число");
+    int x;
+    string input = Console.ReadLine();
+    if (Int32.TryParse(input, out x))		// встроенная проверка исключения
+    {
+        x *= x;
+        Console.WriteLine("Квадрат числа: " + x);
+    }
+    else
+    {
+        Console.WriteLine("Некорректный ввод");
+    }
+    Console.Read();
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Вложенность обработчиков исключений</h2>
+					<blockquote>
+						Возникшее в программе исключение в обязательном порядке должно быть передано на обработку блоку <i>catch</i>.
+						Поиск обработчиков выполняется по уровню вызова методов: сначала в локальной функции, если не находит - 
+						в функции, откуда вызвана эта функция, и т.д. пока не выйдет за пределы главной функции <i>Main</i>. Если 
+						до сих пор не было обнаружено подходящего обработчика, исключение передается среде CLR, которая сама 
+						обрабатывает исключение и сообщает пользователю о произошедшей ошибке. 
+					</blockquote>
+				</section>
 			</section>
 
 

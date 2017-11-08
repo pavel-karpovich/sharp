@@ -7,7 +7,12 @@ C#. Платформа .NET Framework. Объектно-ориентирован
 
 [Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/1_welcome_to_csharp/index.html "Лекция")
 
+###  Тема 2. Введение в Объектно-ориентированное программирование
+Объектно-ориентированное программирование, его принципы. Понятия класса и объекта, поля и метода. Модификаторы доступа.
+
+[Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/2_oop/index.html "Лекция")
+
 
 ##  Задания
 * Первое задание
-	[_Первое_ _задание_](https://tgjmjgj.github.io/Clecture/dist/task/Task_1/Task_1.pdf "Задание 1")
+	[_Не_ _тут_](https://tgjmjgj.github.io/Clecture/dist/task/Task_1/Task_1.pdf "Задание 1")

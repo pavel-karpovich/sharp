@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Object-oriented programming</title>
+	<meta name="description" content="programming paradigm OOP in C#, concept of classes and objects, attributes and methods">
+	<meta name="keywords" content="c#, oop, class, object, interface">
+	<meta name="author" content="Edward & Albert">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="../../css/bundle.min.css">
+	<!--[if lt IE 9]>
+		<script src="../../js/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+                <section>
+                    <h1>Объектно-ориентированное программирование</h1>
+                    <h3>Введение в объектно-ориентированное программирование</h3>
+                    <p>
+                        <small>Edward &amp; Albert / <a href="https://github.com/tgjmjgj/sharp/">github:Tgjmjgj</a></small>
+                    </p>
+                </section>
+				<section>
+					<h2>Содержание лекции</h2>
+					<nav id="presentable-toc" class="table-content"></nav>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Объектно-ориентированное программирование</h1>
+					<blockquote>
+						Главное, что нужно понять для написания программ на основе ООП, - всё является классом.
+						Ваша программа - класс программы, консоль - класс консоли, окно - класс окна,
+						лохматый померанский шпиц - класс собачки.
+					</blockquote>
+				</section>
+				<section>
+					<h1>Класс и объект</h1>
+					<blockquote>
+						Класс - это абстрактный тип данных, определяемый программистом.
+					</blockquote>
+					<blockquote>
+						Объекты - экземпляры класса.
+					</blockquote>
+					<pre>
+						<code class="cs">
+class имя_класса
+{
+	// члены класса
+}
+						</code>
+					</pre>
+					<blockquote>
+						Члены класса - это данные и функции для работы с этими данными.
+					</blockquote>
+					<blockquote>
+						Имя класса можно считать именем нового типа данных.
+					</blockquote>
+				</section>
+				<section>
+					<h2>Создание экземпляра класса</h2>
+					<blockquote>
+						Создание объекта класса осуществляется при помощи оператора <i>new</i>:
+					</blockquote>
+					<pre>
+						<code class="cs">
+имя_класса имя_объекта = new имя_класса();
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Класс Dog</h2>
+					<pre>
+						<code class="cs">
+class Dog
+{
+	public string name;
+	public string breed;
+	public int age;
+	public string owner;
+
+	public void walk()
+	{
+		// код
+	}
+
+	private int pee()
+	{
+		// код
+	}
+}
+
+static void Main(string[] args)
+{
+	Dog dg1 = new Dog();
+	dg1.name = "Альфред";
+	dg1.breed = "Бернский зенненхунд";
+
+	Dog[] flock = new Dog[4];
+	flock[2].walk();
+}					
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Данные класса</h1>
+					Данные класса подразделяются на:
+					<blockquote>
+						<ul>
+							<li>поля</li>
+							<li>константы</li>
+							<li>события</li>
+						</ul>
+					</blockquote>
+					<blockquote>
+						Поле - обычная член-переменная, содержащая некоторое значение.
+					</blockquote>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<blockquote>
+						Можно, например, объявить класс, членами которого будут являться только поля:
+					</blockquote>
+					<pre>
+						<code class="cs">
+class Class
+{
+	public int x;
+	public float y;
+	public const double z = 0.9134;
+	public const char c = 'A';
+	public string s;
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Функции класса</h1>
+					Все функции внутри класса подразделяются на:
+					<blockquote>
+						<ul>
+							<li>методы</li>
+							<li>свойства</li>
+							<li>конструкторы</li>
+							<li>финализаторы</li>
+							<li>индексаторы</li>
+							<li>операторы</li>
+						</ul>
+					</blockquote>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h1>Спецификаторы доступа</h1>
+					<blockquote>
+						Для управления логикой доступности членов класса используются модификаторы доступа:
+					</blockquote>
+					<blockquote>
+						<ul>
+							<li>public - общедоступный член класса</li>
+							<li>private - член класса доступен только внутри данного класса</li>
+							<li>protected - член класса доступен только внутри данного класса и его производных классов</li>
+							<li>internal - член класса доступен только внутри данной сборки (программы)</li>
+						</ul>
+					</blockquote>
+				</section>
+				<section>
+					<h2>Класс <i>Book</i></h2>
+					<blockquote>
+						<pre>
+							<code class="cs">
+class Book
+{
+    public string name;
+    public string author;
+    public int year;
+    protected int id;
+    private bool isAllowed;
+     
+    public void CreateEmptyBook()
+    {
+        name = "неизвестно";
+        author = "неизвестно";
+        year = 0;   
+        id = 0x8FFA;
+        isAllowed = false;
+    }
+ 
+    public void FillBook(string name, string author, int year)
+    {
+        this.name = name;
+        this.author = author;
+        this.year = year;
+        id = 0x031AE;
+        isAllowed = true;
+    }
+     
+    public void GetInformation()
+    {
+    	if (this.name == null)
+    	{
+    		this.CreateEmptyBook();
+    	}
+        Console.WriteLine($"Книга '{name}' (автор {author}) была издана в {year} году");
+    }   
+}
+							</code>
+						</pre>
+					</blockquote>
+				</section>
+			</section>
+			<section>
+				<h1>Ключевое слово <i>this</i></h1>
+				<blockquote>
+					Для доступа к членам текущего экземпляра класса можно использовать ключевое слово <i>this</i>. Это ключевое 
+					слово предоставляет ссылку на текущий объект класса. В принципе, использовать <i>this</i> не обязательно, 
+					но это бывает нужно при совпадении имен.
+ 				</blockquote>
+ 				<pre>
+ 					<code class="cs">
+public void FillBook(string name, string author, int year)
+{
+    this.name = name;
+    this.author = author;
+    this.year = year;
+    id = 0x031AE;
+    isAllowed = true;
+}
+ 					</code>
+ 				</pre>
+			</section>
+			<section>
+				<h2>Инициализаторы объектов</h2>
+				<blockquote>
+					Вместо задания поочередно всех полей объекта класса, можно передать значения его свойствам при помощи списка инициализации.
+				</blockquote>
+				<pre>
+					<code class="cs">
+Dog dog1 = new Dog();
+dog1.name = "Персиваль";
+dog1.breed = "Английский бульдог";
+dog1.age = 7;
+
+Dog dog2 = new Dog() { name = "Роза", breed = "пудель", age = 2 };
+					</code>
+				</pre>
+			</section>
+
+
+		</div>
+	</div>
+	<aside id="presentable-icon" class="cpp">
+		<a title="Содержание лекции" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x"></i>
+		</a>
+	</aside>
+	<script src="../../js/bundle.min.js"></script>
+</body>
+
+</html>
