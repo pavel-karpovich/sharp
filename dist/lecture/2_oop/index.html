@@ -150,14 +150,42 @@ class Class
 					Все функции внутри класса подразделяются на:
 					<blockquote>
 						<ul>
-							<li>методы</li>
-							<li>свойства</li>
-							<li>конструкторы</li>
-							<li>финализаторы</li>
-							<li>индексаторы</li>
-							<li>операторы</li>
+							<li>Методы</li>
+							<li>Свойства</li>
+							<li>Конструкторы</li>
+							<li>Финализаторы</li>
+							<li>Индексаторы</li>
+							<li>Операторы</li>
 						</ul>
 					</blockquote>
+				</section>
+				<section>
+					<h2>Методы</h2>
+					<blockquote>
+						Основой любого класса являются методы - функции внутри класса, выполняющие какие-либо действия над полями данных этого класса.
+					</blockquote>
+					<blockquote>
+						Например здесь описаны два метода: Sum и Sub:
+					</blockquote>
+					<pre>
+						<code class="cs">
+class Calculator
+{
+	private int x;
+	private int y;
+
+	public int Sum()
+	{
+		return x + y;
+	}
+
+	public int Sub()
+	{
+		return x - y;
+	}
+}
+						</code>
+					</pre>
 				</section>
 			</section>
 
@@ -257,7 +285,257 @@ Dog dog2 = new Dog() { name = "Роза", breed = "пудель", age = 2 };
 					</code>
 				</pre>
 			</section>
+			<section>
+				<section>
+					<h1>Статические члены класса</h1>
+					<blockquote>
+						Обычные методы и вообще всё, описанное внутри класса, существует в контексте 
+						какого-либо объекта этого класса. Т.е. для каждого экземпляра класса действуют свои копии 
+						методов и полей.
+					</blockquote>
+					<blockquote>
+						Добавление ключевого слова <i>static</i> позволяет сделать член класса, будь то поле или метод, 
+						единственным и относящимся не к объекту класса, а к самому классу.
+					</blockquote>
+				</section>
+				<section>
+					<h2>Статические методы</h2>
+					<blockquote>
+						Например, как происходит работа с консолью в c#?
+						<p>
+							Что-то наподобие:
+						</p>
+					</blockquote>
+					<pre>
+						<code class="cs">
+Console.WriteLine("message");
+string input1 = Console.ReadLine();
+Console.Write("end;\n");
+						</code>
+					</pre>
+					<blockquote>
+						Ведь здесь нигде не создается объект класса <i>Console</i>, мы напрямую используем класс. И написанные 
+						в нём статические методы.
+					</blockquote>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<blockquote>
+						Посмотрим на различия между вызовом статических и обыкновенных методов:
+					</blockquote>
+					<pre>
+						<code class="cs">
+class MinMax
+{
+	public static int Min(int x, int y)
+	{
+		int z = (x < y) ? x : y;
+		return z;
+	}
 
+	public int Max(int x, int y)
+	{
+		int z = (x > y) ? x : y;
+		return z;
+	}
+}
+
+class Progrma
+{
+	static void Main(string[] args)
+	{
+		int a = -2;
+		int b = 23;
+		Console.WriteLine("a={0}, b={1}", a, b);
+		int k = MinMax.Min(a, b);		// вызов статического метода
+		Console.WriteLine("Min = {0}", k);
+		MinMax instance = new MinMax();
+		instance.Max(a, b);			// вызов стандартного метода
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Область применения статики</h2>
+					<blockquote>
+						Статические методы повсеместно применяются в программировании, и используются в тех 
+						случаях, когда пользователю нет необходимость создавать объект для работы с этим методом.
+					</blockquote>
+					<blockquote>
+						Статическими, например, могут быть какие-нибудь константы внутри класса, общие для всех объектов.
+						Или методы, никак не затрагивающие всей основной структуры класса и работающие обособленно.
+					</blockquote>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Свойства</h1>
+					<blockquote>
+						Для создания большей гибкости и безопасности внутренних полей, были разработаны такие 
+						элементы класса как Свойства. Во многих языках программирования свойствами называют 
+						обычные поля данных класса, но в C# есть разграничение между этими понятиями.
+						<p>
+							Хотя, фактически, они очень схожи между собой и имеют границу только для разработчика класса.
+						</p>
+					</blockquote>
+				</section>
+				<section>
+					<h1>Свойства в C#</h1>
+					<blockquote>
+						Свойством в C# считается объявление поля и методов доступа к нему (<i>get</i> и <i>set</i>).
+						<p>
+							Определение свойства имеет следующий синтаксис:
+						</p>
+					</blockquote>
+					<pre>
+						<code class="cs">
+private int name;
+public int Name
+{
+	get
+	{
+		return name;
+	}
+	set
+	{
+		name = value;
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Описание свойства</h2>
+					<blockquote>
+						Свойство состоит из двух частей: 
+					</blockquote>
+					<blockquote>
+						<ul>
+							<li>Поле</li>
+							<li>Методы-аксессоры или же само поле (get-set)</li>
+						</ul>
+					</blockquote>
+					<blockquote>
+						Поле и свойство являются разными объектами, поэтому должны иметь разные имена. 
+						<p>
+							Поле - закрытый член класса, в котором непосредственно хранится информация.
+						</p>
+						<p>
+							Свойство - публичный элемент, через который пользователи этого класса получают доступ к информации.
+						</p>
+						Т.е. свойство является посредником между пользователем и данными, и когда нужно обратиться к полю, если 
+						есть такая возможность, всегда нужно делать это через свойство.
+					</blockquote>
+				</section>
+				<section>
+					<h3>Пример полей в классе</h3>
+					<blockquote>
+						Именование свойств негласно принято задавать как имя поля данных, только с заглавной буквы.
+					</blockquote>
+					<pre>
+						<code class="cs">
+class SomeClass
+{
+	private int mode;
+	public int Mode
+	{
+		get { return this.mode; }
+		set { this.mode = value; }
+	}
+
+	private string name;
+	public string Name
+	{
+		get { return this.name; }
+		set { this.name = value; }
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Пример полей в классе</h3>
+					<blockquote>
+						Если для поля нужно ограничить режим доступа, то можно ограничиться лишь одним из аксессоров - <i>get</i> либо <i>set</i>.
+					</blockquote>
+					<pre>
+						<code class="cs">
+class Person
+{
+	private string name;
+	public string Name
+	{
+		get { return name; }
+		set { name = value; }
+	}
+
+	private char gender;
+	public char Gender
+	{
+		get { return gender; }
+		private set { gender = value; }
+	}
+
+	private DateTime birth;
+	public DateTime Birth
+	{
+		get { return birth; }
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Свойства со встроенной проверкой</h3>
+					<blockquote>
+						Также, при необходимость, внутри свойства можно задавать ограничения.
+					</blockquote>
+					<pre>
+						<code class="cs">
+class TryPerson
+{
+	private string name;
+	public string Name
+	{
+		get 
+		{ 
+			string res = "Name is " + this.name;
+			return res; 
+		}
+		set 
+		{ 
+			if (value != "" &amp;&amp; value != null)
+				name = value; 
+		}
+	}
+
+	private char gender;
+	public char Gender
+	{
+		get { return gender; }
+		private set
+		{ 
+			if (value == "м" || value == "ж")
+				gender = value; 
+		}
+	}
+
+	private DateTime birth;
+	public DateTime Birth
+	{
+		get { return birth; }
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Индексаторы</h2>
+				</section>
+			</section>
 
 		</div>
 	</div>
