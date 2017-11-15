@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Object-oriented programming</title>
+	<meta name="description" content="programming paradigm OOP in C#, concept of classes and objects, attributes and methods">
+	<meta name="keywords" content="c#, oop, class, object, interface">
+	<meta name="author" content="Edward & Albert">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="../../css/bundle.min.css">
+	<!--[if lt IE 9]>
+		<script src="../../js/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+                <section>
+                    <h1>Объектно-ориентированное программирование</h1>
+                    <h3>Наследование и полиморфизм</h3>
+                    <p>
+                        <small>Edward &amp; Albert / <a href="https://github.com/tgjmjgj/sharp/">github:Tgjmjgj</a></small>
+                    </p>
+                </section>
+				<section>
+					<h2>Содержание лекции</h2>
+					<nav id="presentable-toc" class="table-content"></nav>
+				</section>
+			</section>
+			<section>
+				<h2>(с чего стоило начать)</h2>
+			</section>
+			<section>
+				<h1>Принципы ООП</h1>
+				<blockquote>
+					<ul>
+						<li>Абстракция</li>
+						<li>Инкапсуляция</li>
+						<li>Наследование</li>
+						<li>Полиморфизм</li>
+					</ul>
+				</blockquote>
+			</section>
+			<section>
+				<section>
+					<h1>Абстракция</h1>
+					<img src="img/kind_of_feel.jpg">
+				</section>
+				<section>
+					<h2>Абстракция</h2>
+					<blockquote>
+						Под абстрагированием понимается описание сущностей как перечисления характеристик, которые чётко 
+						определяют его концептуальные границы. Разделение структуры программы на уровни абстракции помогает 
+						ориентироваться в логике программного средства и позволяет работать с объектами, не вдаваясь 
+						в особенности их реализации.
+					</blockquote>
+					<blockquote>
+						Если спроецировать правило абстракции на прикладной код, то к нему относится вся структура приложения (классы и 
+						их содержимое), а также работа с созданными классами как с обыкновенными типами данных.
+					</blockquote>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Инкапсуляция</h1>
+					<img src="img/dream_in_dream.jpg">
+				</section>
+				<section>
+					<h2>Инкапсуляция</h2>
+					<blockquote>
+						Инкапсуляцией называется упаковка данных и функций в единый компонент. Т.е. возможность связать данные с 
+						методами, предназначенными для обработки этих данных. Также под инкапсуляцией в C# понимается механизм 
+						языка, позволяющий ограничить доступ одних компонентов программы к другим.
+					</blockquote>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Наследование</h1>
+					<img src="img/clones.jpg">
+				</section>
+				<section>
+					<h2>Наследование</h2>
+					<blockquote>
+						Наследованием называется возможность абстрактной сущности перенимать данные и функциональность 
+						некоторого существующего типа, способствуя повторному использованию программного кода. Так, 
+						начиная с самых абстрактных вещей, может формироваться генеалогическое древо классов, 
+						переходя от полной абстракции к частным случаям реализации.
+					</blockquote>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Полиморфизм</h1>
+					<img src="img/dogs.jpg">
+				</section>
+				<section>
+					Полиморфизм - способность функции обрабатывать данные разных типов. Понятие полиморфизма напрямую 
+					связано с понятием интерфейса. Работая с одним интерфейсом можно обрабатывать различные его 
+					реализации. Вкупе с полиморфизмом зачастую применяется рефлексия.
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Наследование классов</h1>
+					<blockquote>
+						Когда одни класс наследует другой, он перенимает всё его содержимое, т.е. все свойства и методы 
+						класса-родителя переносятся также и в класс-потомок.
+					</blockquote>
+					<img src="img/scheme_of_inheritance.jpg">
+				</section>
+			</section>
+
+		</div>
+	</div>
+	<aside id="presentable-icon" class="cpp">
+		<a title="Содержание лекции" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x"></i>
+		</a>
+	</aside>
+	<script src="../../js/bundle.min.js"></script>
+</body>
+
+</html>
