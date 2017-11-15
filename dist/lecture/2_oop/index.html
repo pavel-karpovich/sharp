@@ -534,9 +534,280 @@ class TryPerson
 			<section>
 				<section>
 					<h2>Индексаторы</h2>
+					<blockquote>
+						Индексаторы позволяют оращаться с объектом класса так, как будто он является массивом. 
+					</blockquote>
+					<blockquote>
+						Индексатор по синтаксису напоминает свойство, только принимает параметр - индекс.
+					</blockquote>
+					<pre>
+						<code class="cs">
+public float this[int j]
+{
+	get { 
+		//действия с return 
+	}
+	set
+	{
+		//установка значения
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Пример использования индексатора</h2>
+					<pre>
+						<code class="cs">
+class Human
+{
+    protected string name;
+    protected string surname;
+    protected string patronymic;
+
+    public string this[string s]
+    {
+        get
+        {
+            switch (s)
+            {
+                case "name": return this.name;
+                case "surname": return this.surname;
+                case "patronymic": return this.patronymic;
+                default: return "none";
+            }
+        }
+        set
+        {
+            switch (s)
+            {
+                case "name": this.name = value; break;
+                case "surname": this.surname = value; break;
+                case "patronymic": this.patronymic = value; break;
+            }
+        }
+    }
+
+    public string this[int n]
+    {
+        get
+        {
+            switch (n)
+            {
+                case 0: return this.name;
+                case 1: return this.surname;
+                case 2: return this.patronymic;
+                default: return "none";
+            }
+        }
+        set
+        {
+            switch (n)
+            {
+                case 0: this.name = value; break;
+                case 1: this.surname = value; break;
+                case 2: this.patronymic = value; break;
+            }
+        }
+    }
+}
+						</code>
+					</pre>
 				</section>
 			</section>
+			<section>
+				<section>
+					<h1>Конструкторы</h1>
+					<blockquote>
+						Конструктор - метод, вызываемый при создании экземпляра класса, имеющий имя этого класса. 
+						Конструкторов в классе может быть несколько или ни одного.
+					</blockquote>
+					Выделяют три основных вида конструкторов:
+					<blockquote>
+						<ul>
+							<li>Конструктор по умолчанию</li>
+							<li>Конструктор копирования</li>
+							<li>Конструктор с аргументами</li>
+						</ul>
+					</blockquote>
+				</section>
+				<section>
+					<h2>Конструктор по умолчанию</h2>
+					<blockquote>
+						Конструктор, объявленный без аргументов, называется конструктором по умолчанию и должен присутствовать в любом классе.
+						<p>
+							Если не написать конструктор по умолчанию самому, компилятор создаст его на этапе компиляции.
+						</p>
+					</blockquote>
+				</section>
+				<section>
+					<h3>Пример с использованием конструктора</h3>
+					<pre>
+						<code class="cs">
+class A
+{
+	public int x, y, z;
+}
 
+class B
+{
+	public int x, y, z;
+	
+	public B()				// конструктор по умолчанию
+	{
+		x = 3;
+		y = 4;
+		z = 5;
+	}
+}
+
+class Program
+{
+	public static void Main(string[] args)
+	{
+		A a1 = new A();		// здесь вызывается конструктор по умолчанию, x=y=z=0
+		B b1 = new B();		// то же самое, x=3, y=4, z=5
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Конструктор копирования</h2>
+					<blockquote>
+						Конструктор копирования принимает в качестве параметра экземпляр своего класса, и нужен затем, чтобы 
+						создать текущий объект как копию переданного.
+					</blockquote>
+					<pre>
+						<code class="cs">
+class C
+{
+	public int x, y, z;
+
+	public C() 
+	{
+		x = y = z = -1; 
+	}
+
+	public C(C obj_c)		// конструктор копирования
+	{
+		this.x = obj_c.x;	// копируем поля из obj_c в this
+		this.y = obj_c.y;
+		this.z = obj_c.z;
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Применение конутруктора копирования</h3>
+					<blockquote>
+						Необходимость в конструкторе копирования обуславливается тем, что класс является объектом ссылочного типа, 
+						а это означает, что после операции присваивания между двумя объектами класса произойдет копирование ссылки 
+						на один и тот же объект, а не создание объекта-копии. 
+					</blockquote>
+					<pre>
+						<code class="cs">
+C obj1 = new C();
+C obj2 = obj1;		// obj1 и obj2 указывают на один и тот же объект класса
+obj2.x = -10;		// obj1.x == -10
+obj3 = new C(obj2);	// obj3 имеет такие же значения как и obj2, но является другим объектом
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Конструкторы с аргументами</h2>
+					<blockquote>
+						Конструкторы могут принимать различные аргументы, с помощью которых объекты классов 
+						инициализируются разнообразными способами.
+					</blockquote>
+				</section>
+				<section>
+					<h3>Пример использования конструкторов с аргументами</h3>
+					<pre>
+						<code class="cs">
+class D
+{
+	public int x, y, z;
+
+	public D(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+		this.z = x + y;
+	}
+
+	public D(int x, int y, int z)
+	{
+		this.x = x;
+		this.y = y;
+		this.z = z;
+	}
+}
+
+class Program
+{
+	public static void Main(string[] args)
+	{
+		D did = new D();		// x=y=z=0
+		D opo = new D(1, 2);	// x=1, y=2, z=3
+		D fer = new D(1, 2, 6); // x=1, y=2, z=6
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Рекомендации</h2>
+					<blockquote>
+						Для любого класса желательно всегда опеределять конструктор по умолчанию и конструктор копирования, так 
+						как они являются универсальными и могут требоваться некоторыми встроенными алгоритмами.
+					</blockquote>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Финализатор</h1>
+					<blockquote>
+						В классе может быть определен специальный метод, который будет вызываться перед тем, как сборщик мусора 
+						соизволит удалить ненужный объект. Финализатор желательно создавать в классе всегдка, как конструктор по 
+						умолчанию и конструктор копирования.
+					</blockquote>
+				</section>
+				<section>
+					<h3>Пример работы финализатора</h3>
+					<pre>
+						<code class="cs">
+class FinalizeObject
+{
+    public int Id { get; set; }
+
+    public static int identity = 0;
+
+    public FinalizeObject()
+    {
+        this.Id = FinalizeObject.identity++;
+    }
+
+    ~FinalizeObject()	// метод-финализатор
+    {
+        Console.WriteLine("Объект №{0} уничтожен", Id);
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        FinalizeObject[] obj = new FinalizeObject[100];
+        for (int i = 0; i < 100; i++)
+            obj[i] = new FinalizeObject();
+    }
+}
+					</code>
+				</pre>
+			</section>
+		</section>
 		</div>
 	</div>
 	<aside id="presentable-icon" class="cpp">

@@ -12,6 +12,11 @@ C#. Платформа .NET Framework. Объектно-ориентирован
 
 [Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/2_oop/index.html "Лекция")
 
+###  Тема 3. Наследование и полиморфизм
+Абстракция. Инкапсуляция. Наследование. Полиморфизм. Иерархия классов. Перегрузка операторов.
+
+[Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/3_inheritance/index.html "Лекция")
+
 
 ##  Задания
 * Первое задание
