@@ -35,7 +35,7 @@ C#. Платформа .NET Framework. Объектно-ориентирован
 ###  Тема 7. Windows Forms. Введение
 Основы Windows Forms. Работа с окнами. Стандартные элементы управления.
 
-[Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/3_winforms/index.html "Лекция")
+[Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/7_winforms/index.html "Лекция")
 
 ###  Тема 8. Windows Forms. Событийная модель
 События. Модель издателя-подписчиков. Основные события элементов управления.
