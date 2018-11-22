@@ -5,28 +5,28 @@ const gulp = require('gulp'),
     gulpSequence = require('gulp-sequence'),
     autoprefixer = require('gulp-autoprefixer'),
     browserSync = require('browser-sync'),
-    concat = require('gulp-concat'),
     cleanCSS = require('gulp-clean-css'),
     csslint = require('gulp-csslint'),
     csslintReporter = require('gulp-csslint-report'),
     del = require('del'),
     imagemin = require('gulp-imagemin'),
     newer = require('gulp-newer'),
-    rename = require('gulp-rename'),
     pipe = require('multipipe'),
     sourcemaps = require('gulp-sourcemaps'),
     jshint = require('gulp-jshint'),
-    jshintReporter = require('gulp-jshint-html-reporter'),
     uglify = require('gulp-uglify'),
     useref = require('gulp-useref'),
-    watch = require('gulp-watch');
+    watch = require('gulp-watch'),
+    run = require('gulp-run');
 
 //variables
+
+const yaspellerDictionary = 'yadict.json';
 
 const srcPath = {
     'src': './src',
     'html': './src/**/*.html',
-    'img': './src/**/*.+(jpg|jpeg|png|svg)',
+    'img': './src/**/*.+(jpg|jpeg|png|svg|gif)',
     'css': ['./src/!(css|js)*/**/*.css'],
     'cssLint': './src/**/*.css',
     'js': './src/!(js)*/**/*.js',
@@ -99,8 +99,7 @@ gulp.task('css', () => {
 
 gulp.task('css:lint', () => {
     return gulp.src(srcPath.cssLint)
-        .pipe(csslint('.csslintrc'))
-        .pipe(csslintReporter(pluginSettings.csslint));
+        .pipe(csslint('.csslintrc'));
 });
 
 gulp.task('js', () => {
@@ -110,8 +109,7 @@ gulp.task('js', () => {
 
 gulp.task('js:lint', () => {
     return gulp.src(srcPath.jsLint)
-        .pipe(jshint('.jshintrc'))
-        .pipe(jshint.reporter(jshintReporter, pluginSettings.jshint));
+        .pipe(jshint('.jshintrc'));
 });
 
 gulp.task('img', () => {
@@ -166,3 +164,12 @@ gulp.task('watch', () => {
 });
 
 gulp.task('default', gulpSequence('build', ['watch', 'serve']));
+
+gulp.task('yaspeller', function(cb) {
+    run(`npx yaspeller --dictionary ${yaspellerDictionary} -e ".md,.html" .\\`).exec()
+        .on('error', function(err) {
+            console.error(err.message);
+            cb();
+        })
+        .on('finish', cb);
+});

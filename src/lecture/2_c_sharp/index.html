@@ -1,0 +1,1426 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Quick dive into .NET platform</title>
+	<meta name="description" content=".net. clr, fcl, .net core">
+	<meta name="keywords" content=".net">
+	<meta name="author" content="Edward & Albert">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="../../css/bundle.min.css">
+	<!--[if lt IE 9]>
+		<script src="../../js/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+                <section>
+                    <h1>Объектно-ориентированное программирование</h1>
+                    <h3>Быстрый экскурс по C#</h3>
+					<div>
+						<p style="display: inline-block;">
+							Edward &amp; Albert / 
+						</p>
+						<a href="https://github.com/tgjmjgj" class="icon-button github">
+							<i class="fa fa-github"></i><span></span>
+						</a>
+						<a href="https://facebook.com/paradox7master" class="icon-button facebook">
+							<i class="fa fa-facebook"></i><span></span>
+						</a>
+					</div>
+                </section>
+				<section>
+					<h2>Содержание лекции</h2>
+					<nav id="presentable-toc" class="table-content"></nav>
+				</section>
+            </section>
+            <section>
+				<h1>С#</h1>
+				<p>
+                    Как вы уже знаете, C# был разработан специально для платформы .NET, и является
+                    основным языком для работы с ней.
+				</p>
+			</section>
+			<section>
+				<section>
+					<h1>ООП в C#</h1>
+					<blockquote>
+						C# является чисто объектно-ориентированным языком. В ООП ход выполнения программы определяется объектами.
+						<p><i>
+							Объекты - это экземпляры класса.
+						</i></p>
+						Класс - абстрактный тип данных, определяемый пользователем (программистом). Класс может содержать данные (поля) 
+						и функции (методы).
+					</blockquote>
+					<pre>
+						<code class="cs">
+class имя_класса
+{
+	// члены класса (поля и методы)
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>ООП в C#</h2>
+					<blockquote>
+						В C# запрещены глобальные функции. Все функции должны быть обязательно определены внутри класса. 
+					</blockquote>
+					<blockquote>
+						Точка входа программы в C# <i>Main</i> (тут с большой буквы) также должна являться статическим
+						методом класса,	как правило, класса <i>Program</i>.
+					</blockquote>
+					<pre>
+						<code class="cs">
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Вы пишите здесь
+    }
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Начало работы</h1>
+					<p>
+						При создании пустого консольного приложения в Visual Studio будет сгенерирован
+						вот такой шаблон приложения:
+					</p>
+					<pre>
+						<code class="cs">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TestCon1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+        }
+    }
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Директива <i>using</i></h2>
+					<blockquote>
+                        В начале файла идут директивы <span class="blue">using</span> после 
+                        которых записываются названия подключаемых пространств имён.
+                    </blockquote>
+					<p>
+						Также для каждого приложения по умолчанию создается свое уникальное пространство имен, в котором
+						располагаются все создаваемые программистом элементы.
+                    </p>
+				</section>
+			</section>
+			<section>
+				<h3>Далее</h3>
+				<p>
+					Однако, прежде чем изучать принципы написания программ, следует углубиться в основы самого языка.
+				</p>
+			</section>
+			<section>
+				<section>
+					<h1>Типы данных .NET</h1>
+					<blockquote>
+						Общая структура типов данных, поддерживаемых CLR, описана в спецификации CTL 
+						как общая система типов, иерарархическое дерево которой можно увидеть на схеме ниже:
+					</blockquote>
+					<img src="img/type_tree.png">
+				</section>
+				<section>
+					<h2>Типы данных C#</h2>
+						<table>
+							<tr>
+								<td><b>bool</b></td>
+								<td>хранит значение <i>true</i> или <i>false</i></td>
+							</tr>
+							<tr>
+								<td><b>byte</b></td>
+								<td>хранит целое число от 0 до 255 и занимает 1 байт.</td>
+							</tr>
+							<tr>
+								<td><b>sbyte</b></td>
+								<td>хранит целое число от -128 до 127 и занимает 1 байт.</td>
+							</tr>
+							<tr>
+								<td><b>short</b></td>
+								<td>хранит целое число от -32768 до 32767 и занимает 2 байта.</td>
+							</tr>
+							<tr>
+								<td><b>ushort</b></td>
+								<td>хранит целое число от 0 до 65535 и занимает 2 байта.</td>
+							</tr>
+							<tr>
+								<td><b>int</b></td>
+								<td>хранит целое число от -2147483648 до 2147483647 и занимает 4 байта.</td>
+							</tr>
+							<tr>
+								<td><b>uint</b></td>
+								<td>хранит целое число от 0 до 4294967295 и занимает 4 байта.</td>
+							</tr>
+							<tr>
+								<td><b>long</b></td>
+								<td>хранит целое число от –9 223 372 036 854 775 808 до 9 223 372 036 854 775 807 и занимает 8 байт.</td>
+							</tr>
+						</table>
+				</section>
+				<section>
+					<h2>Типы данных в C#</h2>
+					<table>
+						<tr>
+							<td><b>ulong</b></td>
+							<td>хранит целое число от 0 до 18 446 744 073 709 551 615 и занимает 8 байт.</td>
+						</tr>
+						<tr>
+							<td><b>float</b></td>
+							<td>хранит число с плавающей точкой от -3.4*1038 до 3.4*1038 и занимает 4 байта.</td>
+						</tr>
+						<tr>
+							<td><b>double</b></td>
+							<td>хранит число с плавающей точкой от ±5.0*10-324 до ±1.7*10308 и занимает 8 байта.</td>
+						</tr>
+						<tr>
+							<td><b>double</b></td>
+							<td>хранит десятичное дробное число.</td>
+						</tr>
+						<tr>
+							<td><b>char</b></td>
+							<td>хранит одиночный символ в кодировке Unicode и занимает 2 байта.</td>
+						</tr>
+						<tr>
+							<td><b>string</b></td>
+							<td>хранит набор символов Unicode.</td>
+						</tr>
+						<tr>
+							<td><b>object</b></td>
+							<td>может хранить значение любого типа данных и занимает 4 байта на 32-разрядной платформе и 8 байт на 64-разрядной платформе.</td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<h2>Типы данных в C#</h2>
+					<blockquote>
+                        Все базовые типы данных являются синонимами специальных классов 
+                        из пространства имен <span class="blue">System</span>:
+						<p>
+							System.Byte, System.Int16, System.Int32, System.UInt32, System.Single, System.Double, System.Boolean и т.д.
+						</p>
+					</blockquote>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Объявление переменных</h1>
+					<blockquote>
+						Общий способ объявления переменных имеет C-подобный синтаксис:
+					</blockquote>
+					<pre>
+						<code class="cs">
+bool isTrue = true;
+int x;
+double y = 3.14;
+string hello = "Hello Invader!";
+char c = 's';
+x = 3;
+int y = x * 5;
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Системные типы</h2>
+					<blockquote>
+						Вместо указания ключевых слов для определения типа можно использовать системные типы:
+					</blockquote>
+					<pre>
+						<code class="cs">
+int a = 4;
+System.Int32 b = 4;
+						</code>
+					</pre>
+					<blockquote>
+						Две эти записи будут идентичны.
+					</blockquote>
+                </section>
+            </section>
+            <section>
+				<section>
+					<h1>Неявная типизация</h1>
+					<blockquote>
+						C# относится к языкам со строгой типизацией, но допускается операция
+						автоматического выведения типа через использование ключевого слова <i>var</i>.
+					</blockquote>
+					<pre>
+						<code class="cs">
+var str = "string";
+var c = 32;
+
+Console.WriteLine(str.GetType().ToString());
+Console.WriteLine(c.GetType().ToString());
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Ограничения <i>var</i></h3>
+					<blockquote>
+						Во-первых, нельзя объявить неявно типизируемую переменную раздельно с инициализацией.
+						<p>
+							Во-вторых, нельзя проинициализировать неявно типизированную переменную значением <i>null</i>
+						</p>
+					</blockquote>
+					<pre>
+						<code class="cs">
+var c;			// ошибка раз
+c = 144;
+
+var nl = null;		// ошибка два
+						</code>
+					</pre>
+				</section>
+            </section>
+            <section>
+                <section>
+                    <h2>Ломаем систему, или динамическая типизация</h2>
+                    <p>
+                        В строго статически типизированном языке программирования есть возможность
+                        динамического выведения типов. Да.
+                    </p>
+                    <p>
+                        Для объявления динамически типизированной переменной используется
+                        ключевое слово <span class="blue">dynamic</span> вместо указания типа.
+                    </p>
+                    <p>
+                        Это позволяет использовать одну переменную для хранения разных типов данных.
+                    </p>
+                </section>
+                <section>
+                    <h2>dynamic</h2>
+                    <p>
+                        dynamic x = 3;          // здесь x - целочисленное int
+                        Console.WriteLine(x);
+                    
+                        x = "Привет мир";       // x - строка
+                        Console.WriteLine(x);
+                    
+                        x = 354.4f;             // Теперь x - float
+                        Console.WriteLine(x);
+                    
+                        Console.ReadLine();
+                    </p>
+                </section>
+                <section>
+                    <h2>dynamic в методах. Настоящий динамит</h2>
+                    <p>
+                        Динамические переменные можно использовать как параметры и 
+                        возвращаемые значения в методах (функциях).
+                    </p>
+                    <pre>
+                        <code class="cs">
+dynamic getSalary(dynamic value, string format)
+{
+    if (format=="string")
+    {
+        return value + " рублей";
+    }
+    else if (format == "int")
+    {
+        return value;
+    }
+    else
+    {
+        return 0.0;
+    }
+}
+                        </code>
+                    </pre>
+                </section>
+            </section>
+			<section>
+				<section>
+					<h2>Арифметика</h2>
+					<blockquote>
+						По арифметическим операциям нет ничего нестандартного:
+					</blockquote>
+					<pre>
+						<code class="cs">
+int x = 13;
+int z = x + 3;
+x = 3 * z - 4;
+double y = x / z;
+x++;
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Логическая арифметика</h2>
+					<blockquote>
+						Операторы булевой алгебры также работают по общепринятым сценариям:
+					</blockquote>
+					<pre>
+						<code class="cs">
+int x = 3;  		// 011
+int y = 5;		// 101
+int and = x &amp; y;	// 1
+int or = x | y;		// 111
+int xor = x ^ y; 	// 110
+uint not = ~ (uint)x; 	// много
+int l = x &lt;&lt; 1;		// 110
+int r = x &gt;&gt; 1;		// 001 
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Преобразования типов</h1>
+					<blockquote>
+						По аналогии с С++ существуют явные и неявные преобразования типов.
+					</blockquote>
+					<pre>
+						<code class="cs">
+double d = 143.234;
+int c = d;			// неявное приведение типов
+int c = (int)d;		// явное
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Проверка диапазона</h2>
+					<blockquote>
+                        Есть ключевое слово <i>checked</i>, которое 
+                        проверяет диапазоны переполнения, и в случае ошибки генерирует исключение.
+					</blockquote>
+					<pre>
+						<code class="cs">
+int a = 53;
+int b = 724;
+byte c = checked((byte)(a + b));
+Console.WriteLine(c);
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h1>Класс <i>Convert</i></h1>
+					<blockquote>
+						Для более корректного преобразования типов можно использовать методы класса <i>Convert</i>, которые позволяют приводить
+						практически любые базовые типы данных друг к другу.
+					</blockquote>
+					<pre>
+						<code class="cs">
+int x = 34;
+string sd = "31.45326";
+ulong l = 235;
+
+byte b = Convert.ToByte(l);
+double d = Convert.ToDouble(sd);
+string s = Convert.ToString(x);
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Массивы</h1>
+					<blockquote>
+                        Написание объявлений массивов имеет свои нюансы: квадратные 
+                        скобки стоят не после имени переменной, а после типа.
+					</blockquote>
+					<pre>
+						<code class="cs">
+int[] mas1;
+int[] mas2 = new int[5];
+int[] mas3 = new int[5] { 1, 2, 3, 4, 5 };
+int[] mas3 = new int[] { 1, 2, 3, 4, 5 };
+int[] mas3 = new [] { 1, 2, 3, 4, 5 };
+int[] mas3 = { 1, 2, 3, 4, 5 };
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Многомерные массивы</h3>
+					<pre>
+						<code class="cs">
+int[,,] cube = new int[2, 3, 4];
+int[,] matrix = new int[2, 3] { { 1, 2, 3 }, { -1, -2, -3 } };
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Массивы массивов</h3>
+					<blockquote>
+                        Нужно отличать многомерные массивы от массивов массивов. 
+                        Многомерные массивы являются "прямоугольными",
+						а каждый массив внутри массива массивов может иметь свой собственный размер.
+					</blockquote>
+					<pre>
+						<code class="cs">
+int[][] mas = new int[3][];
+mas[0] = new int[3];
+mas[1] = new int[12];
+mas[2] = new int[5];
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Цикл <i>foreach</i></h1>
+					<blockquote>
+						Помимо стандартного три циклов <i>for, while, do-while</i> в C# присутствует цикл <i>foreach</i>,
+						разработанный в целях упрощения перебора элементов каких-либо последовательностей.
+					</blockquote>
+					<blockquote>
+						Цикл имеет следующую форму записи:
+					</blockquote>
+					<pre>
+						<code class="cs">
+foreach (тип_данных имя in контейнер)
+{
+	действия
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<blockquote>
+						Пример перебора элементов в одномерном и двухмерном массивах:
+					</blockquote>
+					<pre>
+						<code class="cs">
+int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9};
+foreach (int element in arr)
+{
+	Console.WriteLine(element);
+}
+
+int[,] mtr = { { 1, 2, 3 }, { 4, 5, 6 }, {7, 8, 9} };
+foreach (int[] array in mtr)
+{
+	foreach (int element in array)
+	{
+		Console.WriteLine(element);
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Методы массива</h3>
+					<blockquote>
+						Массив представляет собой объект агрегирующего класса. Как любой класс, он содержит методы.
+						Их существует огромное число, вот лишь некоторые из них:
+					</blockquote>
+					<table>
+						<tr>
+							<td>Average()</td>
+							<td>Высчитывает среднее значение для элементов массива</td>
+						</tr>
+						<tr>
+							<td>CopyTo()</td>
+							<td>Копирует все элементы этого массива в другой</td>
+						</tr>
+						<tr>
+							<td>GetType()</td>
+							<td>Позволяет получить тип текущего массива</td>
+						</tr>
+						<tr>
+							<td>GetLength()</td>
+							<td>Получить количество элементов в массиве</td>
+						</tr>
+						<tr>
+							<td>Rank()</td>
+							<td>Получает количество измерений этого массива</td>
+						</tr>
+						<tr>
+							<td>Min()</td>
+							<td>Выдает минимальное значение элемента массива</td>
+						</tr>
+						<tr>
+							<td>Max()</td>
+							<td>Выдает максимальное значение элемента массива</td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<h3>Программа сортировки массива</h3>
+					<pre>
+						<code class="cs">
+using System;
+namespace SortApp
+{
+	class Program
+	{
+		static void Main(string[] args)
+        {
+            int[] nums = new int[7];
+            Console.WriteLine("Введите семь чисел");
+            for (int i = 0; i &lt; nums.Length; i++)
+            {
+                Console.Write("{0}-е число: ", i + 1);
+                nums[i] = Int32.Parse(Console.ReadLine());
+            }
+ 
+            int temp;
+            for (int i = 0; i &lt; nums.Length-1; i++)
+            {
+                for (int j = i + 1; j &lt; nums.Length; j++)
+                {
+                    if (nums[i] > nums[j])
+                    {
+                        temp = nums[i];
+                        nums[i] = nums[j];
+                        nums[j] = temp;
+                    }
+                }
+            }
+             
+            Console.WriteLine("Вывод отсортированного массива");
+            for (int i = 0; i &lt; nums.Length; i++)
+            {
+                Console.WriteLine(nums[i]);
+            }
+            Console.ReadLine();
+        }
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Строки</h1>
+					<blockquote>
+						В C# строки являются объектами класса String. Содержимое объекта String не подлежит
+						изменению, однако это не сказывается на удобстве его использования. 
+					</blockquote>
+					<blockquote>
+						Конкатенация (объединение) строк представляет из себя тривиальную операцию с оператором +.
+					</blockquote>
+					<pre>
+						<code class="cs">
+string str1 = " is ";
+string res = "This" + str1 + "string" + "!";
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Формирование строк</h2>
+					<blockquote>
+						Для создания строк из переменных можно воспользоваться специальным префиксным знаком $ :
+					</blockquote>
+					<pre>
+						<code class="cs">
+ int[] mas = { 1, 2, 3 };
+string str = mas[1].ToString();
+string st = $"Element {mas[1]} has type: {str} !\n";
+Console.Write(st);
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Использование строк</h3>
+					<pre>
+						<code class="cs">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Сравним первые две строки
+            string s1 = "это строка";
+            string s2 = "это текст, а это строка";
+
+            if (String.CompareOrdinal(s1, s2) != 0)
+                Console.WriteLine("Строки s1 и s2 не равны");
+
+            if (String.Compare(s1, 0, s2, 13, 10, true) == 0)
+                Console.WriteLine("При этом в них есть одинаковый текст");
+
+            // Конкатенация строк
+            Console.WriteLine(String.Concat("\n" + "Один, два ","три, четыре"));
+
+            // Поиск в строке
+             // Первое вхождение подстроки
+             if (s2.IndexOf("это") != -1)
+                Console.WriteLine("Слово \"это\" найдено в строке, оно "+ 
+                 "находится на: {0} позиции", s2.IndexOf("это"));
+
+             // Последнее вхождение подстроки
+             if (s2.LastIndexOf("это") != -1)
+                 Console.WriteLine("Последнее вхождение слова \"это\" находится "
+                     + "на {0} позиции", s2.LastIndexOf("это"));
+
+             // Поиск из массива символов
+             char[] myCh = {'Ы','х','т'};
+             if (s2.IndexOfAny(myCh) != -1)
+                 Console.WriteLine("Один из символов из массива ch "+
+                     "найден в текущей строке на позиции {0}", s2.IndexOfAny(myCh));
+             
+             // Определяем начинается ли строка с заданной подстроки
+             if (s2.StartsWith("это текст") == true)
+                 Console.WriteLine("Подстрока найдена!");
+
+             // Определяем содержится ли в строке подстрока
+             // на примере определения ОС пользователя
+             string myOS = Environment.OSVersion.ToString();
+             if (myOS.Contains("NT 5.1"))
+                 Console.WriteLine("Ваша операционная система Windows XP");
+             else if (myOS.Contains("NT 6.1"))
+                Console.WriteLine("Ваша операционная система Windows 7");
+            
+            Console.ReadLine();
+        }
+
+    }
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Класс <i>StringBuilder</i></h2>
+					<blockquote>
+						Для создания более гибких и изменяемых строк можно использовать вместо класса <i>String</i> 
+						класс <i>StringBuilder</i>.
+					</blockquote>
+					Некоторые методы класса <i>StringBuilder</i>:
+					<table>
+						<tr>
+							<td>Append()</td>
+							<td>Добавляет строку к текущей строке</td>
+						</tr>
+						<tr>
+							<td>AppendFormat()</td>
+							<td>Добавляет форматированную строку</td>
+						</tr>
+						<tr>
+							<td>Insert()</td>
+							<td>Вставляет подстроку в строку</td>
+						</tr>
+						<tr>
+							<td>Remove()</td>
+							<td>Удаляет символ из текущей строки</td>
+						</tr>
+						<tr>
+							<td>Replace()</td>
+							<td>Заменяет все вхождения символа другим символом или вхождения подстроки другой подстрокой</td>
+						</tr>
+					</table>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h1>Комментарии</h1>
+					<blockquote>
+						В C# комментарии бывают трех типов:
+					</blockquote>
+					<blockquote>
+						<ul>
+							<li>Однострочные</li>
+							<li>Многострочные</li>
+							<li>XML документация</li>	
+						</ul>
+					</blockquote>
+				</section>
+				<section>
+					<h2>Комментарии для документации</h2>
+					<blockquote>
+						Это специальные однострочные комментарии, начинающиеся с трех слешей (///) вместо двух. В таких комментариях можно
+						размещать XML-дескрипторы, содержащие документацию по написанному коду.
+					</blockquote>
+					<pre>
+						<code class="cs">
+namespace ConsoleApplication1
+{
+	/// &lt;summary&gt;
+	/// Класс Program
+	/// основной класс программы
+	/// выводящий текст "Hello world"
+	/// &lt;/summary&gt;
+	class Program
+	{
+		/// &lt;summary&gt;
+		/// Метод Main() является
+		/// входной точкой работы программы 
+		/// &lt;/summary&gt;
+		static void Main(string[] args)
+		{
+			/* содержимое */
+		}
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Параметры функций</h1>
+					<blockquote>
+						Существует два основных способа передачи параметров в метод (функцию):
+					</blockquote>
+					<ul>
+						<li>По ссылке</li>
+						<li>По значению</li>
+					</ul>
+					<blockquote>
+						Объекты классов по умолчанию передаются по ссылке, а базовые типы данных и структуры - по значению.
+					</blockquote>
+				</section>
+				<section>
+					<h2>Модификатор <i>ref</i></h2>
+					<blockquote>
+						При передаче параметров по ссылке перед параметрами используется модификатор <i>ref</i>:
+					</blockquote>
+					<pre>
+						<code class="cs">
+static void Main(string[] args)
+{
+    int x = 10;
+    int y = 15;
+    Addition(ref x, y); // вызов метода
+    Console.WriteLine(x);
+ 
+    Console.ReadLine();
+}
+
+// определение метода
+static void Addition(ref int x, int y)
+{
+    x += y;
+}
+						</code>
+				</section>
+				<section>
+					<h2>Модификатор <i>out</i></h2>
+					<blockquote>
+						Модификатор <i>out</i> позволяет через параметры метода возвращать значение. Такое часто применяется,
+						если требуется вернуть более одного значения различных типов.
+ 					</blockquote>
+ 					<pre>
+ 						<code class="cs">
+static void Main(string[] args)
+{
+    int x = 10;
+     
+    int z;
+     
+    Sum(x, 15, out z);
+     
+    Console.WriteLine(z);
+ 
+    Console.ReadLine();
+}
+
+static void Sum(int x, int y, out int a)
+{
+    a = x + y;
+}
+ 						</code>
+ 					</pre>
+				</section>
+				<section>
+					<h2>Необязательные и именованные параметры</h2>
+					<blockquote>
+						Необязательные параметры имеют выданное значение по умолчанию.
+						<p>
+							При вызове метода можно задавать параметры по внутренним именам, что позволит обойти необходимость очередности передачи.
+						</p>
+					</blockquote>
+					<pre>
+						<code class="cs">
+static int OptionalParam(int x, int y, int z=5, int s=4)
+{
+    return x + y + z + s;
+}
+
+static void Main(string[] args)
+{
+    OptionalParam(x:2, y:3);
+    //Необязательный параметр z использует значение по умолчанию
+    OptionalParam(y:2,x:3,s:10);
+    Console.ReadLine();
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Переменное число параметров</h2>
+					<blockquote>
+						Используя ключевое слово <i>params</i> в методы можно передавать любое количество параметров заданного типа:
+					</blockquote>
+					<pre>
+						<code class="cs">
+static void Addition(params int[] integers)
+{
+    int result = 0;
+    for (int i = 0; i < integers.Length; i++)
+    {
+        result += integers[i];
+    }
+    Console.WriteLine(result);
+}
+ 
+static void Main(string[] args)
+{
+    Addition(1, 2, 3, 4, 5);
+     
+    int[] array = new int[] { 1, 2, 3, 4 };
+    Addition(array);
+ 
+    Addition();
+    Console.ReadLine();
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Указатели и небезопасный код</h1>
+					<blockquote>
+						C# поддерживает работу с указателями и памятью по типу С++, но тщательно скрывает это.
+						Режим работы с памятью напрямую считает небезопасным, и не рекомендуется к использованию
+						без чрезвычайной необходимости.
+					</blockquote>
+					<blockquote>
+						По умолчанию в Visual Studio запрещено использовать указатели.
+					</blockquote>
+				</section>
+				<section>
+					<h2>Но если хочется неприятностей...</h2>
+					<blockquote>
+						Для того, чтобы разрешить использование небезопасного кода, необходимо зайти в свойства проекта, 
+						и на вкладке Построение поставить галочку напротив поля "Разрешить небезопасный код".
+					</blockquote>
+					<img src="img/unsafe.jpg">
+				</section>
+				<section>
+					<h2><i>unsafe</i> код</h2>
+					<blockquote>
+						Теперь компилятор разрешит использовать в коде указатели, однако только в местах, помеченных 
+						ключевым словом <i>unsafe</i>. 
+					</blockquote>
+					<pre>
+						<code class="cs">
+static void Main(string[] args)
+{
+    int m = 1;
+    unsafe
+    {
+        int* pm1 = &amp;m;
+        *pm1 += 2;
+        int* pm2 = pm1;
+    }
+}
+
+unsafe char* Method(int* ch)
+{
+    char* nc = (char*)ch;
+    return nc;
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Консоль</h1>
+					<blockquote>
+						Как и всё прочее, консоль в среде .NET и конкретно в C# представлена в виде класса <i>Console</i>.
+						Ранее мы уже использовали вывод на консоль с помощью метода <i>WriteLine</i>, теперь же рассмотрим
+						 этот фрукт поподробнее. 
+					</blockquote>
+				</section>
+				<section>
+					<h2>Методы класса <i>Console</i></h2>
+					<table>
+						<tr>
+							<td><b>Beep()</b></td>
+							<td>Подача звукового сигнала</td>
+						</tr>
+						<tr>
+							<td><b>Clear()</b></td>
+							<td>Очистка консоли</td>
+						</tr>
+						<tr>
+							<td><b>WriteLine()</b></td>
+							<td>Вывод строки текста с атоматическим переходом на следующую строчку</td>
+						</tr>
+						<tr>
+							<td><b>Write()</b></td>
+							<td>Вывод строки текста, но без символа конца строки</td>
+						</tr>
+						<tr>
+							<td><b>ReadLine()</b></td>
+							<td>Считывание строки текста со входного потока</td>
+						</tr>
+						<tr>
+							<td><b>Read()</b></td>
+							<td>Считывание введенного символа в виде числового кода данного символа.</td>
+						</tr>
+						<tr>
+							<td><b>ReadKey()</b></td>
+							<td>Считывание нажатой клавиши клавиатуры (ConsoleKeyInfo key= Console.ReadKey();)</td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<h2>Свойства класса <i>Console</i></h2>
+					<table>
+						<tr>
+							<td>BackgroundColor</td>
+							<td>Цвет фона консоли</td>
+						</tr>
+						<tr>
+							<td>ForegroundColor</td>
+							<td>Цвет шрифта консоли</td>
+						</tr>
+						<tr>
+							<td>BufferHeight</td>
+							<td>Высота буфера консоли</td>
+						</tr>
+						<tr>
+							<td>BufferWidth</td>
+							<td>Ширина буфера консоли</td>
+						</tr>
+						<tr>
+							<td>Title</td>
+							<td>Заголовок консоли</td>
+						</tr>
+						<tr>
+							<td>WindowHeight</td>
+							<td>Высота окна консоли</td>
+						</tr>
+						<tr>
+							<td>WindowWidth</td>
+							<td>Ширина окна консоли</td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<h3>Пример работы с консолью</h3>
+					<pre>
+						<code class="cs">
+class Program
+{
+    static void Main(string[] args)
+    {
+        // установка зеленого цвета шрифта
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
+ 
+        try
+        {
+            do
+            {
+                Console.WriteLine("Введите первое число");
+                int num1 = Int32.Parse(Console.ReadLine());
+ 
+                Console.WriteLine("Введите второе число");
+                int num2 = Int32.Parse(Console.ReadLine());
+ 
+                Console.WriteLine("Сумма чисел {0} и {1} равна {2}", num1, num2, num1 + num2);
+ 
+                Console.WriteLine("Для выхода нажмите Escape; для продолжения - любую другую клавишу");
+            }
+            while (Console.ReadKey().Key != ConsoleKey.Escape);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            Console.ReadLine();
+        }    
+    }
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Обработка исключений</h1>
+					<blockquote>
+						Иногда при выполнении программы возникают ошибки, которые трудно предусмотреть или предвидеть.
+						Такие ситуации называют <b>исключениями</b>.
+					</blockquote>
+					<blockquote>
+						Для обработки таких ситуаций в C# (да и во многих других языках) предназначена конструкция
+						<i>try...catch...finally</i>
+					</blockquote>
+				</section>
+				<section>
+					<h2>try-catch-finally</h2>
+					<blockquote>
+						Блок <i>try</i> охватывает код, в котором предполгается возможность получения исключительной ситуации.
+					</blockquote>
+					<blockquote>
+						В блоке <i>catch</i> размещаются обработчики исключений. Сюда выполние программы переходит после
+						перехвата исключения в блоке <i>try</i>.
+					</blockquote>
+					<blockquote>
+						Блок <i>finally</i> предназначен для обязательно выполняющегося кода, как при генерации исключения, так и без него.
+					</blockquote>
+				</section>
+				<section>
+					<h3>Структура обработки исключений</h3>
+					<pre>
+						<code class="cs">
+try
+{
+	/* код программы */
+}
+catch
+{
+	/* обработка исключений */
+}
+finally
+{
+	/* обязательный код */
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cs">
+static void Main(string[] args)
+{
+    int[] a = new int[4];
+    try
+    {
+        a[5] = 4; // тут возникнет исключение, так как у нас в массиве только 4 элемента
+        Console.WriteLine("Завершение блока try");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Ошибка: " + ex.Message);
+    }
+    finally
+    {
+        Console.WriteLine("Блок finally");
+    }
+    Console.ReadLine();
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Блок <i>catch</i></h2>
+					<blockquote>
+						Как вы могли заметить, после ключевого слова <i>catch</i> в скобках записывается тип перехватываемых исключений.
+						Для разных исключений можно записывать несколько блоков <i>catch</i>.
+					</blockquote>
+					<pre>
+						<code class="cs">
+try
+{
+     
+ }
+catch (FileNotFoundException e)
+{
+    // Обработка исключения, возникшего при отсутствии файла
+}
+catch (IOException e)
+{
+    // Обработка исключений ввода-вывода
+}
+catch
+{
+	// Обработка любых других исключений
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Фильтры исключений</h2>
+					<blockquote>
+						Существует возможность обрабатывать исключения в зависимости от каких-то заданных условий 
+						при помощи ключевого слова <i>when</i>:
+					</blockquote>
+					<pre>
+						<code class="cs">
+int x = 1;
+int y = 0;
+ 
+try
+{
+    int result = x / y;
+}
+catch(Exception ex) when (y==0)
+{
+    Console.WriteLine("y не должен быть равен 0");
+}
+catch(Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h1>Оператор <i>throw</i></h1>
+					<blockquote>
+						Чтобы самому прописывать случаи создания исключений, используется оператор <i>throw</i>.
+					</blockquote>
+					<pre>
+						<code class="cs">
+static void Main(string[] args)
+{
+    try
+    {
+        string message = Console.ReadLine();
+        if (message.Length > 6)
+        {
+            throw new Exception("Длина строки больше 6 символов");
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine("Ошибка: " + e.Message);
+    }
+    Console.ReadLine();
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Механизмы встроенной проверки</h2>
+					<blockquote>
+						Не во всех случаях оптимально применять конструкции <i>try...catch</i>. В классах 
+						.NET Framework имеется множество методов для выполнения различных проверок, например 
+						метод <i>TryParse()</i> класса <i>Int32</i>.
+					</blockquote>
+					<pre>
+						<code class="cs">
+void f1()
+{
+    Console.WriteLine("Введите число");
+    int x = Int32.Parse(Console.ReadLine());	// исключение
+ 
+    x *= x;
+    Console.WriteLine("Квадрат числа: " + x);
+    Console.Read();
+}
+
+void f2()
+{
+	Console.WriteLine("Введите число");
+    int x;
+    string input = Console.ReadLine();
+    if (Int32.TryParse(input, out x))		// встроенная проверка исключения
+    {
+        x *= x;
+        Console.WriteLine("Квадрат числа: " + x);
+    }
+    else
+    {
+        Console.WriteLine("Некорректный ввод");
+    }
+    Console.Read();
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Вложенность обработчиков исключений</h2>
+					<blockquote>
+						Возникшее в программе исключение в обязательном порядке должно быть передано на обработку блоку <i>catch</i>.
+						Поиск обработчиков выполняется по уровню вызова методов: сначала в локальной функции, если не находит - 
+						в функции, откуда вызвана эта функция, и т.д. пока не выйдет за пределы главной функции <i>Main</i>. Если 
+						до сих пор не было обнаружено подходящего обработчика, исключение передается среде CLR, которая сама 
+						обрабатывает исключение и сообщает пользователю о произошедшей ошибке. 
+					</blockquote>
+				</section>
+            </section>
+            <section>
+                <section>
+                    <h2>Кортежи (C#7.0+)</h2>
+                    <p>
+                        В одной из последних версий, язык C# пополнился встроенной возможностью 
+                        использования кортежей.
+                    </p>
+                    <blockquote>
+                        Кортеж (<span class="blue">tuple</span>) - это просто набор значений.
+                    </blockquote>
+                    <p>
+                        Кортеж можно считать "неявной структурой" или массивом из элементов разных типов.
+                    </p>
+                </section>
+                <section>
+                    <h2>Объявление кортежа</h2>
+                    <p>
+                        Переменная-кортеж определяется через символы круглых скобок:
+                    </p>
+                    <pre>
+                        <code class="cs">
+(int, int) tuple1;
+(int, int) tuple2 = (5, 12);
+tuple1 = tuple2;
+
+var tuple3 = (1, "Roger Smith", 45);
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Доступ к элементам кортежа</h2>
+                    <p>
+                        Для доступа к элементам кортежа по умолчанию используется имена 
+                        формата ItemN, где N - номер элемента в кортеже.
+                    </p>
+                    <pre>
+                        <code class="cs">
+var some = (43, "name", true);
+Console.WriteLine(some.Item1);      // 43
+Console.WriteLine(some.Item2);      // name
+some.Item3 = false;
+Console.WriteLine(some.Item3);      // False
+                        </code>
+                    </pre>
+                    <p>
+                        Кортежи являются строго типизированными, и элемент одного типа нельзя
+                        заменить элементом другого типа.
+                    </p>
+                </section>
+                <section>
+                    <h2>Собственные имена</h2>
+                    <p>
+                        Вместо ItemN можно назначать элементам кортежа свои наименования, при 
+                        помощи нотации двоеточия :
+                    </p>
+                    <p>
+                        Причём это работает только при использовании автоматического выведения типов с var.
+                    </p>
+                    <pre>
+                        <code class="cs">
+// (string, int, double) person = ("Tom", 25, 81.23);   // Так бы не работало
+var person = (name: "Tom", age: 25, weight: 81.23);
+person.age++;
+person.weight = 88.3;
+person.name = Console.ReadLine();
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Раскрытие кортежей</h2>
+                    <p>
+                        Кортеж можно присвоить группе переменных, чтобы получить разделить его значения.
+                    </p>
+                    <pre>
+                        <code class="cs">
+var (name, age) = ("Tom", 23);
+Console.WriteLine(name);    // Tom
+Console.WriteLine(age);     // 23
+Console.Read();
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Применение</h2>
+                    <p>
+                        Вообще, для чего предназначены кортежи?
+                    </p>
+                    <p>
+                        Их основное применение - возврат сразу нескольких значений из метода (функции).
+                    </p>
+                </section>
+                <section>
+                    <h2>Кортежи и методы</h2>
+                    <p>
+                        Как и любой тип, кортежи могут использоваться в методах в качестве параметров
+                        и возвращаемых значений.
+                    </p>
+                    <p>
+                        Например:
+                    </p>
+                    <pre>
+                        <code class="cs">
+static void Main(string[] args)
+{
+    var tuple = GetValues();
+    Console.WriteLine(tuple.Item1); // 1
+    Console.WriteLine(tuple.Item2); // 3
+        
+    Console.Read();
+}
+private static (int, int) GetValues()
+{
+    var result = (1, 3);
+    return result;
+}
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Ещё один пример</h2>
+                    <pre>
+                        <code class="cpp">
+static void Main(string[] args)
+{
+    var tuple = GetNamedValues(new int[]{ 1,2,3,4,5,6,7});
+    Console.WriteLine(tuple.count);
+    Console.WriteLine(tuple.sum);
+        
+    Console.Read();
+}
+private static (int sum, int count) GetNamedValues(int[] numbers)
+{
+    var result = (sum:0, count: 0);
+    for (int i=0; i &lt; numbers.Length; i++)
+    {
+        result.sum += numbers[i];
+        result.count++;
+    }
+    return result;
+}
+                        </code>
+                    </pre>
+                </section>
+			</section>
+			<section>
+				<h3>История обновлений</h3>
+				<p>
+					Список всех новых штук можно найти здесь:
+				</p>
+				<a href="https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-6#null-conditional-operators">Оффициальная документация</a>
+			</section>
+
+        </div>
+	</div>
+	<aside id="presentable-icon" class="cpp">
+		<a title="Содержание лекции" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x"></i>
+		</a>
+	</aside>
+	<aside id="presentable-icon" class="revealjs">
+		<a title="Содержание лекции" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x"></i>
+		</a>
+	</aside>
+	<script src="../../js/bundle.min.js"></script>
+</body>
+
+</html>
