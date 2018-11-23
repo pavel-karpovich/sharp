@@ -138,7 +138,7 @@ namespace TestCon1
 				<section>
 					<h1>Типы данных .NET</h1>
 					<blockquote>
-						Общая структура типов данных, поддерживаемых CLR, описана в спецификации CTL 
+						Общая структура типов данных, поддерживаемых CLR, описана в спецификации CTS 
 						как общая система типов, иерарархическое дерево которой можно увидеть на схеме ниже:
 					</blockquote>
 					<img src="img/type_tree.png">
@@ -509,7 +509,10 @@ foreach (int element in arr)
 	Console.WriteLine(element);
 }
 
-int[,] mtr = { { 1, 2, 3 }, { 4, 5, 6 }, {7, 8, 9} };
+int[][] mtr = new int[3][];
+mtr[0] =  { 1, 2, 3 };
+mtr[1] =  { 4, 5, 6, 7};
+mtr[2] =  { 8, 9 };
 foreach (int[] array in mtr)
 {
 	foreach (int element in array)
