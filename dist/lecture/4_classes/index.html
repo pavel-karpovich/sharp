@@ -116,13 +116,19 @@ class Dog
 	public void Walk()
 	{
 		Console.WriteLine("The {0} walks!", this.name);
+		Random randGen = new Random();
+		int rndNumber = randGen.Next(4);
+		if (rndNumber == 3)
+		{
+			this.Pee();
+		}
 	}
 
 	private int Pee()
 	{
 		Console.WriteLine("The {0} has urinated..", this.name);
-		Random rnd = new Random();
-		int strenth = rnd.Next(1, 11);
+		Random randGen = new Random();
+		int strenth = randGen.Next(1, 11);
 		return strenth;
 	}
 }
@@ -803,90 +809,6 @@ class TestEmployee
 			</section>
 			<section>
 				<section>
-					<h2>Индексаторы</h2>
-					<blockquote>
-						Индексаторы позволяют оращаться с объектом класса так, как будто он является массивом. 
-					</blockquote>
-					<blockquote>
-						Индексатор по синтаксису напоминает свойство, только принимает параметр - индекс.
-					</blockquote>
-					<pre>
-						<code class="cs">
-public float this[int j]
-{
-	get { 
-		//действия с return 
-	}
-	set
-	{
-		//установка значения
-	}
-}
-						</code>
-					</pre>
-				</section>
-				<section>
-					<h2>Пример использования индексатора</h2>
-					<pre>
-						<code class="cs">
-class Human
-{
-    protected string name;
-    protected string surname;
-    protected string patronymic;
-
-    public string this[string s]
-    {
-        get
-        {
-            switch (s)
-            {
-                case "name": return this.name;
-                case "surname": return this.surname;
-                case "patronymic": return this.patronymic;
-                default: return "none";
-            }
-        }
-        set
-        {
-            switch (s)
-            {
-                case "name": this.name = value; break;
-                case "surname": this.surname = value; break;
-                case "patronymic": this.patronymic = value; break;
-            }
-        }
-    }
-
-    public string this[int n]
-    {
-        get
-        {
-            switch (n)
-            {
-                case 0: return this.name;
-                case 1: return this.surname;
-                case 2: return this.patronymic;
-                default: return "none";
-            }
-        }
-        set
-        {
-            switch (n)
-            {
-                case 0: this.name = value; break;
-                case 1: this.surname = value; break;
-                case 2: this.patronymic = value; break;
-            }
-        }
-    }
-}
-						</code>
-					</pre>
-				</section>
-			</section>
-			<section>
-				<section>
 					<h1>Конструкторы</h1>
 					<blockquote>
 						<span class="purple">Конструктор</span> - особый метод, вызываемый при создании экземпляра класса. Он 
@@ -1193,6 +1115,85 @@ class Program
 		<section>
 			<section>
 				<h2>Индексаторы</h2>
+				<blockquote>
+					Индексаторы позволяют оращаться с объектом класса так, как будто он является массивом. 
+				</blockquote>
+				<blockquote>
+					Индексатор по синтаксису напоминает свойство, только принимает параметр - индекс.
+				</blockquote>
+				<pre>
+					<code class="cs">
+public float this[int j]
+{
+get { 
+	//действия с return 
+}
+set
+{
+	//установка значения
+}
+}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h2>Пример использования индексатора</h2>
+				<pre>
+					<code class="cs">
+class Human
+{
+protected string name;
+protected string surname;
+protected string patronymic;
+
+public string this[string s]
+{
+	get
+	{
+		switch (s)
+		{
+			case "name": return this.name;
+			case "surname": return this.surname;
+			case "patronymic": return this.patronymic;
+			default: return "none";
+		}
+	}
+	set
+	{
+		switch (s)
+		{
+			case "name": this.name = value; break;
+			case "surname": this.surname = value; break;
+			case "patronymic": this.patronymic = value; break;
+		}
+	}
+}
+
+public string this[int n]
+{
+	get
+	{
+		switch (n)
+		{
+			case 0: return this.name;
+			case 1: return this.surname;
+			case 2: return this.patronymic;
+			default: return "none";
+		}
+	}
+	set
+	{
+		switch (n)
+		{
+			case 0: this.name = value; break;
+			case 1: this.surname = value; break;
+			case 2: this.patronymic = value; break;
+		}
+	}
+}
+}
+					</code>
+				</pre>
 			</section>
 		</section>
 		<section>

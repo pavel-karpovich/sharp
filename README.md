@@ -56,3 +56,6 @@
 
 * Задание 1. 
 	[*Базовые элементы C#*](https://tgjmjgj.github.io/sharp/dist/task/task_1/task_1.pdf "Базовые элементы C#")
+
+* Задание 2. 
+	[*Создание классов*](https://tgjmjgj.github.io/sharp/dist/task/task_2/task_2.pdf "Создание классов")
