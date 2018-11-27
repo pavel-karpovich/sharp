@@ -414,7 +414,15 @@ section.has-light-background h6 {
   left: 10px;
 }
 
-#presentable-icon a {
+#presentable-icon-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+#presentable-icon a,
+#presentable-icon-close a
+ {
   color: rgba(19, 218, 236, .75);
 }
 

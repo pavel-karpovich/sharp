@@ -1,0 +1,1220 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Object-oriented programming</title>
+	<meta name="description" content="programming paradigm OOP in C#, concept of classes and objects, attributes and methods">
+	<meta name="keywords" content="c#, oop, class, object, interface">
+	<meta name="author" content="Edward & Albert">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="../../css/bundle.min.css">
+	<!--[if lt IE 9]>
+		<script src="../../js/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+                <section>
+                    <h1>Объектно-ориентированное программирование</h1>
+                    <h3>Классы и объекты</h3>
+                    <p>
+                        <small>Edward &amp; Albert / <a href="https://github.com/tgjmjgj/sharp/">github:Tgjmjgj</a></small>
+                    </p>
+                </section>
+				<section>
+					<h2>Содержание лекции</h2>
+					<nav id="presentable-toc" class="table-content"></nav>
+				</section>
+            </section>
+            <section>
+				<h1>Объектно-ориентированное программирование</h1>
+				<blockquote>
+					Что важно понять при работы с ООП, - это то, что все типы являются классами.
+				</blockquote>
+				<p>
+					Ваша программа описана в классе программы, для работы с консолью используется
+					класс консоли, для работы с окнами - класс окна, для работы с лохматым померанским 
+					шпицем - класс собачки.
+				</p>
+			</section>
+			<section>
+				<section>
+					<h1>Классы и объекты</h1>
+					<blockquote>
+						<span class="purple">Класс</span> - это абстрактный тип данных, определяемый программистом.
+					</blockquote>
+					<blockquote>
+						<span class="purple">Объекты</span> - это экземпляры класса, т.е. переменные типа класса.
+					</blockquote>
+					<pre>
+						<code class="cs">
+class ИмяКласса
+{
+	// члены класса
+}
+						</code>
+					</pre>
+					<blockquote>
+						Члены класса - это данные и функции для работы с этими данными.
+					</blockquote>
+					<blockquote>
+						Имя класса можно считать именем нового типа данных.
+					</blockquote>
+				</section>
+				<section>
+					<h2>Класс и его экземпляры</h2>
+					<p>
+						Класс можно считать "чертежом", "схемой" какого-либо объекта. Класс сам по себе 
+						является просто описанием какой-либо сущности. 
+					</p>
+					<p>
+						Объект (экземпляр) же является фактическим представлением этой сущности.
+					</p>
+					<p>
+						Например Boeing777 - класс, представляющий одноимённый самолёт. Но это еще не какой-либо 
+						конкретный самолёт этой модели. Можно создать экзампляры этого класса boeing1, boeing2
+						и boeign3, которые уже будут представляться реальные воплощения, 3 разных самолёта 
+						такой модели.
+					</p>
+				</section>
+				<section>
+					<h2>Создание экземпляра класса</h2>
+					<blockquote>
+						Создание объекта класса осуществляется с помощью оператора <span class="blue">new</span>:
+					</blockquote>
+					<pre>
+						<code class="cs">
+ИмяКласса имяОбъекта = new ИмяКласса();
+						</code>
+					</pre>
+					<pre>
+						<code class="cs">
+Random rand = new Random();
+DateTime dt = new DateTime(1991, 10, 23);
+string[] mas = new string[4];
+List&lt;int&gt; list = new List&lt;int&gt;();
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Класс Dog</h2>
+					<pre>
+						<code class="cs">
+class Dog
+{
+	public string name;
+	public string breed;
+	public int age;
+	public string owner;
+
+	public void Walk()
+	{
+		Console.WriteLine("The {0} walks!", this.name);
+	}
+
+	private int Pee()
+	{
+		Console.WriteLine("The {0} has urinated..", this.name);
+		Random rnd = new Random();
+		int strenth = rnd.Next(1, 11);
+		return strenth;
+	}
+}
+
+static void Main(string[] args)
+{
+	Dog dg1 = new Dog();
+	dg1.name = "Альфред";
+	dg1.breed = "Бернский зенненхунд";
+
+	Dog[] flock = new Dog[4];
+	flock[2] = dg1;
+	flock[2].Walk();
+}					
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<h1>Ключевое слово <span class="blue">this</span></h1>
+				<blockquote>
+					Для доступа к членам текущего экземпляра класса можно использовать 
+					ключевое слово <span class="blue">this</span>. Это ключевое 
+					слово предоставляет ссылку на текущий объект класса. 
+				</blockquote>
+				<p>
+					(В принципе, использовать <span class="blue">this</span> не обязательно, 
+					но это бывает нужно при совпадении имен). Например:
+				</p>
+				<pre>
+					<code class="cs">
+public bool ChangeOwner(string owner)
+{
+	if (this.owner == owner)
+	{
+		return false;
+	}
+	this.owner = owner;
+	return true;
+}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<section>
+					<h1>Спецификаторы доступа</h1>
+					<p>
+						Уровнем доступности каждого элемента класса можно управлять.
+						Это делается с помощью <span class="purple">спецификаторов доступа</span>:
+					</p>
+					<blockquote>
+						<ul>
+							<li>public - общедоступный член класса</li>
+							<li>private - член класса доступен только внутри данного класса</li>
+							<li>protected - член класса доступен только внутри данного класса и его производных классов</li>
+							<li>internal - член класса доступен только внутри данной сборки (~программы)</li>
+						</ul>
+					</blockquote>
+				</section>
+				<section>
+					<h2>Класс Book</h2>
+					<pre>
+						<code class="cs">
+class Book
+{
+	public string name;
+	public string author;
+	public int year;
+	protected int id;
+	private bool isAllowed;
+		
+	public void CreateEmptyBook()
+	{
+		this.name = "неизвестно";
+		this.author = "неизвестно";
+		this.year = 0;   
+		this.id = 0x8FFA;
+		this.isAllowed = false;
+	}
+	
+	public void FillBook(string name, string author, int year)
+	{
+		this.name = name;
+		this.author = author;
+		this.year = year;
+		this.id = 0x031AE;
+		this.isAllowed = true;
+	}
+		
+	public void GetInformation()
+	{
+		if (this.name == null)
+		{
+			this.CreateEmptyBook();
+		}
+		Console.WriteLine($"Книга '{name}' (автор {author}) была издана в {year} году");
+	}   
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Содержимое класса</h1>
+					<p>
+						Всё, что может быть внутри класса подразделяется на:
+					</p>
+					<ul>
+						<li>Элементы данных</li>
+						<li>Функциональные элементы</li>
+						<li>Вложенные типы</li>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Элементы данных в классах</h2>
+					<p>
+						Элементы данных подразделяются на:
+					</p>
+					<ul>
+						<li><b>поля</b></li>
+						<li><small>константы</small></li>
+						<li><small>события</small></li>
+					</ul>
+					<blockquote>
+						Поле - основной член класса - переменная внутри класса, содержащая некоторое значение.
+					</blockquote>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<blockquote>
+						Можно, например, объявить класс, членами которого будут являться только поля:
+					</blockquote>
+					<pre>
+						<code class="cs">
+class SimpleClass
+{
+	public int x;
+	public float y;
+	public const double z = 0.9134;
+	public const char c = 'A';
+	public string s;
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Константы</h2>
+					<p>
+						Константы - это неизменяемые поля. Объявляются с помощью ключевого
+						слова <span class="blue">const</span>
+					</p>
+					<pre>
+						<code class="cs">
+class Calendar1
+{
+	public const int months = 12;
+}
+						</code>
+					</pre>
+					<p>
+						Константа не может быть объявлена без указания значения.
+					</p>
+				</section>
+				<section>
+					<h2>Поля только для чтения</h2>
+					<p>
+						Readonly поля - похожие на константы поля, с той лишь особенностью,
+						что значение им может быть присвоенно отложенно (не сразу). Но после
+						инициализации, менять их, так же как и константы, нельзя. Объявляются
+						с помощью ключевого слова <span class="blue">readonly</span>.
+					</p>
+					<pre>
+						<code class="cs">
+class Age
+{
+	readonly int year;
+
+	void Initialize(int year)
+	{
+		this.year = year;
+	}
+
+}
+
+static void Main()
+{
+	Age a = new Age();
+	a.Initialize(1974);		// ОК
+	Console.WriteLine(a.year);
+	a.Initialize(1967);		// Ошибка
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Функциональные элементы в классах</h1>
+					<p>
+						Функциональные элементы подразделяются на:
+					</p>
+					<ul>
+						<li><b>Методы</b></li>
+						<li>Свойства</li>
+						<li>Конструкторы</li>
+						<li>Финализаторы</li>
+						<li>Индексаторы</li>
+						<li>Операторы</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Методы</h2>
+					<blockquote>
+						Основой любого класса являются <span class="purple">методы</span> - функции 
+						внутри класса, выполняющие какие-либо действия над полями этого класса.
+					</blockquote>
+					<p>
+						Например здесь описаны два метода: Sum и Sub:
+					</p>
+					<pre>
+						<code class="cs">
+class Calculator
+{
+	private int x;
+	private int y;
+
+	public int Sum()
+	{
+		return this.x + this.y;
+	}
+
+	public int Sub()
+	{
+		return this.x - this.y;
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Статические члены класса</h1>
+					<blockquote>
+						Обычные методы и вообще всё, описанное внутри класса, существует в контексте 
+						какого-либо объекта этого класса. Т.е. для каждого экземпляра класса действуют свои копии 
+						методов и полей.
+					</blockquote>
+					<p>
+						Можно создать элементы класса, которые будут относиться непосредственно к самому классу, а не к
+						объектам. Такие элементы класса называется <span class="purple">статическими</span>, являются
+						общими для всех объектов и существуют в единственном экземпляре.
+					</p>
+					<p>
+						Чтобы объявить такой элемент, нужно к его описанию добавить
+						ключевое слово <span class="blue">static</span>.
+					</p>
+				</section>
+				<section>
+					<h2>Статические методы</h2>
+					<p>
+					Например, как происходит работа с консолью в c#?
+						Что-то наподобие:
+					</p>
+					<pre>
+						<code class="cs">
+Console.WriteLine("message");
+string input1 = Console.ReadLine();
+Console.Write("end;\n");
+						</code>
+					</pre>
+					<p>
+						Обратите внимание, здесь нигде не создается объект класса 
+						<span class="turquoise">Console</span>, 
+						мы напрямую обращаемся с именем класса.
+					</p>
+					<p>
+						Именно так используются статические методы.
+					</p>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<p>
+						Посмотрим на различия между вызовом статических и обыкновенных методов:
+					</p>
+					<pre>
+						<code class="cs">
+class MinMax
+{
+	public static int Min(int x, int y)
+	{
+		int z = (x &lt; y) ? x : y;
+		return z;
+	}
+
+	public int Max(int x, int y)
+	{
+		int z = (x &gt; y) ? x : y;
+		return z;
+	}
+}
+
+class Progrma
+{
+	static void Main(string[] args)
+	{
+		int a = -2;
+		int b = 23;
+		Console.WriteLine("a={0}, b={1}", a, b);
+		int k = MinMax.Min(a, b);		// вызов статического метода
+		Console.WriteLine("Min = {0}", k);
+		MinMax instance = new MinMax();
+		instance.Max(a, b);			// вызов обычного метода
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Область применения статики</h2>
+					<blockquote>
+						Статические методы применяются повсеместно,
+						и используются в тех случаях, когда пользователю 
+						нет необходимости создавать объект для работы с этим методом.
+					</blockquote>
+					<p>
+						Статическими, например, могут быть какие-нибудь константы 
+						внутри класса, общие для всех объектов. Или методы, никак не 
+						затрагивающие всей основной структуры класса и работающие обособленно.
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Свойства</h2>
+					<blockquote>
+						Для создания большей гибкости и безопасности внутренних полей, были разработаны такие 
+						элементы класса как <span class="purple">Свойства</span>. 
+					</blockquote>
+					<p>
+						Во многих языках программирования свойствами называют 
+						обычные поля класса, но в C# есть разграничение между этими понятиями.
+						Хотя, фактически, они очень схожи между собой и имеют границу только для разработчика класса.
+					</p>
+				</section>
+				<section>
+					<h2>Свойства в C#</h2>
+					<p>
+						Свойством в C# называются специальные методы доступа (чтения/записи) к полю класса  
+						(<span class="blue">get</span> и <span class="blue">set</span>).
+					</p>
+					<p>
+						Описание свойства имеет следующий синтаксис:
+					</p>
+					<pre>
+						<code class="cs">
+private int name;
+public int Name
+{
+	get
+	{
+		return this.name;
+	}
+	set
+	{
+		this.name = value;
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Описание свойства</h2>
+					<p>
+						Свойство состоит из двух частей: 
+					</p>
+					<ul>
+						<li>Метод-аксессор (геттер) <span class="blue">get</span></li>
+						<li>Метод-аксессор (сеттер) <span class="blue">set</span></li>
+					</ul>
+					<p>
+						Метод <span class="blue">get</span> обязательно должен возвращать значение.
+					</p>
+					<p>
+						В методе <span class="blue">set</span> существует неявный параметр
+						<span class="purple">value</span>, в котором хранится присваиваемое значение. 
+					</p>
+				</section>
+				<section>
+					<h3>Работа со свойствами</h3>
+					<p>
+						Поле и связанное с ним свойство - разные элементы, поэтому должны иметь разные имена.
+					</p>
+					<p>
+						Общепринято называть Свойство так же как называется Поле, только с заглавной буквы.
+					</p>
+					<p>
+						Работа со свойствами аналогична работе с обычными полями.
+					</p>
+					<pre>
+						<code class="cs">
+class TimePeriod
+{
+	private double minutes;
+
+	public double Minutes
+	{
+		get { return this.minutes; }
+		set { this.minutes = value; }
+	}
+
+	private double hours;
+
+	public double Hours
+	{
+		get { return this.hours; }
+		set { this.hours = value; }
+	}
+
+}
+
+static void Main()
+{
+	TimePeriod t = new TimePeriod();
+	t.Hours = 2;
+	t.Minutes = 34;
+	Console.WriteLine("Время: {0} часов {1} минут", t.Hours, t.Minutes);
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Назначение</h2>
+					<p>
+						Поля в классе принято всегда делать приватными, т.е. скрытыми.
+					</p>
+					<p>
+						И для того, чтобы предоставить доступ к полю, используется Свойство
+						 - публичный элемент, через который пользователь читает (get) или записывает (set)
+						 значения в приватное поле.
+					</p>
+					<p>
+						Т.е. свойство является посредником между пользователем и данными, 
+						и когда нужно обращаться к полю всегда нужно делать это через свойство.
+					</p>
+				</section>
+				<section>
+					<h2>Доступ только для чтения/записи</h2>
+					<p>
+						Один из акссессоров можно опускать.
+					</p>
+					<p>
+						Если написать Свойство только с методом <span class="blue">get</span>, то
+						свойство будет только для чтения: из него можно будет получить значение, а записать
+						нельзя.
+					</p>
+					<p>
+						И иенее распространённый вариант, с одним методом <span class="blue">set</span>,
+						свойство будет только для записи: в него можно записывать значение, но нельзя получать.
+					</p>
+				</section>
+				<section>
+					<h2>Только чтение</h2>
+					<p>
+						Такой вариант свойства применяется довольно часто:
+					</p>
+					<pre>
+						<code class="cs">
+public class Person
+{
+	private string firstName;
+	private string lastName;
+	private int age;
+	
+	public void CreatePerson(string first, string last, int age)
+	{
+		this.firstName = first;
+		this.lastName = last;
+		this.age = age;
+	}
+
+	public string Name
+	{
+		get
+		{
+			return this.firstName + " " + this.lastName;
+		}
+	}
+
+	public int Age
+	{
+		get
+		{
+			return this.age;
+		}
+	}
+
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Примеры</h3>
+					<pre>
+						<code class="cs">
+class SomeClass
+{
+	private int mode;
+	public int Mode
+	{
+		get { return this.mode; }
+		set { this.mode = value; }
+	}
+
+	private string name;
+	public string Name
+	{
+		get { return this.name; }
+		set { this.name = value; }
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Примеры</h3>
+					<p>
+						Вместо того, чтобы опускать аксессор, можно описать его как приватный:
+					</p>
+					<pre>
+						<code class="cs">
+class Person
+{
+	private string name;
+	public string Name
+	{
+		get { return name; }
+		set { name = value; }
+	}
+
+	private char gender;
+	public char Gender
+	{
+		get { return gender; }
+		private set { gender = value; }
+	}
+
+	private DateTime birth;
+	public DateTime Birth
+	{
+		get { return birth; }
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Свойства со встроенной проверкой</h3>
+					<p>
+						При необходимости, внутри свойства можно задавать какие-нибудь проверки,
+						или в принципе писать любой нужный код.
+					</p>
+					<pre>
+						<code class="cs">
+class TryPerson
+{
+	private string name;
+	public string Name
+	{
+		get 
+		{ 
+			string res = "Name is " + this.name;
+			return res; 
+		}
+		set 
+		{ 
+			if (value != "" &amp;&amp; value != null)
+				name = value; 
+		}
+	}
+
+	private char gender;
+	public char Gender
+	{
+		get { return gender; }
+		private set
+		{ 
+			if (value == "м" || value == "ж")
+				gender = value; 
+		}
+	}
+
+	private DateTime birth;
+	public DateTime Birth
+	{
+		get { return birth; }
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Примеры</h3>
+					<pre>
+						<code class="cs">
+public class Date
+{
+	private int month = 7;
+
+	public int Month
+	{
+		get
+		{
+			return this.month;
+		}
+		set
+		{
+			if ((value &lt; 0) && (value &lt; 13))
+			{
+				this.month = value;
+			}
+		}
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Примеры</h3>
+					<p>
+						Свойство (как и всё остальное) может быть статическим. Тогда оно может
+						ссылаться только на статические поля:
+					</p>
+					<pre>
+						<code class="cs">
+public class Employee
+{
+	public static int NumberOfEmployees;
+	private static int counter;
+	private string name;
+
+	public string Name
+	{
+		get { return name; }
+		set { name = value; }
+	}
+
+	public static int Counter
+	{
+		get { return counter; }
+	}
+
+	public Employee()
+	{
+		// Увеличение счётчика рабочих
+		counter = ++NumberOfEmployees;
+	}
+}
+
+class TestEmployee
+{
+	static void Main()
+	{
+		Employee.NumberOfEmployees = 107;
+		Employee e1 = new Employee();
+		e1.Name = "Claude Vige";
+
+		System.Console.WriteLine("Employee number: {0}", Employee.Counter);
+		System.Console.WriteLine("Employee name: {0}", e1.Name);
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Индексаторы</h2>
+					<blockquote>
+						Индексаторы позволяют оращаться с объектом класса так, как будто он является массивом. 
+					</blockquote>
+					<blockquote>
+						Индексатор по синтаксису напоминает свойство, только принимает параметр - индекс.
+					</blockquote>
+					<pre>
+						<code class="cs">
+public float this[int j]
+{
+	get { 
+		//действия с return 
+	}
+	set
+	{
+		//установка значения
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Пример использования индексатора</h2>
+					<pre>
+						<code class="cs">
+class Human
+{
+    protected string name;
+    protected string surname;
+    protected string patronymic;
+
+    public string this[string s]
+    {
+        get
+        {
+            switch (s)
+            {
+                case "name": return this.name;
+                case "surname": return this.surname;
+                case "patronymic": return this.patronymic;
+                default: return "none";
+            }
+        }
+        set
+        {
+            switch (s)
+            {
+                case "name": this.name = value; break;
+                case "surname": this.surname = value; break;
+                case "patronymic": this.patronymic = value; break;
+            }
+        }
+    }
+
+    public string this[int n]
+    {
+        get
+        {
+            switch (n)
+            {
+                case 0: return this.name;
+                case 1: return this.surname;
+                case 2: return this.patronymic;
+                default: return "none";
+            }
+        }
+        set
+        {
+            switch (n)
+            {
+                case 0: this.name = value; break;
+                case 1: this.surname = value; break;
+                case 2: this.patronymic = value; break;
+            }
+        }
+    }
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Конструкторы</h1>
+					<blockquote>
+						<span class="purple">Конструктор</span> - особый метод, вызываемый при создании экземпляра класса. Он 
+						называется так же, как класс, и не имеет типа возвращаемого значения.
+					</blockquote>
+					<p>
+						В классе всегда должен быть хотя бы один конструктор (если его нет - он
+						создаётся неявно сам).
+					</p>
+					<p>
+						Выделяют 4 основных типа конструкторов:
+					</p>
+					<ul>
+						<li>Конструктор по умолчанию</li>
+						<li>Конструктор с аргументами</li>
+						<li>Конструктор копирования</li>
+						<li>Статический конструктор</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Конструктор по умолчанию</h2>
+					<p>
+						Конструктор, объявленный без аргументов, 
+						называется конструктором по умолчанию и должен присутствовать в любом классе.
+					</p>
+					<p>
+						Если не написать конструктор по умолчанию самостоятельно,
+						компилятор создаст его на этапе компиляции.
+					</p>
+				</section>
+				<section>
+					<h3>Пример класса с конструктором</h3>
+					<pre>
+						<code class="cs">
+class A
+{
+	public int x, y, z;
+}
+
+class B
+{
+	public int x, y, z;
+	
+	public B()				// конструктор по умолчанию
+	{
+		x = 3;
+		y = 4;
+		z = 5;
+	}
+}
+
+class Program
+{
+	public static void Main(string[] args)
+	{
+		A a1 = new A();		// здесь вызывается конструктор по умолчанию, x=y=z=0
+		B b1 = new B();		// то же самое, x=3, y=4, z=5
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Конструкторы с аргументами</h2>
+					<blockquote>
+						Конструкторы могут принимать различные аргументы, с помощью которых объекты классов 
+						инициализируются разнообразными способами.
+					</blockquote>
+				</section>
+				<section>
+					<h3>Пример использования конструкторов с аргументами</h3>
+					<pre>
+						<code class="cs">
+class D
+{
+	public int x, y, z;
+
+	public D(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+		this.z = x + y;
+	}
+
+	public D(int x, int y, int z)
+	{
+		this.x = x;
+		this.y = y;
+		this.z = z;
+	}
+}
+
+class Program
+{
+	public static void Main(string[] args)
+	{
+		D did = new D();		// x=y=z=0
+		D opo = new D(1, 2);	// x=1, y=2, z=3
+		D fer = new D(1, 2, 6); // x=1, y=2, z=6
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Конструктор копирования</h2>
+					<blockquote>
+						Конструктор копирования принимает в качестве 
+						параметра экземпляр своего класса, и нужен затем, чтобы 
+						создать текущий объект как копию переданного.
+					</blockquote>
+					<pre>
+						<code class="cs">
+class C
+{
+	public int x, y, z;
+
+	public C() 
+	{
+		x = y = z = -1; 
+	}
+
+	public C(C obj_c)		// конструктор копирования
+	{
+		this.x = obj_c.x;	// копируем поля из obj_c в this
+		this.y = obj_c.y;
+		this.z = obj_c.z;
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Применение конутруктора копирования</h3>
+					<blockquote>
+						Необходимость в конструкторе копирования обуславливается тем, что класс является объектом ссылочного типа, 
+						а это означает, что после операции присваивания между двумя объектами класса произойдет копирование ссылки 
+						на один и тот же объект, а не создание объекта-копии. 
+					</blockquote>
+					<pre>
+						<code class="cs">
+C obj1 = new C();
+C obj2 = obj1;		// obj1 и obj2 указывают на один и тот же объект класса
+obj2.x = -10;		// obj1.x == -10
+obj3 = new C(obj2);	// obj3 имеет такие же значения как и obj2, но является другим объектом
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Статический конструктор</h2>
+					<p>
+						Статический конструктор используется для инициализации статических 
+						элементов класса, и не может иметь параметров. Он неявно вызывается средой CLR
+						сам, до момента первого использования класса.
+					</p>
+					<pre>
+						<code class="cs">
+class SimpleClass
+{
+	static readonly long baseline;
+
+	static SimpleClass()
+	{
+		baseline = DateTime.Now.Ticks;
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cs">
+public class Bus
+{
+	// Статическая переменная используемая всеми экземплярами класса Bus
+	// Представляет время, когда первый за день автобус начал свой маршрут 
+	protected static DateTime globalStartTime;
+
+	// Свойство для номера маршрута каждого автобуса
+	// Сокращённая форма записи
+	protected int RouteNumber { get; set; }	
+
+	// Статический конструктор инициализирует статическое поле
+	// Это происходит до создания первого экземпляра класса
+	static Bus()
+	{
+		globalStartTime = DateTime.Now;
+
+		Console.WriteLine("Статический конструктор установил время старта на {0}",
+			globalStartTime.ToLongTimeString());
+	}
+
+	// Конструктор экземпляра класса
+	public Bus(int routeNum)
+	{
+		RouteNumber = routeNum;
+		Console.WriteLine("Автобус #{0} отправляется в путь.", RouteNumber);
+	}
+
+	// Метод экземпляра класса
+	public void Drive()
+	{
+		TimeSpan elapsedTime = DateTime.Now - globalStartTime;
+
+		// Симуляция времени поездки автобуса
+		Console.WriteLine("Автобус {0} начал своё движение через {1:N2} минут после общего времени старта {2}.",
+			this.RouteNumber,
+			elapsedTime.Milliseconds,
+			globalStartTime.ToShortTimeString()
+		);
+	}
+}
+
+class TestBus
+{
+	static void Main()
+	{
+		// Создание экземпляра предварительно активирует статический конструктор.
+		Bus bus1 = new Bus(71);
+
+		// Создание второго маршрута
+		Bus bus2 = new Bus(72);
+
+		// Автобус 1 отправляется в путь
+		bus1.Drive();
+
+		// Делаем паузу перед отправкой второго автобуса
+		System.Threading.Thread.Sleep(25);
+
+		// Автобус 2 отправляется
+		bus2.Drive();
+
+		System.Console.WriteLine("Нажмите любую клавишу для выхода...");
+		System.Console.ReadKey();
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Рекомендации</h2>
+					<blockquote>
+						Для любого класса желательно всегда опеределять конструктор 
+						по умолчанию и конструктор копирования, так как они являются 
+						универсальными и могут требоваться некоторыми встроенными алгоритмами.
+					</blockquote>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Финализатор</h1>
+					<blockquote>
+						Финализатор - специальный метод, который вызывается перед тем, 
+						как Сборщик Мусора соберется удалить ваш объект. Он должен называться
+						так же, как и сам класс, только перед именем должен стоять знак тильды ~.
+					</blockquote>
+					<pre>
+						<code class="cs">
+class Car
+{
+	~Car()  // Финализатор
+	{
+		// Освобождаем ресурсы...
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Пример работы финализатора</h3>
+					<pre>
+						<code class="cs">
+class FinalizeObject
+{
+    public int Id { get; set; }
+
+    public static int identity = 0;
+
+    public FinalizeObject()
+    {
+        this.Id = FinalizeObject.identity++;
+    }
+
+    ~FinalizeObject()
+    {
+        Console.WriteLine("Объект №{0} уничтожен", Id);
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        FinalizeObject[] obj = new FinalizeObject[100];
+        for (int i = 0; i &lt; 100; i++)
+            obj[i] = new FinalizeObject();
+    }
+}
+					</code>
+				</pre>
+			</section>
+		</section>
+		<section>
+			<section>
+				<h2>Индексаторы</h2>
+			</section>
+		</section>
+		<section>
+			<h2>Документация</h2>
+			<p>
+				Подробно обо всём можно почитать в
+				<a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/">документации</a>.
+			</p>
+		</section>
+		</div>
+	</div>
+	<aside id="presentable-icon" class="cpp">
+		<a title="Содержание лекции" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x"></i>
+		</a>
+	</aside>
+    <aside id="presentable-icon-close">
+        <a title="К списку материалов" href="../../index.html">
+            <i class="fa fa-times fa-2x"></i>
+        </a>
+    </aside>
+	<script src="../../js/bundle.min.js"></script>
+</body>
+
+</html>

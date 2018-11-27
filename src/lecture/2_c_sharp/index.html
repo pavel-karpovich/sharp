@@ -1374,6 +1374,37 @@ private static (int sum, int count) GetNamedValues(int[] numbers)
                 </section>
 			</section>
 			<section>
+				<h2>Камень-Ножницы-Бумага % 3</h2>
+				<pre>
+					<code class="cs">
+var variants = new List&lt;string&gt;() { "Бумага", "Ножницы", "Камень" };
+while (true)
+{
+	Write("You: ");
+	string userChoice = ReadLine();
+	int userNum = variants.IndexOf(userChoice);
+
+	var rand = new Random();
+	int compNum = rand.Next(3);
+	WriteLine("Computer: " + variants[compNum]);
+
+	if (userNum == compNum)
+	{
+		WriteLine("Draw!");
+	}
+	else if ((compNum + 1) % 3 == userNum)
+	{
+		WriteLine("You win!");
+	}
+	else
+	{
+		WriteLine("Comp win!");
+	}
+}
+					</code>
+				</pre>
+			</section>
+			<section>
 				<h3>История обновлений</h3>
 				<p>
 					Список всех новых штук можно найти здесь:
