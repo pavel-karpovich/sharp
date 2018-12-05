@@ -59,3 +59,9 @@
 
 * Задание 2. 
 	[*Создание классов*](https://tgjmjgj.github.io/sharp/dist/task/task_2/task_2.pdf "Создание классов")
+	
+* Задание 3. 
+	[*Иерархия классов*](https://tgjmjgj.github.io/sharp/dist/task/task_3/task_3.pdf "Иерархия классов")
+	
+* Задание 4. 
+	[*Интерфейсы*](https://tgjmjgj.github.io/sharp/dist/task/task_3/task_3.pdf "Интерфейсы")
