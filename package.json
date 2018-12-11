@@ -33,7 +33,7 @@
     "gulp-uglify": "*",
     "gulp-useref": "*",
     "gulp-watch": "*",
-    "jshint": "*",
+    "jshint": "^2.9.7",
     "npx": "*",
     "yaspeller": "*"
   }
