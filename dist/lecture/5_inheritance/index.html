@@ -1,0 +1,1823 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Object-oriented programming</title>
+	<meta name="description" content="programming paradigm OOP in C#, concept of classes and objects, attributes and methods">
+	<meta name="keywords" content="c#, oop, class, object, interface">
+	<meta name="author" content="Edward & Albert">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="../../css/bundle.min.css">
+	<!--[if lt IE 9]>
+		<script src="../../js/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+                <section>
+                    <h1>Объектно-ориентированное программирование</h1>
+                    <h3>Наследование классов</h3>
+                    <p>
+                        <small>Edward &amp; Albert / <a href="https://github.com/tgjmjgj/sharp/">github:Tgjmjgj</a></small>
+                    </p>
+                </section>
+				<section>
+					<h2>Содержание лекции</h2>
+					<nav id="presentable-toc" class="table-content"></nav>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Наследование</h1>
+					<img src="img/inheritance.jpg" />
+				</section>
+				<section>
+					<h1>Наследование</h1>
+					<p>
+						Наследование - одна из главных отличительных особенностей ООП.
+					</p>
+					<blockquote>
+						Наследованием называется механизм получения нового класса на основе уже существующего.
+					</blockquote>
+				</section>
+				<section>
+					<h2>Терминология</h2>
+					<p>
+						Класс, от которого наследуется класс, называется <span class="purple">базовыми</span>
+						или <span class="purple">родительским</span>.
+					</p>
+					<p>
+						Новый класс, создаваемый на основе базового класса, называется 
+						<span class="purple">производным</span> классом.
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Суть наследования</h2>
+					<p>
+						Производный класс перенимает всю функциональность (свойства/методы) базового класса,
+						которая по необходимости может быть переопределена.
+					</p>
+					<p>
+						В производный класс могут быть добавлены любые новые члены, как в любой другой класс. Таким
+						образом, производные классы позволяют расширять функциональность базовых классов, без
+						их изменения.
+					</p>
+				</section>
+				<section>
+					<h2>Предназначение наследования</h2>
+					<p>
+						Главное назначение механизма наследования - повторное использование кода.
+					</p>
+					<p>
+						А также полиморфизм подтипов... но об этом в следующей серии.
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Виды наследование</h2>
+					<p>
+						Вообще, в ООП наследование бывает <span class="purple">одиночным</span> и множественным.
+					</p>
+					<p>
+						Одиночное наследование - когда у производного класса может быть только один базовый класс.
+					</p>
+					<p>
+						Множественное наследование - когда один класс может быть производным сразу от нескольких других классов.
+					</p>
+					<p>
+						В C# разрешено только <span class="purple">одиночное наследование</span>.
+					</p>
+				</section>
+				<section>
+					<h2>Опасность множественного наследования</h2>
+					<blockquote>
+						Смертельный алмаз смерти
+					</blockquote>
+					<img src="img/deadly_diamond_of_death.jpg" />
+					<p>
+						С ним лучше не связываться!
+					</p>
+				</section>
+				<section>
+					<h2>Наследование в C#</h2>
+					<p>
+						Ещё раз, в C# класс может наследоваться только от одного базового класса.
+					</p>
+					<img src="img/line_inheritance.jpg">
+				</section>
+				<section>
+					<h3>Свойство транзитивности</h3>
+					<p>
+						Наследование транзитивно.
+					</p>
+					<p>
+						Это значит, что любые производные классы от производного какого-либо класса, также
+						являются производными от него. И в обратную сторону, все классы по иерархии наследования
+						выше текущего класса являются для него базовыми.
+					</p>
+					<p>
+						Т.е. если класс A потомок класса B, а B потомок класса C, то A тоже будет считаться потомком C.
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Принципы наследования</h2>
+					<p>
+						Наследование обычно предполагает <i>уточнение</i> какой-либо сущности.
+					</p>
+					<p>
+						Самый первый класс в иерархии наследования является самым абстрактным и обобщённым,
+						а последующие всё больше и больше уточняют поведение и подходят к частным случаям реализации.
+					</p>
+				</section>
+				<section>
+					<h3>Например</h3>
+					<img src="img/duck_inheritance.jpg" />
+				</section>
+				<section>
+					<h3>Или</h3>
+					<img src="img/clothes_inheritance.jpg" />
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Создание производного класса</h1>
+					<p>
+						Для того чтобы объявить, что класс является производным от какого-то другого класса,
+						нужно при его описании после имени класса через двоеточие (:) написать имя родительского класса. 
+					</p>
+					<pre>
+						<code class="cs">
+// Какой-то класс
+class SomeClass
+{
+	// ...
+}
+
+// Класс DerivedClass - производный от класса SomeClass
+class DerivedClass : SomeClass
+{
+	// ...
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cpp">
+// Класс собаки
+class Dog
+{
+	// Поля этого класса
+	public string Name { get; set; }
+	public string Breed { get; set; }
+	public int Age { get; set; }
+	public string Owner { get; set; }
+
+	// Открытый метод 
+	public void Walk()
+	{
+		Console.WriteLine("The {0} walks!", Name);
+		Random randGen = new Random();
+		int rndNumber = randGen.Next(4);
+		if (rndNumber == 3)
+		{
+			this.Pee();
+		}
+	}
+
+	// Закрытый метод
+	private int Pee()
+	{
+		Console.WriteLine("The {0} has urinated..", Name);
+		Random randGen = new Random();
+		int strenth = randGen.Next(1, 11);
+		return strenth;
+	}
+}
+
+// Класс собаки-ищейки, производный от класса собаки
+class PoliceDog : Dog
+{
+
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cs">
+class Program
+{
+	public static void Main(string[] args)
+	{
+		// Создаём объект класса Dog
+		Dog dog1 = new Dog();
+		// И используем его свойства и методы
+		dog1.Name = "Matilda";
+		dog1.Walk();
+
+		// Создаём объект класса PoliceDog
+		PoliceDog dog2 = new PoliceDog();
+		// И используем свойства и методы, доставшиеся ему по наследству
+		dog2.Name = "Rufus";
+		dog2.Age = 9;
+		dog2.Walk();
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Особенности наследования</h2>
+					<p>
+						Производный класс наследует всю функциональность базового класса, но не всей ей может пользоваться.
+					</p>
+					<p>
+						<span class="purple">private</span> члены базового класса <u>не доступны</u> в производных.  
+					</p>
+					<p>
+						Если нужно описать закрытый элемент класса, который должен быть виден и потомкам,
+						используется спецификатор доступа <span class="purple">protected</span>.
+					</p>
+				</section>
+				<section>
+					<h2>Особенности спецификаторов доступа</h2>
+					<img src="img/access_specifiers.jpg" />
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cs">
+class Gadget
+{
+	// Открытое свойство
+	public string Name { get; set; }
+
+	// Закрытое поле
+	private int gadgetId;
+
+	// Защищённый метод
+	protected void UpdateNameVersion()
+	{
+		// Дописываем к имени окончание
+		Name += "ver. 2.0";
+	}
+
+}
+
+// Производный класс от гаджета
+class Smartphone :  Gadget
+{
+	// Конструктор по умолчанию
+	public Smartphone()
+	{
+		// Обращаемся к разным элементам базового класса
+		Name = "Vivo Nex 7";
+		gadgetId = 2;    // Не доступно
+		UpdateNameVersion();
+
+	}
+
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём объект класса смартфон
+		Smartphone sm = new Smartphone();
+		// Обращаемся к разным членам класса
+		sm.Name = "New Name";
+		sm.gadgetId = 2;            // Не доступно
+		sm.UpdateNameVersion();     // Не доступно
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Добавление новых членов</h2>
+					<p>
+						В производном классе можно описывать любые допустимые для классов конструкции.
+					</p>
+					<p>
+						Т.е. производный класс состоит из собственных членов и элементов родителя.
+					</p>
+					<img src="img/inheritance_egg.jpg" />
+				</section>
+				<section>
+					<pre>
+						<code class="cs">
+// Класс собаки-ищейки, производный от класса собаки
+class PoliceDog : Dog
+{
+	// Новые свойства
+	public int Rank { get; set; }
+	public string Specialization { get; set; }
+
+	// Новые конструкторы, методы и т.д.
+	// Всё, что мы пишем в этом классе, дополняет функциональность от базового класса
+	public PoliceDog(string name, int age, string breed, string owner, int rank, string spec)
+	{
+		Name = name;
+		Age = age;
+		Breed = breed;
+		Owner = owner;
+		Rank = rank;
+		Specialization = spec;
+	}
+
+	public int UpRank()
+	{
+		++Rank;
+		return Rank;
+	}
+
+	public void Train()
+	{
+		Walk();
+		Console.WriteLine("The dog {0} goes to the hard training", Name);
+	}
+
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Переопределение методов</h2>
+					<p>
+						Иногда бывает нужно изменить поведение методов, унаследованных
+						от базового класса.
+					</p>
+					<p>
+						Замена функциональности метода базового класса на новую называется
+						<span class="purple">переопределением метода</span>.
+					</p>
+				</section>
+				<section>
+					<h2>Виртуальные методы</h2>
+					<p>
+						Нельзя просто взять и переопределить любой унаследованный метод.
+					</p>
+					<p>
+						Методы, которые разрешается переопределять, должны быть помечены
+						в базовом классе ключевым словом <span class="blue">virual</span>.
+						Такие методы называются <span class="purple">виртуальными методами</span>.
+					</p>
+					<p>
+						Если метод виртуальный, это не значит, что он должен быть переопределён. Это
+						значит, что он <u>может</u> быть переопределён.
+					</p>
+				</section>
+				<section>
+					<h2>Переопределённые методы</h2>
+					<p>
+						Чтобы переопределить виртуальный метод, нужно написать в производном классе
+						метод такой же сигнатуры (с таким же именем, спецификатором доступа, типом 
+						возвращаемого значения и набором параметров) и пометить его ключевым словом
+						<span class="blue">override</span>.
+					</p>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cs">
+class Dog
+{
+	public string Name { get; set; }
+	public string Breed { get; set; }
+	public int Age { get; set; }
+	public string Owner { get; set; }
+
+	public void Walk()
+	{
+		Console.WriteLine("The {0} walks!", Name);
+		Random randGen = new Random();
+		int rndNumber = randGen.Next(4);
+		if (rndNumber == 3)
+		{
+			this.Pee();
+		}
+	}
+
+	private int Pee()
+	{
+		Console.WriteLine("The {0} has urinated..", Name);
+		Random randGen = new Random();
+		int strenth = randGen.Next(1, 11);
+		return strenth;
+	}
+
+	// Новый виртуальный метод "Найти что-нибудь"
+	// в пределах заданной дистанции
+	public virtual string FindSmth(int distance)
+	{
+		// Генерируем случайное число
+		Random gen = new Random();
+		int rand = gen.Next(100); 
+		string found = "";
+		// В зависимости от дистанции поиска
+		if (distance &lt; 10)
+		{
+			found = rand &gt; 80 ? "stick" : "nothing";
+		}
+		else
+		{
+			// В зависимости от случайного числа выбираем, что собака найдёт
+			if (rand &lt; 33)
+			{
+				found = "stick";
+			}
+			else if (rand &gt; 33 && rand &lt; 66)
+			{
+				found = "bone";
+			}
+			else if (rand &gt; 66 && rand &lt; 95)
+			{
+				found = "tennis ball";
+			}
+			else
+			{
+				string[] vars = { "bottle", "treasure", "doll", "rabbit", "money", "phone", "broom", "book" }; 
+				rand = gen.Next(vars.Length);
+				found = vars[rand];
+			}
+		}
+		// Возвращаем найденную вещь
+		return found;
+	}
+}
+
+// Класс собаки-ищейки, производный от класса собаки
+class PoliceDog : Dog
+{
+	public int Rank { get; set; }
+	public string Specialization { get; set; }
+
+	public PoliceDog(string name, int age, string breed, string owner, int rank, string spec)
+	{
+		Name = name;
+		Age = age;
+		Breed = breed;
+		Owner = owner;
+		Rank = rank;
+		Specialization = spec;
+	}
+
+	public int UpRank()
+	{
+		++Rank;
+		return Rank;
+	}
+
+	public void Train()
+	{
+		Walk();
+		Console.WriteLine("And then goes to the hard training", Name);
+	}
+
+	// Новый метод, переопределяющий метод FindSmth базового класса.
+	public override string FindSmth(int distance)
+	{
+		var gen = new Random(100);
+		int rand = gen.Next();
+		string found = "";
+		if (distance &lt; 60)
+		{
+			found = "nothing";
+		}
+		else
+		{
+			found = rand &lt; 99 ? "nothing" : "explosive!";
+		}
+		return found;
+	}
+
+}
+
+class Program
+{
+	public static void Main(string[] args)
+	{
+		// Создаём объект класса собаки
+		var dog1 = new Dog();
+		
+		dog1.FindSmth(100);		// "bone"
+		dog1.FindSmth(100);		// "bone"
+		dog1.FindSmth(100);		// "tennis ball"
+		dog1.FindSmth(100);		// "stick"
+		dog1.FindSmth(100);		// "rabbit"
+		dog1.FindSmth(100);		// "tennis ball"
+
+		// Создаём объект класса собаки-ищейки
+		var dog2 = new PoliceDog("Arnold", 12, "Rottweiler", "Sgt. Bobbey", 2, "explosive");
+
+		dog2.FindSmth(100);		// "nothing"
+		dog2.FindSmth(100);		// "nothing"
+		dog2.FindSmth(100);		// "nothing"
+		dog2.FindSmth(100);		// "nothing"
+		dog2.FindSmth(100);		// "nothing"
+		dog2.FindSmth(100);		// "explosive!"
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Обращаемся к методу родителя</h2>
+					<p>
+						Но что, если нам не нужно полностью переписывать метод, а только дополнить его?
+					</p>
+					<p>
+						Даже если метод переопределён, всё равно остаётся возможность обратиться к
+						первоначальной версии метода.
+					</p>
+				</section>
+				<section>
+					<h2>Ключевое слово base</h2>
+					<p>
+						С помощью ключевого слова <span class="blue">base</span> можно обращаться
+						к содержимому базового класса.
+					</p>
+					<p>
+						Получается, что внутри класса есть два специальных ключевых слова 
+						<span class="blue">this</span> и <span class="blue">base</span>.
+					</p>
+					<p>
+						<span class="blue">this</span> используется для доступа к элементам
+						текущего класса (включая унаследованные элементы).
+					</p>
+					<p>
+						<span class="blue">base</span> используется для доступа к оригинальным
+						элементам базового класса.
+					</p>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<p>
+						Модифицируем метод FindSmth, чтобы он выполнял оригинальный метод, а потом наш дополнительный код.
+					</p>
+					<pre>
+						<code class="cs">
+// ...
+public override string FindSmth(int distance)
+{
+	// Вызываем оригинальный метод FindSmth и сохраняем строку, которую он вернул
+	string found = base.FindSmth(distance);
+	// А дальше то же самое, что и было
+ 	var gen = new Random(100);
+	int rand = gen.Next();
+	// При определённом стечении обстоятельств
+	if (distance &gt; 59 && rand &gt; 98)
+	{
+		// Собака находит взрывчатку
+		found = "explosive!";
+	}
+	return found;
+}
+// ...
+
+public static void Main(string[] args)
+{
+	// Создаём объект класса собаки-ищейки
+	var dog2 = new PoliceDog("Arnold", 12, "Rottweiler", "Sgt. Bobbey", 2, "explosive");
+
+	// И смотрим на разницу
+	dog2.FindSmth(100);		// "bone"
+	dog2.FindSmth(100);		// "bone"
+	dog2.FindSmth(100);		// "tennis ball"
+	dog2.FindSmth(100);		// "stick"
+	dog2.FindSmth(100);		// "rabbit"
+	dog2.FindSmth(100);		// "explosive!"
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Наследование и конструкторы</h2>
+					<p>
+						Во время создания объекта класса, происходит последовательный вызов
+						конструкторов всех базовых классов от начала иерархии.
+					</p>
+					<p>
+						В случае с классом собаки:
+					</p>
+					<pre>
+						<code class="cs">
+// Здесь сначала вызывается конструктор по умолчанию класса Object
+// Затем конструктор по умолчанию класса Dog
+// И последним конструктор класса PoliceDog, в который мы передаём параметры
+var dog2 = new PoliceDog("Arnold", 12, "Rottweiler", "Sgt. Bobbey", 2, "explosive");
+						</code>
+					</pre>
+					<p>
+						Погодите-ка, какой ещё класс <span class="turquoise">Object</span>?
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Ремарка</h2>
+					<h2>Класс Object</h2>
+					<p>
+						В .NET любой класс, у которого не задан родительский класс, неявно наследуется
+						от класса <span class="turquoise">Object</span> (или типа <span class="blue">object</span>).
+					</p>
+					<p>
+						Класс <span class="turquoise">Object</span> находится в основе иерархии всех классов .NET. Любой класс в .NET является
+						потомком этого класса.
+					</p>
+					<p>
+						Классы <span class="turquoise">Math</span>, <span class="turquoise">Console</span>, 
+						<span class="turquoise">Program</span>, <span class="turquoise">Int32</span>, 
+						<span class="turquoise">String</span>, <span class="turquoise">Array</span>, 
+						<span class="turquoise">Dog</span>, все являются производными от класса
+						<span class="turquoise">Object</span>. 
+					</p>
+				</section>
+				<section>
+					<h2>Методы класса Object</h2>
+					<p>
+						В нём описаны следующие универсальные методы:
+					</p>
+					<table>
+						<tr>
+							<td>Equals(Object)</td>
+							<td>Проверяет, равен ли указанный объект текущему объекту</td>
+						</tr>
+						<tr>
+							<td>Finalize()</td>
+							<td>Финализатор, выполняется перед удалением объекта</td>
+						</tr>
+						<tr>
+							<td>GetHashCode()</td>
+							<td>Используется как хеш-функция по умолчанию</td>
+						</tr>
+						<tr>
+							<td>GetType()</td>
+							<td>Возвращает тип текущего объекта</td>
+						</tr>
+						<tr>
+							<td>MemberwiseClone()</td>
+							<td>Создаёт поверхностную копию текущего объекта</td>
+						</tr>
+						<tr>
+							<td>ToString()</td>
+							<td>Преобразовывает текущий объект в строку</td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<h2>Статические методы класса Object</h2>
+					<table>
+						<tr>
+							<td>Equals(Object, Object)</td>
+							<td>Проверяет два объекта на равенство используя обычный метод Object</td>
+						</tr>
+						<tr>
+							<td>ReferenceEquals(Object, Object)</td>
+							<td>Сравнивает ссылки объектов на равенство</td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<h2>Переопределение методов класса Object</h2>
+					<p>
+						Сами по себе эти методы для нас представляют мало практической пользы, но некоторые из
+						них являются виртуальными, а значит, их можно переопределить.
+					</p>
+					<p>Виртуальные методы Object-а:</p>
+					<ul>
+						<li>Equals(Object)</li>
+						<li>Finalize()</li>
+						<li>GetHashCode()</li>
+						<li>ToString()</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Метод ToString</h2>
+					<p>
+						Рассмотрим метод ToString, как самый показательный.
+					</p>
+					<p>
+						Методы ToString используется при неявном приведении объекта класса к типу строки.
+					</p>
+					<p>
+						Например, когда вы пишите:
+					</p>
+					<pre>
+						<code class="cs">
+Dog myDog = new Dog();
+
+// Здесь объект класса Dog преобразовывается с помощью метода ToString в строку для вывода на консоль
+Console.WriteLine(myDog);
+// И здесь 
+string str = "Dog: " + myDog;
+						</code>
+					</pre>
+					<p>
+						<u>Объект любого класса может быть преобразован к строке.</u>
+					</p>
+					<p>
+						Потому что у любого класса есть этот метод - ToString.
+					</p>
+				</section>
+				<section>
+					<h2>Базовая реализация ToString</h2>
+					<p>
+						Другое дело, что стандартная реализация этого метода преобразует к строке не
+						слишком то и хорошо.
+					</p>
+					<pre>
+						<code class="cs">
+Dog myDog = new Dog();
+Console.WriteLine(myDog);	// TestConsoleApp1.Dog
+
+int[] arr = { 1, 2, 3, 4 };
+Console.WriteLine(arr);		// System.Int32[]
+						</code>
+					</pre>
+					<p>
+						По умолчанию, базовая реализация метода ToString, которая описана в классе Object,
+						возвращает строку с полным именем типа текущего объекта.
+					</p>
+				</section>
+				<section>
+					<h2>Переопределение ToString</h2>
+					<p>
+						Переопределив в классе метод ToString можно написать свою реализацию преобразования
+						объекта класса в строку. Например:
+					</p>
+					<pre>
+						<code class="cs">
+class Dog
+{
+	public string Name { get; set; }
+	public string Breed { get; set; }
+	public int Age { get; set; }
+	public string Owner { get; set; }
+
+	public virtual void Walk()
+	{
+		Console.WriteLine("The {0} walks!", Name);
+		Random randGen = new Random();
+		int rndNumber = randGen.Next(4);
+		if (rndNumber == 3)
+		{
+			this.Pee();
+		}
+	}
+
+	private int Pee()
+	{
+		Console.WriteLine("The {0} has urinated..", Name);
+		Random randGen = new Random();
+		int strenth = randGen.Next(1, 11);
+		return strenth;
+	}
+
+	// Добавляем переопределённый метод ToString базового класса Object
+	public override string ToString()
+	{
+		// Возвращаем собственный вариант строки
+		return $"Dog named {Name}, with owner {Owner}, {Breed}, {Age} years";
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём объект класса Dog
+		Dog dog1 = new Dog();
+		dog1.Name = "Mikkey";
+		dog1.Breed = "American cocker spaniel";
+		dog1.Age = 2;
+		dog1.Owner = "Mr. Garrison";
+
+		// Создаём объект класса PoliceDog
+		PoliceDog dog2 = new PoliceDog("Ralf", 8, "Indian pariah dog", "Officer Mc'Cry", 3, "Explosive");
+
+		// Неявное преобразование к строке, вызов метода ToString, который нами переопределён
+		Console.WriteLine(dog1);
+		// Вывод: Dog named Mikkey, with owner Mr. Garrison, American cocker spaniel, 2 years
+
+		// Класс PoliceDog является производным от класса Dog
+		// Поэтому он наследует переопределённую версию метода ToString
+		Console.WriteLine(dog2);
+		// Вывод: Dog named Ralf, with owner Officer Mc'Cry, Indian pariah dog, 8 years
+
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Переопределяем переопределённый метод</h3>
+					<p>
+						Но у класса PoliceDog есть 2 дополнительных свойства, которые тоже хотелось бы
+						выводить на консоль. Для этого в этом классе можно также переопределить 
+						переопределённый метод ToString.
+					</p>
+					<pre>
+						<code class="cs">
+class Dog
+{
+	public string Name { get; set; }
+	public string Breed { get; set; }
+	public int Age { get; set; }
+	public string Owner { get; set; }
+
+	public virtual void Walk()
+	{
+		Console.WriteLine("The {0} walks!", Name);
+		Random randGen = new Random();
+		int rndNumber = randGen.Next(4);
+		if (rndNumber == 3)
+		{
+			this.Pee();
+		}
+	}
+
+	private int Pee()
+	{
+		Console.WriteLine("The {0} has urinated..", Name);
+		Random randGen = new Random();
+		int strenth = randGen.Next(1, 11);
+		return strenth;
+	}
+
+	// Переопределённый метод в классе Dog
+	public override string ToString()
+	{
+		// Возвращаем собственный вариант строки
+		return $"Dog named {Name}, with owner {Owner}, {Breed}, {Age} years";
+	}
+}
+
+class PoliceDog : Dog
+{
+	public int Rank { get; set; }
+	public string Specialization { get; set; }
+
+	public PoliceDog(string name, int age, string breed, string owner, int rank, string spec)
+	{
+		Name = name;
+		Age = age;
+		Breed = breed;
+		Owner = owner;
+		Rank = rank;
+		Specialization = spec;
+	}
+
+	public int UpRank()
+	{
+		++Rank;
+		return Rank;
+	}
+
+	public void Train()
+	{
+		base.Walk();
+		Console.WriteLine("The dog {0} goes to the hard training", Name);
+	}
+
+	public override void Walk()
+	{
+		Console.WriteLine("The police dog {0} walks!", Name);
+	}
+
+	// Переопределяем метод Dog-а ToString
+	public override string ToString()
+	{
+		// Возвращаем строку, сформированную из результата выполнения метода ToString базового класса
+		// И дополнительной информации от текущего класса
+		return "Police " + base.ToString() + $". With rank {Rank} and specializing in {Specialization}"; 
+	}
+
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём объект класса Dog
+		Dog dog1 = new Dog();
+		dog1.Name = "Mikkey";
+		dog1.Breed = "American cocker spaniel";
+		dog1.Age = 2;
+		dog1.Owner = "Mr. Garrison";
+
+		// Создаём объект класса PoliceDog
+		PoliceDog dog2 = new PoliceDog("Ralf", 8, "Indian pariah dog", "Officer Mc'Cry", 3, "Explosive");
+
+		// Вызов ToString класса Dog
+		Console.WriteLine(dog1);
+		// Вывод: Dog named Mikkey, with owner Mr. Garrison, American cocker spaniel, 2 years
+
+		// Вызов ToString класса PoliceDog, который внутри вызывает ToString класса Dog
+		Console.WriteLine(dog2);
+		// Вывод: Police Dog named Ralf, with owner Officer Mc'Cry, Indian pariah dog, 8 years. With rank 3 and specializing in Explosive
+
+	}
+}	
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Наследование и конструкторы</h2>
+					<p>
+						Вернёмся к нашим конструкторам.
+					</p>
+					<p>
+						При вызове конструктора производного класса, перед ним неявно вызываются
+						конструкторы по умолчанию всех базовых классов.
+					</p>
+					<p>
+						Но часто бывает нужно выполнять не конструктор по умолчанию в базовых классах,
+						а конструктор с параметрами.
+					</p>
+					<p>
+						<i>В конструкторе производного класса можно указывать, какой конструктор базового
+						класса вызвать перед ним.</i>
+					</p>
+				</section>
+				<section>
+					<h3>Иерархия классов музыкальных инструментов</h3>
+					<p>
+						Проблема:
+					</p>
+					<pre>
+						<code class="cs">
+// Класс музыкального инструмента
+class MusicalInstrument
+{
+	// Свойства
+	public string Name { get; set; }
+	public string SoundRange { get; set; }
+	public string Timbre { get; set; }
+	public int UniqueId { get; private set; }
+
+	// Закрытый метод
+	private int GetRandomId()
+	{
+		Random randGen = new Random();
+		int a = randGen.Next(1000000);
+		int b = randGen.Next(1000);
+		return a % b + 4321 - b / 2;
+	}
+
+	// Конструктор по умолчанию
+	public MusicalInstrument()
+	{
+		Name = "Unnamed";
+		SoundRange = "0";
+		Timbre = "void";
+		UniqueId = GetRandomId();
+	}
+
+	// Конструктор с параметрами
+	public MusicalInstrument(string name, string soundRange, string timbre)
+	{
+		Name = name;
+		SoundRange = soundRange;
+		Timbre = timbre;
+		UniqueId = GetRandomId();
+	}
+}
+
+// Класс струнного музыкального инструмента
+class StringInstrument : MusicalInstrument
+{
+	// Свойства
+	public string Type { get; set; }
+	public int StringCount { get; set; }
+	public int ScaleLength { get; set; }
+
+	// Конструктор по умолчанию
+	public StringInstrument()
+	{
+		Name = "Unnamed";
+		SoundRange = "0";
+		Timbre = "void";
+		Type = "None";
+		StringCount = 0;
+		ScaleLength = 0;
+
+	}
+
+	// Конструктор с параметрами
+	public StringInstrument(string name, string soundRange, string timbre, string type, int stringCount, int scaleLength)
+	{
+		Name = name;
+		SoundRange = soundRange;
+		Timbre = timbre;
+		Type = type;
+		StringCount = stringCount;
+		ScaleLength = scaleLength;
+	}
+	
+}
+
+// Класс фортепиано
+class Piano : StringInstrument
+{
+	// Свойства
+	public int KeyCount { get; set; };
+	public int PedalsCount { get; set; };
+
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Использование конструкторов базового класса</h3>
+					<pre>
+						<code class="cs">
+// Класс музыкального инструмента
+class MusicalInstrument
+{
+	// Свойства
+	public string Name { get; set; }
+	public string SoundRange { get; set; }
+	public string Timbre { get; set; }
+	public int UniqueId { get; private set; }
+
+	// Закрытый метод
+	private int GetRandomId()
+	{
+		Random randGen = new Random();
+		int a = randGen.Next(1000000);
+		int b = randGen.Next(1000);
+		return a % b + 4321 - b / 2;
+	}
+
+	// Конструктор по умолчанию
+	public MusicalInstrument()
+	{
+		Name = "Unnamed";
+		SoundRange = "0";
+		Timbre = "void";
+		UniqueId = GetRandomId();
+	}
+
+	// Конструктор с параметрами
+	public MusicalInstrument(string name, string soundRange, string timbre)
+	{
+		Name = name;
+		SoundRange = soundRange;
+		Timbre = timbre;
+		UniqueId = GetRandomId();
+	}
+}
+
+// Класс струнного музыкального инструмента
+class StringInstrument : MusicalInstrument
+{
+	// Свойства
+	public string Type { get; set; }
+	public int StringCount { get; set; }
+	public int ScaleLength { get; set; }
+
+	// Конструктор по умолчанию, вызывающий конструктор по умолчанию базового класса
+	public StringInstrument() : base()
+	{
+		StringCount = 0;
+		ScaleLength = 0;
+	}
+
+	// Конструктор с параметрами, вызывающий конструктор по умолчанию базового класса
+	public StringInstrument(string type, int stringCount, int scaleLength) : base()
+	{
+		Type = type;
+		StringCount = stringCount;
+		ScaleLength = scaleLength;
+	}
+
+	// Конструктор с параметрами, вызывающий конструктор с параметрами базового класса
+	public StringInstrument(string name, string soundRange, string timbre, string type, int stringCount, int scaleLength)
+		: base(name, soundRange, timbre)
+	{
+		Type = type;
+		StringCount = stringCount;
+		ScaleLength = scaleLength;
+	}
+	
+}
+
+// Класс фортепиано
+class Piano : StringInstrument
+{
+	// Свойства
+	public int KeyCount { get; set; };
+	public int PedalCount { get; set; };
+
+	// Конструктор по умолчанию, вызывающий конструктор по умолчанию базового класса
+	public Piano() : base()
+	{
+		KeyCount = 0;
+		PedalCount = 0;
+	}
+
+	// Конструктор с параметрами, вызывающий конструктор по умолчанию базового класса
+	public Piano(int keyCount, int pedalCount) : base()
+	{
+		KeyCount = keyCount;
+		PedalCount = pedalCount;
+	}
+
+	// Конструктор с параметрами, вызывающий конструктор с параметрами базового класса
+	public Piano(string name, string soundRange, string timbre, string type, int stringCount, int scaleLength, int keyCount, int pedalCount)
+		: base(name, soundRange, timbre, type, stringCount, scaleLength)
+	{
+		KeyCount = keyCount;
+		PedalCount = pedalCount;
+	}
+
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Абстрактные классы</h2>
+					<p>
+						<span class="purple">Абстрактный класс</span> - незавершенный класс, который 
+						используется только для наследования. Для такого класса невозможно создать объект.
+					</p>
+					<p>
+						Обычно, абстрактные классы используются в качестве начального компонента иерархии классов.
+						Или просто когда класс описывает какую-то абстрактную сущность, от которой 
+						всегда должны наследоваться другие классы.
+					</p>
+					<p>
+						Абстрактный класс помечается ключевым словом <span class="blue">abstract</span>.
+					</p>
+				</section>
+				<section>
+					<h2>Абстрактные члены класса</h2>
+					<p>
+						Только в абстрактном классе могут содержаться абстрактные члены класса.
+						Абстрактными могут быть методы, свойства, индексаторы и события.
+					</p>
+					<p>
+						<span class="purple">Абстрактный член класса</span> не имеет реализации, и должен
+						обязательно быть реализован в производных классах.
+					</p>
+					<p>
+						Абстрактные члены класса также помечаются ключевым словом <span class="blue">abstract</span>.
+					</p>
+					<p>
+						В производных классах реализация абстрактных членов класса должна быть
+						помечена ключевым словом <span class="blue">override</span>.
+					</p>
+				</section>
+				<section>
+					<h3>Абстрактные свойства и методы</h3>
+					<p>
+						Свойства, помеченные как абстрактные, не должны иметь реализации, т.е.
+						у них не должно быть кода аксессоров get и set:
+					</p>
+					<pre>
+						<code class="cs">
+спецификатор_доступа abastract тип Имя
+{
+	get;
+	// Get без тела
+	set;
+	// Set без тела
+}
+						</code>
+					</pre>
+					<p>
+						Абстрактные методы не должны иметь тела функции, только сигнатуру вызова:
+					</p>
+					<pre>
+						<code class="cs">
+спецификатор_доступа abstract возвращаемый_тип Имя(параметры);
+// Метод без тела
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Замечание про static</h2>
+					<p>
+						abstract и static не совместимы. Собственно, как и virtual со static.
+					</p>
+					<p>
+						Статические члены класса в принципе не могут быть ни абстрактными,
+						ни виртуальными, ни какими бы то ни было ещё - только статическими.
+					</p>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cs">
+// Абстрактный класс животного 
+abstract class Animal
+{
+	// Абстрактные свойства
+	public abstract string Specie { get; protected set; }
+	public abstract string Name { get; set; }
+
+	// Защищённое статическое свойство
+	protected static string Voice { get; set; }
+
+	// Обычное поле со свойством
+	private int age;
+	public int Age
+	{
+		get
+		{
+			return age;
+		}
+		set
+		{
+			age = value;
+		}
+	}
+
+	// Абстрактный метод, без реализации
+	public abstract bool Breeding();
+
+	// Виртуальный метод
+	public virtual void Eat()
+	{
+		Console.WriteLine("{0} eat grass", Name);
+	}
+
+	// Обыкновенный метод
+	public string MadeSound()
+	{
+		Console.WriteLine("{0} - {0}!", Voice, Voice);
+		return Voice;
+	}
+}
+
+// Производный класс от класса Животного - класс Черепаха
+class Turtle : Animal
+{
+
+	// Реализуем абстрактное свойство базового класса
+	private string specie;
+	public override string Specie
+	{
+		get
+		{
+			return specie;
+		}
+		protected set
+		{
+			if (string.Compare(value, "Green Turtle", true) == 0 ||
+				string.Compare(value, "Flatback", true) == 0 ||
+				string.Compare(value, "Loggerhead", true) == 0)
+			{
+				specie = value;
+			}
+		}
+	}
+
+	// Реализуем второе абстрактное свойство
+	public override string Name { get; set; }
+
+	// Статический конструктор
+	static Turtle()
+	{
+		Voice = "....";
+	}
+
+	// Реализуем абстрактный метод базового класса
+	public override bool Breeding()
+	{
+		var randomGenerator = new Random();
+		int randInt = randomGenerator.Next(3);
+		if (randInt == 0)
+		{
+			Console.WriteLine("Turtle {0} laid eggs on the beach!", Name);
+			return false;
+		}
+		else
+		{
+			Console.WriteLine("Turtle {0} failed to lay eggs...", Name);
+			return true;
+		}
+	}
+
+	// Новый метод
+	public void TransformToNinja()
+	{
+		string[] suitableNames = { "Leonardo", "Micheleangelo", "Donatello", "Raphael" };
+		if (Array.IndexOf(suitableNames, Name) != -1)
+		{
+			Console.WriteLine("And....");
+			Console.WriteLine("Transformation!...............");
+			Console.WriteLine("Now {0} is Ninja Turtle!", Name);
+		}
+		else
+		{
+			Console.WriteLine("And....");
+			Console.WriteLine("Something went wrong...........");
+			Console.WriteLine("Turtle {0} died.....", Name);
+		}
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Интерфейсы</h1>
+					<p>
+						К абстрактным классам близки Интерфейсы.
+					</p>
+					<blockquote>
+						<span class="purple">Интерфейс</span>(или Протокол) - набор абстрактных 
+						членов (обычно методов), которые должны быть обязательно реализованы классами
+						с этим интерфейсом. 
+					</blockquote>
+					<p>
+						Интерфейсы описываются с помощью ключевого слова <span class="blue">interface</span>.
+					</p>
+					<p>
+						Интерфейсы, это отдельные элементы в программировании, наподобие классов, структур, перечислений.
+					</p>
+					<pre>
+						<code class="cs">
+interface IName
+{
+	// ...
+}
+						</code>
+					</pre>
+					<p>
+						Имена интерфейсов должны начинаться на букву <span class="purple">I</span>. 
+					</p>
+				</section>
+				<section>
+					<h2>Интерфейсы и классы</h2>
+					<p>
+						Как мы уже знаем, любой класс может <span class="purple">наследоваться</span> от
+						одного другого класса.
+					</p>
+					<p>
+						Помимо этого
+					</p>
+					<p>
+						Любой класс может <span class="purple">реализовывать</span> любое количество
+						интерфейсов.
+					</p>
+				</section>
+				<section>
+					<h2>Класс реализующий интерфейс</h2>
+					<p>
+						Для обозначения реализации интерфейса используется такая же нотация,
+						как и при наследовании.
+					</p>
+					<p>
+						Единственное, что имя родительского класса, если он есть, 
+						должно всегда идти первым в списке.
+					</p>
+					<pre>
+						<code class="cs">
+class SomeClass1 : IInterface1
+{
+	// ...
+}
+
+class SomeClass2 : ParentClass, IInterface1
+{
+	// ...
+}
+
+class SomeClass3 : ParentClass, IInterface1, IInterface2, IInterface3
+{
+	// ...
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Различия интерфейсов и абстрактных классов</h2>
+					<p>
+						Интерфейсы состоят из абстрактных методов (или других членов класса).
+					</p>
+					<p>
+						В отличие от абстрактных классов, в интерфейсе не может присутствовать ничего
+						другого, т.е. никакой реализации (до версии C#8.0)
+					</p>
+					<p>
+						Абстрактные члены в абстрактном классе могут иметь различные спецификаторы
+						доступа, а в интерфейсе элементы всегда public.
+					</p>
+					<p>
+						Класс может наследовать лишь 1 абстрактный класс, а интерфейсов иметь
+						неограниченное количество.
+					</p>
+					<p>
+						Но главное различие - идейное.
+					</p>
+				</section>
+				<section>
+					<h2>Предназначение интерфейсов</h2>
+					<p>
+						Абстрактные классы мы используем, когда необходимо описать какую-то
+						неопределённую сущность, понятие, которое будет раскрываться в дальнейшем,
+						через производные классы.
+					</p>
+					<p>
+						А интерфейсы описывают <span class="purple">способность</span> делать что-то,
+						выполнять какую-либо функциональность. 
+					</p>
+					<p>
+						Например, интерфейс <span class="turquoise">ICallable</span> - описывает способность 
+						совершать и отвечать на звонки. Будет реализовываться классами
+						<span class="turquoise">Telephone</span>, <span class="turquoise">Smartphone</span>,
+						<span class="turquoise">Tablet</span> и <span class="turquoise">WalkieTalkie</span>.
+					</p>
+					<p>
+						Поэтому имена интерфейсов принято заканчивать суффиксом -able.
+					</p>
+				</section>
+				<section>
+					<h2>Ещё немного об интерфейсах</h2>
+					<p>
+						Методы в интерфейсах описываются без всяких дополнительных ключевых слов, и даже
+						без спецификаторов доступа.
+					</p>
+					<p>
+						Вот при реализации классом, все методы из интерфейса уже должны быть со спецификатором
+						доступа public.
+					</p>
+					<p>
+						Интерфейсы играют особую роль в полиморфизме, но об этом попозже.
+					</p>
+					<pre>
+						<code class="cs">
+interface ICallable
+{
+	bool MakeCall(string number);
+	void TakeCall();
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Примеры</h3>
+					<p>
+						Модифицируем пример с собакой, добавив к нему интерфейс для способности лаять:
+					</p>
+					<pre>
+						<code class="cs">
+interface IBarkable
+{
+	void Bark(int power);
+	void Whine();
+}
+
+class Dog : IBarkable
+{
+	public string Name { get; set; }
+	public string Breed { get; set; }
+	public int Age { get; set; }
+	public string Owner { get; set; }
+
+	public virtual void Walk()
+	{
+		Console.WriteLine("The {0} walks!", Name);
+		Random randGen = new Random();
+		int rndNumber = randGen.Next(4);
+		if (rndNumber == 3)
+		{
+			this.Pee();
+		}
+	}
+
+	private int Pee()
+	{
+		Console.WriteLine("The {0} has urinated..", Name);
+		Random randGen = new Random();
+		int strenth = randGen.Next(1, 11);
+		return strenth;
+	}
+
+	public override string ToString()
+	{
+		return $"Dog named {Name}, with owner {Owner}, {Breed}, {Age} years";
+	}
+
+	public void Bark(int power)
+	{
+		switch(power)
+		{
+		case 0:
+			Whine();
+			break;
+		case 1:
+			Console.WriteLine("Woof...");
+			break;
+		case 2:
+			Console.WriteLine("Woof!");
+			break;
+		case 3:
+			Console.WriteLine("Woof! Woof! Woof!");
+			break;
+		case 4:
+			Console.WriteLine("WOOOOF!!! WOOOFFFF!!!");
+			break;
+		default:
+			Console.WriteLine("Quack");
+			break;
+		}
+	}
+
+	public void Whine()
+	{
+		Console.WriteLine("Whiiee..");
+		Console.WriteLine("Whie...");
+		Console.WriteLine(".....");
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Наследование интерфейсов</h2>
+					<p>
+						Интерфейсы, также как и классы, могут наследовать другие интерфейсы.
+					</p>
+					<p>
+						Но тут нет ничего особенного. Если у класса в интерфейсах встретятся 
+						методы с одинаковой сигнатурой, одна реализация подойдет для обоих интерфейсов.
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Классы импотенты</h2>
+					<p>
+						Или <span class="purple">запечатанные классы</span> - это классы, от которых запрещено
+						наследоваться, от такого класса невозможно создать производный.
+					</p>
+					<p>
+						Запечатанными обычно назначаются классы в распространяемых библиотеках, которые
+						имеют логически завершенную структуру и функциональность, и расширение
+						которых больше не предполагается.
+					</p>
+					<p>
+						Для того, чтобы отметить класс как запечатанный, используется
+						ключевое слово <span class="blue">sealed</span>.
+					</p>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cs">
+// Класс Змеи, производный от класса Животного
+class Snake : Animal
+{
+	// ...
+}
+
+// Запечатанный класс Зелёного питона, производный от класса Змеи
+// От него нельзя больше делать производные классы
+sealed class GreenTreePython : Snake
+{
+	// ...
+}
+
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Запечатанные методы</h2>
+					<p>
+						Методы тоже можно запечатывать. Но не все, а только переопределённые виртуальные.
+						Таким образом они защищаются от последующего переопределения.
+					</p>
+					<p>
+						Для этого метод помечается тем же ключевым словом <span class="blue">sealed</span>.
+					</p>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cs">
+// Допустим, метод Breeding у класса Snake:
+// sealed может быть только у override метода
+public override sealed bool Breeding()
+{
+	Random r = new Random();
+	int numberOfEggs = r.Next(4, 20);
+	Console.WriteLine("The snake laid {0} eggs", numberOfEggs);
+}
+
+// Теперь класс GreenTreePython не сможет переопределить этот метод
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h3>Сокрытие методов</h3>
+					<p>
+						И, напоследок, ещё кое-что.
+					</p>
+					<p>
+						Помимо переопределения методов, есть ещё и сокрытие методов.
+					</p>
+					<p>
+						<span class="purple">Сокрытие</span> - это создание в производном классе метода,
+						одинакового по сигнатуре с методом в базовом классе. Метод в производном классе 
+						перекрывает метод в базовом классе.
+					</p>
+					<p>
+						Т.е. это написание метода с таким же именем и параметрами, как в базовом классе.
+						И за счёт совпадения имён будет виден только один из них, а именно скрывающий метод
+						в производном классе.
+					</p>
+					<p>
+						Для сокрытия метода, скрывающий метод должен быть помечен ключевым словом 
+						<span class="blue">new</span>.
+					</p>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cs">
+class Dog
+{
+	public string Name { get; set; }
+	public string Breed { get; set; }
+	public int Age { get; set; }
+	public string Owner { get; set; }
+
+	public virtual void Walk()
+	{
+		Console.WriteLine("The {0} walks!", Name);
+		Random randGen = new Random();
+		int rndNumber = randGen.Next(4);
+		if (rndNumber == 3)
+		{
+			this.Pee();
+		}
+	}
+
+	private int Pee()
+	{
+		Console.WriteLine("The {0} has urinated..", Name);
+		Random randGen = new Random();
+		int strenth = randGen.Next(1, 11);
+		return strenth;
+	}
+
+	// Переопределение
+	public override string ToString()
+	{
+		return $"Dog named {Name}, with owner {Owner}, {Breed}, {Age} years";
+	}
+
+	// Новый метод
+	public int GetStamina()
+	{
+		int stamina = 20 * (8 - Math.Abs(Age - 8)) / 8;
+		Console.WriteLine("The dog stamina: {0}/100", stamina); 
+		return stamina;
+	}
+}
+
+class PoliceDog : Dog
+{
+	public int Rank { get; set; }
+	public string Specialization { get; set; }
+
+	public PoliceDog(string name, int age, string breed, string owner, int rank, string spec)
+	{
+		Name = name;
+		Age = age;
+		Breed = breed;
+		Owner = owner;
+		Rank = rank;
+		Specialization = spec;
+	}
+
+	public int UpRank()
+	{
+		++Rank;
+		return Rank;
+	}
+
+	public void Train()
+	{
+		base.Walk();
+		Console.WriteLine("The dog {0} goes to the hard training", Name);
+	}
+
+	public override void Walk()
+	{
+		Console.WriteLine("The police dog {0} walks!", Name);
+	}
+
+	// Переопределённый метод
+	public override string ToString()
+	{
+		return "Police " + base.ToString() + $". With rank {Rank} and specializing in {Specialization}"; 
+	}
+	
+	// Скрывающий метод
+	public new int GetStamina()
+	{
+		// Изменённая формула - вместо 20 здесь значение 100
+		int stamina = 100 * (8 - Math.Abs(Age - 8)) / 8;
+		Console.WriteLine("The police dog stamina: {0}/100", stamina);
+		return stamina; 
+	}
+
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём объект класса Dog
+		Dog dog1 = new Dog();
+		dog1.Name = "Mikkey";
+		dog1.Breed = "American cocker spaniel";
+		dog1.Age = 2;
+		dog1.Owner = "Mr. Garrison";
+
+		// Создаём объект класса PoliceDog
+		PoliceDog dog2 = new PoliceDog("Ralf", 8, "Indian pariah dog", "Officer Mc'Cry", 3, "Explosive");
+
+		// Вызов ToString класса Dog
+		dog1.GetStamina();
+		// Вывод: The dog stamina: 5/100
+
+		// Вызов ToString класса PoliceDog, который внутри вызывает ToString класса Dog
+		dog2.GetStamina()
+		// Вывод: The police dog stamina: 100/100
+	}
+}	
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Сокрытие, переопределение...</h3>
+					<p>
+						При сокрытии в классе остаётся 2 варианта метода: скрытый, унаследованный от
+						базового класса, доступ к которому нельзя получить. И новый
+						видимый, который перекрывает предыдущий.
+					</p>
+					<p>
+						Зачем это, и в чём отличие от переопределения?
+					</p>
+					<br />
+					<p>
+						Пора выйти из тени Полиморфизму!
+					</p>
+				</section>
+				<section>
+				</section>
+			</section>
+		</div>
+	</div>
+	<aside id="presentable-icon" class="cpp">
+		<a title="Содержание лекции" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x"></i>
+		</a>
+	</aside>
+    <aside id="presentable-icon-close">
+        <a title="К списку материалов" href="../../index.html#/1">
+            <i class="fa fa-times fa-2x"></i>
+        </a>
+    </aside>
+	<script src="../../js/bundle.min.js"></script>
+</body>
+
+</html>

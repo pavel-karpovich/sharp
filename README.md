@@ -25,17 +25,17 @@
 
 [Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/4_classes/index.html "Лекция")
 
-### Тема 4. Наследование классов
+### Тема 5. Наследование классов
 
 Наследование. Наследование классов. Иерархия классов. Возможности классов-наследников. Абстрактные классы.
 
-[Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/4_inheritance/index.html "Лекция")
+[Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/5_inheritance/index.html "Лекция")
 
-### Тема 5. Интерфейсы и полиморфизм
+### Тема 5. Полиморфизм
 
-Интерфейсы. Наследование интерфейсов. Реализация интерфейсов классами. Полиморфизм.
+Полиморфизм подтипов. Полиморфизм интерфейсов. Применение полиморфизма.
 
-[Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/5_plymorphism/index.html "Лекция")
+[Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/6_plymorphism/index.html "Лекция")
 
 ### Тема 6. Обобщения и переопределение операторов
 

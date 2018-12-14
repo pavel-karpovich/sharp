@@ -1,0 +1,1209 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Object-oriented programming</title>
+	<meta name="description" content="programming paradigm OOP in C#, concept of classes and objects, attributes and methods">
+	<meta name="keywords" content="c#, oop, class, object, interface">
+	<meta name="author" content="Edward & Albert">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="../../css/bundle.min.css">
+	<!--[if lt IE 9]>
+		<script src="../../js/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+                <section>
+                    <h1>Объектно-ориентированное программирование</h1>
+                    <h3>Полиморфизм</h3>
+                    <p>
+                        <small>Edward &amp; Albert / <a href="https://github.com/tgjmjgj/sharp/">github:Tgjmjgj</a></small>
+                    </p>
+                </section>
+				<section>
+					<h2>Содержание лекции</h2>
+					<nav id="presentable-toc" class="table-content"></nav>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Полиморфизм</h1>
+					<img src="img/polymorphism.jpg" />
+				</section>
+				<section>
+					<h2>Определение полиморфизма</h2>
+					<blockquote>
+						<span class="purple">Полиморфизмом</span> называется способность одних типов выступать
+						в форме других типов. Или же способность функции обрабатывать данные разных типов.
+					</blockquote>
+				</section>
+				<section>
+					<h2>База</h2>
+					<p>
+						Как один тип может выступать в форме другого типа?
+					</p>
+					<p>
+						Попробуем взглянуть на наследование с такой стороны:
+					</p>
+					<p>
+						Наследование - это отношение "является". Любой производный класс
+						"является" сущностью, которую представляет его базовый класс.
+					</p>
+					<p>
+						Пусть у нас есть класс <span class="turquoise">Fruit</span>. И класс 
+						<span class="turquoise">Banana</span>, производный от него. А ещё класс
+						<span class="turquoise">Apple</span>, тоже потомок <span class="turquoise">Fruit</span>.
+					</p>
+					<p>
+						В таком случае, <span class="turquoise">Banana</span> "является"
+						<span class="turquoise">Fruit</span> и <span class="turquoise">Apple</span>
+						"является" <span class="turquoise">Fruit</span>.
+					</p>
+				</section>
+				<section>
+					<h2>Полиморфизм в коде</h2>
+					<p>
+						Это свойство классов проявляется в коде в виде возможности представить объект 
+						какого-то класса в виде объекта базового для него класса. 
+					</p>
+					<pre>
+						<code class="cs">
+// Базовый класс Фрукт
+class Fruit
+{
+	// Свойство Название
+	public string Name { get; set; }
+}
+
+// Производный от Фрукта класс Банан
+class Banana : Fruit
+{
+	// Свойство Длина
+	public int Length { get; set; }
+}
+
+// Производный от Фрукта класс Яблоко
+class Apple : Fruit
+{
+	// Свойство Цвет
+	public string Color { get; set; }
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём экземпляр класса Banana
+		Banana ban = new Banana();
+		// Присваиваем объект типа Banana ссылке на тип Fruit
+		Fruit fruit = ban;
+
+		// Создаём экземпляр класса Apple
+		Apple ap = new Apple();
+		// Присваиваем объект типа Aplle ссылке на тип Fruit
+		Fruit fr2 = ap;
+
+		// Создаём ещё один объект типа Apple и помещаем его в тип Fruit
+		Fruit fr3 = new Apple();
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Виды полиморфизма</h2>
+					<p>
+						Полиморфизм бывает 2 видов:
+					</p>
+					<ul>
+						<li>Параметрический (истинный) полиморфизм</li>
+						<li>Ad hoc полиморфизм</li>
+					</ul>
+					<p>
+						Ad hoc полиморфизм является не совсем настоящим полиморфизмом. Он наблюдается тогда,
+						когда мы вручную прописываем различные варианты поведения для различных типов.
+					</p>
+				</section>
+				<section>
+					<h2>Ad hoc полиморфизм</h2>
+					<p>
+						Простейшим случаем Ad hoc полиморфизма можно считать перегрузку функций:
+						когда мы для различных типов параметров прописываем различные варианты методов.
+					</p>
+					<pre>
+						<code class="cs">
+// Класс Шеф-повара
+class Chef
+{
+	// Метод Приготовить что-нибудь из банана
+	public string CookSmth(Banana b)
+	{
+		return "Banana cake";
+	}
+
+	// Метод Приготовить что-нибудь из яблока
+	public string CookSmth(Apple a)
+	{
+		return "Charlotte";
+	}
+
+	// Метод Приготовить что-нибудь из киви
+	public string CookSmth(Kiwi k)
+	{
+		return "Smoothie";
+	}
+	
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Ad hoc полиморфизм</h2>
+					<p>
+						Ещё один вариант Ad hoc полиморфизма - когда для всех типов у нас используется
+						один общий метод, но всё равно проверяется исходный тип и для каждого типа
+						выполняются отдельные действия.
+					</p>
+					<pre>
+						<code class="cs">
+class Chef
+{
+	// Метод Приготовить что-нибудь из фрукта
+	public string CookSmth(Fruit fruit)
+	{
+		string meal = "nothing";
+		// Если тип фрукта  - банан
+		if (fruit is Banana)
+		{
+			meal = "Banana cake";
+		}
+		// Если тип фрукта  - яблоко
+		else if (fruit is Apple)
+		{
+			meal = "Charlotte";
+		}
+		// Если тип фрукта  - киви
+		else if (fruit is Kiwi)
+		{
+			meal = "Smoothie";
+		}
+		return meal;
+	}
+	
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём шефа
+		Chef mrChef = new Chef();
+
+		// По одному экземпляру каждого класса
+		Fruit fruit1 = new Fruit();
+		Banana fruit2 = new Banana();
+		Apple fruit3 = new Apple();
+		Kiwi fruit4 = new Kiwi();
+
+		// И смотрим варианты вызова метода CookSmth,
+		// передавая в него объекты разных типов
+		string meal = mrChef.CookSmth(fruit1);
+		Console.WriteLine("First meal: " + meal);
+
+		meal = mrChef.CookSmth(fruit2);
+		Console.WriteLine("Next meal: " + meal);
+
+		meal = mrChef.CookSmth(fruit3);
+		Console.WriteLine("Next meal: " + meal);
+
+		meal = mrChef.CookSmth(fruit4);
+		Console.WriteLine("And final meal: " + meal);
+	}
+}
+						</code>
+				</section>
+				<section>
+					<h2>Коллекции и полиморфизм</h2>
+					<p>
+						Благодаря полиморфизму мы можем не только создавать методы,
+						которые будут работать с разными типами, как с одним, но и 
+						работать с коллекциями из объектов разных классов.
+					</p>
+					<p>
+						Зная, что объекты классов <span class="turquoise">Banana</span>,
+						<span class="turquoise">Apple</span> и <span class="turquoise">Kiwi</span>
+						могут быть представлены как объекты класса <span class="turquoise">Fruit</span>,
+						мы спокойно можем создать массив фруктов, и поместить в него все наши объекты.
+					</p>
+					<p>
+						Упростим код из предыдущего примера с помощью этой техники.
+					</p>
+				</section>
+				<section>
+					<h3>Фрукты</h3>
+					<pre>
+						<code class="cs">
+static void Main(string[] args)
+{
+	// Шефа не трогам
+	Chef mrChef = new Chef();
+
+	// Объявляем массив фруктов и инициализируем его списком объектов разных классов
+	Fruit[] fruits = { new Fruit(), new Banana(), new Apple(), new Kiwi() };
+
+	// Циклом перебираем фрукты в массиве
+	foreach (Fruit fruit in fruits)
+	{
+		string meal = mrChef.CookSmth(fruit);
+		Console.WriteLine("Next meal: " + meal);
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Оператор is</h2>
+					<p>
+						Как вы уже поняли, оператор <span class="blue">is</span> используется для проверки,
+						"является" ли объект указанным типом, т.е. находится ли этот тип в иерархии наследования
+						проверяемого объекта.
+					</p>
+					<p>
+						Главная особенность именно в том, что он проверяет не только тот тип, которым создавался
+						объект, а все типы в его иерархии наследования (а также реализуемые интерфейсы). 
+					</p>
+					<p>
+						Это значит, что, например, для объекта класса <span class="turquoise">Apple</span> 
+						положительными были бы проверки, что он является <span class="turquoise">Apple</span>,
+						<span class="turquoise">Fruit</span> и <span class="turquoise">Object</span>.
+					</p>
+					<p>
+						Синтаксис вы уже видели:
+					</p>
+					<pre>
+						<code class="cs">
+объект is тип
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Класс Type</h2>
+					<p>
+						Существует и другой способ, как узнать какой конкретно тип у объекта, через
+						класс <span class="turquoise">Type</span>.
+					</p>
+					<p>
+						<span class="turquoise">Type</span> - специальный класс, представляющий собой
+						информацию о каком-либо типе. Для любого типа (класса) можно получить соответствующий
+						ему объект класса <span class="turquoise">Type</span>.
+					</p>
+					<p>
+						И именно для этого в классе <span class="turquoise">Object</span> есть метод
+						GetType(). А раз он есть в классе <span class="turquoise">Object</span>, он есть
+						в любом классе .NET.
+					</p>
+					<p>
+						Этот метод возвращает объект типа для своего объекта.
+					</p>
+					<p>
+						Но с чем его сравнивать?
+					</p>
+				</section>
+				<section>
+					<h2>Оператор typeof</h2>
+					<p>
+						Оператор <span class="blue">typeof</span> возвращает объект класса
+						<span class="turquoise">Type</span> для заданного <u>типа</u>.
+					</p>
+					<p>
+						Синтаксис применения у него следующий:
+					</p>
+					<pre>
+						<code class="cs">
+typeof(тип)
+						</code>
+					</pre>
+					<p>
+						Итак, GetType позволяет получить объект <span class="turquoise">Type</span>
+						для объекта, <span class="blue">typeof</span> позволяет получить объект
+						<span class="turquoise">Type</span> для типа.
+					</p>
+					<p>
+						Скомбинировав их, мы можем записать проверку на однозначное
+						соответствие объекта какому-либо типу:
+					</p>
+					<pre>
+						<code class="cs">
+объект.GetType() == typeof(тип)
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cs">
+Banana banan = new Banana();
+
+Console.WriteLine("Operator is:");
+Console.WriteLine("  banan is Banana: {0}", banan is Banana);	// true
+Console.WriteLine("  banan is Kiwi: {0}", banan is Kiwi);		// false
+Console.WriteLine("  banan is Fruit: {0}", banan is Fruit);		// true
+Console.WriteLine("  banan is Object: {0}", banan is Object);	// true
+
+
+Console.WriteLine("Class Type:");
+Console.WriteLine("  banan.GetType() == typeof(Banana): {0}", banan.GetType() == typeof(Banana));	// true
+Console.WriteLine("  banan.GetType() == typeof(Kiwi): {0}", banan.GetType() == typeof(Kiwi));		// false
+Console.WriteLine("  banan.GetType() == typeof(Fruit): {0}", banan.GetType() == typeof(Fruit));		// false
+Console.WriteLine("  banan.GetType() == typeof(Object): {0}", banan.GetType() == typeof(Object));	// false
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Вспомнили про Object..</h2>
+					<p>
+						Если <span class="turquoise">Object</span> является прородителем всего и вся,
+						значит объект любого класса может быть представлен типом <span class="blue">object</span>?
+					</p>
+					<p>
+						В общем-то, да.
+					</p>
+					<p>
+						Можно написать метод, принимающий параметр типа <span class="blue">object</span>,
+						и тогда в этот метод можно будет передать объект абсолютно любого класса.
+					</p>
+					<p>
+						Правда, это редко бывает нужно.
+					</p>
+				</section>
+				<section>
+					<h2>Особенности</h2>
+					<p>
+						Но у такого представления в виде типа <span class="blue">object</span> есть и 
+						свои преимущества. А именно, если говорить о хранении в виде <span class="blue">object</span>
+						структур (стандартных типов данных: <span class="blue">int</span>, <span class="blue">float</span>,
+						<span class="blue">bool</span> и т.д.)
+					</p>
+					<p>
+						Структуры являются <span class="purple">типами значений</span>, а это значит, что в методы
+						передаются копии их значений.
+					</p>
+					<p>
+						А <span class="turquoise">Object</span> является классом, т.е. ссылочным типом, и объекты
+						типа <span class="blue">object</span> передаются в методы по ссылке.
+					</p>
+					<p>
+						У этого даже есть специальные названия:
+					</p>
+					<p>
+						Представление типа значения в виде <span class="blue">object</span> - 
+						<span class="purple">боксинг</span>.
+					</p>
+					<p>
+						Возвращение типа значения из типа <span class="blue">object</span>
+						в объект исходного типа - <span class="purple">анбоксинг</span>.
+					</p>
+				</section>
+			</section>
+			<section>
+				<h2>Виды полиморфизма</h2>
+				<p>
+					Ещё одни виды полиморфизма.
+				</p>
+				<p>
+					По типу применяемых элементов полиморфизм делится на:
+				</p>
+				<ul>
+					<li>Полиморфизм подтипов</li>
+					<li>Полиморфизм интерфейсов</li>
+				</ul>
+				<p>
+					Мы пока рассматриваем полиморфизм подтипов (т.е. на основе наследования).
+				</p>
+				<p>
+					И до этого он у нас был ненастоящим (ad hoc полиморфизм).
+				</p>
+			</section>
+			<section>
+				<h2>Истинный (параметрический) полиморфизм</h2>
+				<p>
+					Что же такое истинный полиморфизм?
+				</p>
+				<p>
+					Полиморфизм считается истинным, когда в методе описан только один
+					сценарий поведения для любых входных типов. Но тем не менее, поведение
+					меняется в зависимости от типа входящего объекта.
+				</p>
+				<p>
+					И как такого можно достичь?
+				</p>
+			</section>
+			<section>
+				<section>
+					<h2>Перегрузка методов</h2>
+					<p>
+						Ответ: с помощью перегрузки методов.
+					</p>
+					<p>
+						Описав в базовом классе виртуальный метод, функция, работающая с
+						этим базовым классом, может вызывать этот виртуальный метод. А он, в свою очередь,
+						у каждого производного класса будет переопределён и реализован по-своему.
+					</p>
+					<p>
+						Т.е. вызываться будет один метод, но он будет делать разные вещи, в зависимости
+						от того, как он переопределён в этом классе.
+					</p>
+				</section>
+				<section>
+					<h2>Пример настоящего полиморфизма</h2>
+					<pre>
+						<code class="cs">
+class Fruit
+{
+	public string Name { get; set; }
+
+	// Виртуальный метод "Получить блюдо"
+	public virtual string GetMealFromThis()
+	{
+		return "Nothing";
+	}
+}
+
+class Banana : Fruit
+{
+	public int Length { get; set; }
+
+	// Этот метод переопределён
+	// И для банана возвращает такую строку
+	public override string GetMealFromThis()
+	{
+		return "Banana Cake";
+	}
+}
+
+class Apple : Fruit
+{
+	public string Color { get; set; }
+
+	// Для яблока вторую
+	public override string GetMealFromThis()
+	{
+		return "Charlotte";
+	}
+}
+
+class Kiwi : Fruit
+{
+	public string Size { get; set; }
+
+	// А для киви третью
+	public override string GetMealFromThis()
+	{
+		return "Smoothie";
+	}
+}
+
+class Chef
+{
+	// Метод Приготовления
+	public string CookSmth(Fruit fruit)
+	{
+		// Просто возвращает результат выполнения метода GetMealFromThis
+		return fruit.GetMealFromThis();
+	}
+	
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		Chef mrChef = new Chef();
+
+		Fruit[] fruits = { new Fruit(), new Banana(), new Apple(), new Kiwi() };
+
+		foreach (Fruit fruit in fruits)
+		{
+			string meal = mrChef.CookSmth(fruit);
+			Console.WriteLine("Next meal: " + meal);
+
+		}
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Переопределение и сокрытие</h2>
+					<p>
+						Теперь можно и рассказать про различия <span class="purple">переопределения</span> от
+						<span class="purple">сокрытия</span>.
+					</p>
+					<p>
+						При переопределении, как вы увидели, в случае представления объекта в форме базового класса,
+						при вызове виртуального метода вызывается его переопределённая версия из дочернего класса. 
+					</p>
+					<p>
+						При сокрытии же такого не происходит, и полиморфизм не работает. Для объекта базового класса
+						всегда будет выполняться вариант метода, описанный в базовом классе.
+					</p>
+				</section>
+				<section>
+					<pre>
+						<code class="cs">
+class Fruit
+{
+	public string Name { get; set; }
+
+	public virtual string GetMealFromThis()
+	{
+		return "Nothing";
+	}
+
+	// Добавили новый виртуальный метод
+	public virtual string GetSauce()
+	{
+		return "out sauce";
+	}
+}
+
+class Banana : Fruit
+{
+	public int Length { get; set; }
+
+	public override string GetMealFromThis()
+	{
+		return "Banana Cake";
+	}
+
+	// Скрываем оригинал новой версией
+	public new string GetSauce()
+	{
+		return " banana ketchup";
+	}
+}
+
+class Apple : Fruit
+{
+	public string Color { get; set; }
+
+	public override string GetMealFromThis()
+	{
+		return "Charlotte";
+	}
+
+	// Скрываем оригинал новой версией
+	public new string GetSauce()
+	{
+		return " apple juice";
+	}
+}
+
+class Kiwi : Fruit
+{
+	public string Size { get; set; }
+
+	public override string GetMealFromThis()
+	{
+		return "Smoothie";
+	}
+
+	// Скрываем оригинал новой версией
+	public new string GetSauce()
+	{
+		return " kiwi compote";
+	}
+}
+
+class Chef
+{
+	public string CookSmth(Fruit fruit)
+	{
+		// Формирует результат из вызовов двух методов
+		return fruit.GetMealFromThis() + " with" + fruit.GetSauce();
+	}
+	
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<h3>Пример</h3>
+				<pre>
+					<code class="cs">
+// Базовый абстрактный класс Музыкального Инструмента
+abstract class MusicalInstrument
+{
+	// Свойство тип
+	public string Type { get; set; }
+
+	// Конструктор по умолчанию
+	public MusicalInstrument()
+	{
+		Type = "Unknown";
+	}
+
+	// Конструктор с параметром
+	public MusicalInstrument(string type)
+	{
+		Type = type;
+	}
+
+	// Абстрактный метод
+	public abstract void Play();
+}
+
+// Производный класс Гитары
+class Guitar : MusicalInstrument
+{
+	// Свойство Количество струн
+	public int StringCount { get; set; }
+
+	// Конструктор по умолчанию
+	public Guitar()
+	{
+		Type = "Spanish guitar";
+		StringCount = 6;
+	}
+
+	// Конструктор с параматерами
+	public Guitar(string type, int strings) : base(type)
+	{
+		StringCount = strings;
+	}
+
+	// Переопределённый метод Play
+	// Играет музыку гитары
+	public override void Play()
+	{
+		Console.WriteLine("Jug-jug-strum-neowwwwwhh");
+		Console.WriteLine("Wwwaahhhhhwahwahwahwahhhh");
+		Console.WriteLine("Neowwwwwwh... strum");
+		Console.WriteLine("Neowh-newh-newh-newh-newh-newwwwhh..");
+	}
+
+}
+
+// Производный класс Трубы
+class Trumpet : MusicalInstrument
+{
+	// Конструктор по умолчанию
+	public Trumpet()
+	{
+		Type = "Piccolo trumpet";
+	}
+
+	// Конструктор с параметром
+	public Trumpet(string type) : base(type) { }
+
+	// Переопределённый метод Play
+	// Играет звуки трубы
+	public override void Play()
+	{
+		Console.WriteLine("Thuuuuuu! Thu! Thu!");
+		Console.WriteLine("Pah-pa-pah!");
+		Console.WriteLine("Thuuuuuu-rhu! Thu! Thu! Rhuuh!");
+	}
+
+}
+
+// Производный класс Барабанов
+class DrumKit : MusicalInstrument
+{
+	// Свойство Количество барабанов
+	public int Drums { get; set; }
+
+	// Конструктор по умолчанию
+	public DrumKit()
+	{
+		Type = "Four-piece kit";
+		Drums = 4;
+	}
+
+	// Конструктор с параметрами
+	public DrumKit(string type, int drums) : base(type)
+	{
+		Drums = drums;
+	}
+
+	// Переопределённый метод Play
+	// Издаёт звуки барабанов
+	public override void Play()
+	{
+		Console.WriteLine("Rub-a-dub dabum tish!");
+		Console.WriteLine("Bum! Brrum! Brrrumble!!!!");
+		Console.WriteLine("Pump-a-rum-parum Pump-a-rum! Tish! ");
+	}
+}
+
+// Класс Музыкант
+class Musician
+{
+	// Свойста Имя, Опыт и Музыкальный инструмент
+	public string Name { get; private set; }
+	public int Experience { get; set; }
+	public MusicalInstrument Instrument { get; set; }
+
+	// Конструктор с параметрами
+	public Musician(string name, int exp, MusicalInstrument instrum)
+	{
+		this.Name = name;
+		this.Experience = exp;
+		this.Instrument = instrum;
+	}
+
+	// Метод "Исполнять музыку"
+	public void PerformMusic()
+	{
+		// Вызывает метод Play для его текущего инструмента
+		this.Instrument.Play();
+	}
+
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём инструменты
+		Guitar guitar = new Guitar();
+		Trumpet trumpet = new Trumpet("Baroque trumpet");
+		DrumKit drumKit = new DrumKit("Electronic drums", 8);
+
+		// Создаём музыканта
+		Musician musician = new Musician("Robert", 12, guitar);
+		ConsoleKeyInfo key;
+		do
+		{
+			Console.WriteLine("Choose an instrument or start playing music!");
+			Console.WriteLine("  1 - Select Guitar");
+			Console.WriteLine("  2 - Select Trumpet");
+			Console.WriteLine("  3 - Select DrumKit");
+			Console.WriteLine("  Other - Start Playing");
+			Console.WriteLine("  ESC - Exit");
+			key = Console.ReadKey(true);
+			// Выбор инструмента
+			switch (key.Key)
+			{
+				// В зависимости от кейса даём музыканту разные инструменты
+				case ConsoleKey.D1:
+					musician.Instrument = guitar;
+					break;
+				case ConsoleKey.D2:
+					musician.Instrument = trumpet;
+					break;
+				case ConsoleKey.D3:
+					musician.Instrument = drumKit;
+					break;
+				case ConsoleKey.Escape:
+					break;
+				default:
+					Console.WriteLine("To stop playing music press any key.");
+					do
+					{
+						// Просто вызываем метод PerformMusic
+						musician.PerformMusic();
+						System.Threading.Thread.Sleep(1000);
+					}
+					while (!Console.KeyAvailable);
+					// Пока не будет нажата любая клавиша
+					Console.ReadKey(true);
+					break;
+			}
+			Console.Clear();
+		}
+		while (key.Key != ConsoleKey.Escape);
+		// Заканчиваем программу по нажатию ESC
+	}
+}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h3>Пример 2</h3>
+				<pre>
+					<code class="cs">
+// Класс Пища
+abstract class Feed
+{
+	// Свойства
+	public string Kind { get; set; }
+	public string Composition { get; set; }
+	public int KKal { get; set; }
+}
+
+// Класс Трава
+class Grass : Feed
+{
+	public string Freshness { get; set; }
+	public string Dryness { get; set; }
+}
+
+// Класс Орех
+class Nut : Feed
+{
+	public int Strength { get; set; }
+}
+
+// Класс Листья
+class Leaves : Feed
+{
+	public int Number { get; set; }
+}
+
+abstract class Animal
+{
+	public abstract string Specie { get; protected set; }
+	public abstract string Name { get; set; }
+	
+	protected static string Voice { get; set; }
+	
+	public int Age { get; set; }
+
+	// Абстрактный метод Breeding
+	public abstract bool Breeding();
+
+	// Абстрактный метод GetCub возвращает объект класса Animal
+	public abstract Animal GetCub();
+	
+	// Виртуальный метод Eat принимает объект класса Feed
+	public virtual void Eat(Feed feed)
+	{
+		Console.WriteLine($"{Specie} {Name} eat {feed.Kind}");
+	}
+	
+	public string MadeSound()
+	{
+		Console.WriteLine($"{Voice} - {Voice}!");
+		return Voice;
+	}
+
+
+}
+
+class Turtle : Animal
+{
+	// Закрытое поле - булевый флаг, используется в методах для контроля соответствия размножения-детёнышей
+	private bool canGetChild;
+	
+	private string specie;
+	public override string Specie
+	{
+		get
+		{
+			return specie;
+		}
+		protected set
+		{
+			if (string.Compare(value, "Green Turtle", true) == 0 ||
+				string.Compare(value, "Flatback", true) == 0 ||
+				string.Compare(value, "Loggerhead", true) == 0)
+			{
+				specie = value;
+			}
+		}
+	}
+	
+	public override string Name { get; set; }
+	
+	static Turtle()
+	{
+		Voice = "....";
+	}
+
+	// Конструктор по умолчанию
+	public Turtle()
+	{
+		canGetChild = false;
+	}
+	
+	// Переопределённый метод Breeding
+	public override bool Breeding()
+	{
+		var randomGenerator = new Random();
+		int randInt = randomGenerator.Next(3);
+		if (randInt == 0)
+		{
+			// С шансом 1:3 черепаха откладывает яйцо
+			Console.WriteLine("Turtle {0} laid egg on the beach!", Name);
+			System.Threading.Thread.Sleep(500);
+			Console.WriteLine("...................");
+			System.Threading.Thread.Sleep(2000);
+			// И переключаем флаг на true
+			canGetChild = true;
+			Console.WriteLine("Now you can get turtles child!");
+			return true;
+		}
+		else
+		{
+			// 2:3 что яйца отложить не выйдет
+			Console.WriteLine("Turtle {0} failed to lay eggs...", Name);
+			return true;
+		}
+	}
+
+	// Переопределённый метод GetCub
+	public override Animal GetCub()
+	{
+		// Если было отложено яйцо
+		if (canGetChild)
+		{
+			// Выдаём черепашку
+			Console.WriteLine("New turtle hatches from egg!");
+			canGetChild = false;
+			return new Turtle();
+		}
+		else
+		{
+			// Иначе выдаём пустую ссылку null
+			Console.WriteLine("To have a cub, turtle must first breed!");
+			return null;
+		}
+	}
+
+	// Переопределённый метод Eat
+	public override void Eat(Feed feed)
+	{
+		// Проверям, что тип пищи - трава
+		if (feed is Grass)
+		{
+			// И тогда вызываем метод Eat базового класса
+			base.Eat(feed);
+		}
+		else
+		{
+			// Если не трава, то черепаха не может съесть это
+			Console.WriteLine("Turtle can't eat this!");
+		}
+	}
+
+}
+
+// Класс Улитки
+class Snail : Animal
+{
+	// Булевый флаг для индикации, отложила ли улитка яйца
+	private bool canBreed;
+	// Количество отложенных яиц
+	private int eggsCount;
+
+	private string specie;
+	public override string Specie { get; protected set; }
+
+	public override string Name { get; set; }
+
+	static Snail()
+	{
+		Voice = "................What do you expect to hear from the snail?";
+	}
+
+	// Конструктор по умолчанию
+	public Snail()
+	{
+		// Изначально любая улитка может размножаться
+		canBreed = true;
+		// И количество яиц у неё равно нулю
+		eggsCount = 0;
+	}
+
+	// Переопределённый метод Breeding
+	public override bool Breeding()
+	{
+		if (canBreed)
+		{
+			// Улитка у нас может размножать 1 раз за жизнь
+			canBreed = false;
+			var randomGenerator = new Random();
+			int randInt = randomGenerator.Next(5);
+			if (randInt == 0)
+			{
+				// С вероятностью 1:5 она откладывает 0-99 яиц
+				eggsCount = randomGenerator.Next(100);
+				Console.WriteLine("Snail {0} buried {1} eggs in the ground!", Name, eggsCount);
+				System.Threading.Thread.Sleep(500);
+				Console.WriteLine("...................");
+				System.Threading.Thread.Sleep(2000);
+				Console.WriteLine("Now eggs can hatch!");
+				return true;
+			}
+			else
+			{
+				Console.WriteLine("Snail {0} failed to lay eggs...", Name);
+				return false;
+			}
+		}
+		else
+		{
+			Console.WriteLine("This snail can no longer breed!");
+			return false;
+		}
+	}
+
+	// Переопределённый метод GetCub
+	public override Animal GetCub()
+	{
+		// Пока есть яйца
+		if (eggsCount != 0)
+		{
+			// Можно получать маленьких улиточек
+			eggsCount--;
+			Console.WriteLine("{0} eggs left...", eggsCount);
+			Random gen = new Random();
+			int randInt = gen.Next(5);
+			// Если повезёт, т.к. не из каждого яйца они вылупляются
+			if (randInt == 0)
+			{
+				Console.WriteLine("Ctchhh! There is new Snail!");
+				return new Snail();
+			}
+			else
+			{
+				Console.WriteLine("Ctchhh! There is a new Snail!");
+				return null;
+			}
+		}
+		else
+		{
+			Console.WriteLine("No eggs - no cubs. Sorry.");
+			return null;
+		}
+	}
+
+	// Переопределённый метод Eat
+	public override void Eat(Feed feed)
+	{
+		// Если пища это Листья
+		if (feed is Leaves)
+		{
+			// То можно есть
+			base.Eat(feed);
+		}
+		else
+		{
+			// Иначе не стоит
+			Console.WriteLine("You're kidding! Snail can't eat this!");
+		}
+	}
+}
+// Класс Зверинца
+class Menagerie
+{
+	public List&lt;Animal&gt; Animals { get; set; }
+
+	public Animal this[int index]
+	{
+		get { return Animals[index]; }
+		set { Animals[index] = value; }
+	}
+
+	public void AddNewAnimal(Animal a)
+	{
+		Animals.Add(a);
+	}
+
+	public void FeedAnimal(Animal a, Feed f, int quantity = 1)
+	{
+		int index = Animals.IndexOf(a);
+		for (int i = 0; i &lt; quantity; ++i)
+		{
+			Animals[index].Eat(f);
+		}
+	}
+
+	public Animal RandomBreed()
+	{
+		Random random = new Random();
+		int i = random.Next(Animals.Count);
+		Animal animal = Animals[i];
+		animal.Breeding();
+		return animal;
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		Turtle t = new Turtle();
+		t.Name = "Bob";
+
+		Snail s = new Snail();
+		s.Name = "Dude";
+
+		Snail ss = new Snail();
+		s.Name = "Markus";
+
+		Menagerie mg = new Menagerie();
+		mg.AddNewAnimal(t);
+		mg.AddNewAnimal(s);
+		mg.AddNewAnimal(ss);
+
+		Leaves leaves = new Leaves();
+		mg.FeedAnimal(ss, leaves, 5);
+		mg.FeedAnimal(t, leaves);
+
+		Animal someAnimal = mg.RandomBreed();
+
+		Animal cub = someAnimal.GetCub();
+
+		if (cub != null)
+		{
+			mg.AddNewAnimal(cub);
+		}
+	}
+}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h2>Проблема</h2>
+				<p>
+					У нас есть класс Улитки и есть класс Черепахи. А черепахи едят улиток. Это значит, что улитка
+					также должна быть Feed. Но она не может одновременно наследоваться и от класса Animal и от
+					класса Feed.
+				</p>
+				<p>
+					И здесь на помощь приходят Интерфейсы.
+				</p>
+			</section>
+			<section>
+				<h2>Полиморфизм интерфейсов</h2>
+				<p>
+					Также как и с базовыми классами, объекты, реализующие какой-либо интерфейс могут быть
+					представлены в виде объекта типа этого интерфейса. Такой тип полиморфизма
+					называется <span class="purple">Полиморфизм интерфейсов</span>.
+				</p>
+
+			</section>
+		</div>
+	</div>
+	<aside id="presentable-icon" class="cpp">
+		<a title="Содержание лекции" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x"></i>
+		</a>
+	</aside>
+    <aside id="presentable-icon-close">
+        <a title="К списку материалов" href="../../index.html#/1">
+            <i class="fa fa-times fa-2x"></i>
+        </a>
+    </aside>
+	<script src="../../js/bundle.min.js"></script>
+</body>
+
+</html>

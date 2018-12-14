@@ -166,7 +166,7 @@ gulp.task('watch', () => {
 gulp.task('default', gulpSequence('build', ['watch', 'serve']));
 
 gulp.task('yaspeller', function(cb) {
-    run(`.\\node_modules\\.bin\\yaspeller --dictionary ${yaspellerDictionary} -l ru -e ".md,.html" .\\`).exec()
+    run(`.\\node_modules\\.bin\\yaspeller --dictionary ${yaspellerDictionary} -l ru -e ".md,.html" .\\src\\`).exec()
         .on('error', function(err) {
             console.error(err.message);
             cb();
