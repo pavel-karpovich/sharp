@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Object-oriented programming</title>
+	<meta name="description" content="programming paradigm OOP in C#, concept of classes and objects, attributes and methods">
+	<meta name="keywords" content="c#, oop, class, object, interface">
+	<meta name="author" content="Edward & Albert">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="../../css/bundle.min.css">
+	<!--[if lt IE 9]>
+		<script src="../../js/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+                <section>
+                    <h1>Объектно-ориентированное программирование</h1>
+                    <h3>Операторы</h3>
+                    <p>
+                        <small>Edward &amp; Albert / <a href="https://github.com/tgjmjgj/sharp/">github:Tgjmjgj</a></small>
+                    </p>
+                </section>
+				<section>
+					<h2>Содержание лекции</h2>
+					<nav id="presentable-toc" class="table-content"></nav>
+				</section>
+			</section>
+            <section>
+                <section>
+                    <h2>Задача</h2>
+                    <p>
+                        Представьте, что вам нужно реализовать класс для каких-нибудь своих числовых значений.
+                    </p>
+                    <p>
+                        Пусть это будут числа алгебры Паши, где не существует числа 5, а операции сложения и
+                        вычитания не совсем коммутативны.
+                    </p>
+                    <pre>
+                        <code class="cs">
+class PInt
+{
+    private int num;
+}
+                        </code>
+                    </pre>
+                    <p>
+                        Как реализовать операции над ним? Самый очевидный ответ - через методы.
+                    </p>
+                </section>
+                <section>
+                    <h2>Класс PInt</h2>
+                    <p>
+                        Например, вот так:
+                    </p>
+                    <pre>
+                        <code class="cs">
+// Класс Числа Пашиной алгебры (П-числа)
+class PInt
+{
+    // Приватное поле для хранения числа
+    private int num;
+
+    // Конструктор
+    public PInt(int init)
+    {
+        num = init;
+        // Если число кратно 5, увеличиваем его на единицу
+        if (num % 5 == 0)
+        {
+            ++num;
+        }
+    }
+
+    // Метод Plus для сложения двух П-чисел
+    public PInt Plus(PInt p2)
+    {
+        // Считаем количество пятерок во втором числе
+        int numberOfFives = p2.num / 5;
+        // Прибавляем к первому числу второе за исключением количества пятерок в нём
+        num += p2.num - numberOfFives;
+        // Если число кратно пяти
+        if (num % 5 == 0)
+        {
+            // Увеличиваем на 1
+            ++num;
+        }
+        return this;
+    }
+
+    // Метод Minus для получения разности двух П-чисел
+    public PInt Minus(PInt p2)
+    {
+        // Считаем количество пятерок во втором числе
+        int numberOfFives = p2.num / 5;
+        // Отнимаем от первого числа второе за исключением количества пятерок в нём
+        num -= p2.num - numberOfFives;
+        // Если число кратно пяти
+        if (num % 5 == 0)
+        {
+            // Уменьшаем на 1
+            --num;
+        }
+        return this;
+    }
+
+    // Переопределение метода ToString для вывода числа на консоль с суффиксом 'p'
+    public override string ToString()
+    {
+        return num.ToString() + "p";
+    }
+}
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Использование класса PInt</h2>
+                    <pre>
+                        <code class="cs">
+static void Main(string[] args)
+{
+    PInt p1 = new PInt(245);
+    PInt p2 = new PInt(141);
+    PInt p3 = new PInt(-300);
+
+    p1 = p1.Plus(p2).Plus(p3);
+    p2 = p1.Minus(p3);
+}
+                        </code>
+                    </pre>
+                    <p>
+                        Выглядит жутко громоздко. А если ещё нужно добавить операции умножения, деления,
+                        возведения в степень и т.д. 
+                    </p>
+                </section>
+                <section>
+                    <h2>Операции</h2>
+                    <p>
+                        Гораздо лучше было бы работать с нашими объектами, как с обыкновенными числами:
+                    </p>
+                    <pre>
+                        <code class="cs">
+// Создава так:
+PInt p1 = 245;
+// А не так:
+PInt p1 = new PInt(245);
+
+// Складывать так:
+p2 = p1 + p3;
+// А не так:
+p2 = p1.Plus(p3);
+
+// Вычитать так:
+p3 = p1 - p1;
+// А не так:
+p3 = p1.Minus(p1);
+                        </code>
+                    </pre>
+                    <p>
+                        И этого можно добиться с использованием <span class="purple">переопределения операторов</span>.
+                    </p>
+                </section>
+            </section>
+
+
+
+		</div>
+	</div>
+	<aside id="presentable-icon" class="cpp">
+		<a title="Содержание лекции" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x"></i>
+		</a>
+	</aside>
+	<script src="../../js/bundle.min.js"></script>
+</body>
+
+</html>

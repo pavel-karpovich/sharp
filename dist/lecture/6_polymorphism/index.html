@@ -1336,7 +1336,1486 @@ class Program
 					представлены в виде объекта типа этого интерфейса. Такой тип полиморфизма
 					называется <span class="purple">Полиморфизм интерфейсов</span>.
 				</p>
+			</section>
+			<section>
+				<section>
+					<h2>Пример</h2>
+					<pre>
+						<code class="cs">
+// Интерфейс "Лающее"
+interface IBarkable
+{
+	// Метод Лаять
+	void Bark(int power);
+	// Метод Скулить
+	void Whine();
+}
 
+// Класс Собаки, реализующего интерфейс "Лающее"
+class Dog : IBarkable
+{
+	public string Name { get; set; }
+	public string Breed { get; set; }
+	public int Age { get; set; }
+	public string Owner { get; set; }
+
+	public virtual void Walk()
+	{
+		Console.WriteLine("The {0} walks!", Name);
+		Random randGen = new Random();
+		int rndNumber = randGen.Next(4);
+		if (rndNumber == 3)
+		{
+			this.Pee();
+		}
+	}
+
+	private int Pee()
+	{
+		Console.WriteLine("The {0} has urinated..", Name);
+		Random randGen = new Random();
+		int strenth = randGen.Next(1, 11);
+		return strenth;
+	}
+
+	public override string ToString()
+	{
+		return $"Dog named {Name}, with owner {Owner}, {Breed}, {Age} years";
+	}
+
+	// Реализация метода Лаять
+	public void Bark(int power)
+	{
+		switch (power)
+		{
+			case 0:
+				Whine();
+				break;
+			case 1:
+				Console.WriteLine(" - Woof...");
+				break;
+			case 2:
+				Console.WriteLine(" - Woof!");
+				break;
+			case 3:
+				Console.WriteLine(" - Woof! Woof! Woof!");
+				break;
+			case 4:
+				Console.WriteLine(" - WOOOOF!!! WOOOFFFF!!!");
+				break;
+			default:
+				Console.WriteLine(" - Quack.");
+				break;
+		}
+	}
+
+	// Реализация метода Скулить
+	public void Whine()
+	{
+		Console.WriteLine(" - Whiiee..");
+		Console.WriteLine(" - Whie...");
+		Console.WriteLine("   .....");
+	}
+}
+
+// Класс Полицейская Собака - потомок класса Собаки
+class PoliceDog : Dog
+{
+	// ...
+}
+
+// Класс Кота
+class Cat
+{
+	private Random generator;
+
+	// Конструктор
+	public Cat()
+	{
+		// Для инициализации генератора случайных чисел
+		generator = new Random();
+	}
+
+	// Метод Мяукнуть
+	protected string Meow()
+	{
+		string word = " - Meeeooowwww!";
+		Console.WriteLine(word);
+		return word;
+	}
+	
+	// Метод Убежать от кого-то лающего
+	// В качестве параметра - объект интерфейса
+	public void RunAwayFrom(IBarkable barkable)
+	{
+		// Гавкаем и мяукаем друг на друга
+		int rnd, iter = 1;
+		do
+		{
+			Meow();
+			rnd = generator.Next(2);
+			barkable.Bark(iter);
+			++iter;
+		}
+		while (rnd != 0);
+		// И убегаем
+		Console.WriteLine("The cat ran away and climbed a tree.\n");
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём экземпляр кота
+		Cat cat = new Cat();
+
+		// Экземпляр собаки
+		Dog dog1 = new Dog();
+
+		// Вызываем метод кота RunAwayFrom, передавая туда объект собаки
+		// Потому что собака - лающее 
+		cat.RunAwayFrom(dog1);
+
+		// Создаём экземпляр полицейской собаки
+		PoliceDog dog2 = new PoliceDog();
+
+		// Вызываем метод, передаём полицейского пса
+		// Полицейская собака тоже лающее
+		cat.RunAwayFrom(dog2);
+
+		// Создаём экземпляр собаки и присваеваем объекту интерфейса
+		IBarkable barkable = new Dog();
+
+		// Тоже подходит
+		cat.RunAwayFrom(barkable);
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Дополняем</h3>
+					<pre>
+						<code class="cs">
+class Drunkard : IBarkable
+{
+
+	public void Bark(int power)
+	{
+		switch (power)
+		{
+			case 0:
+				Whine();
+				break;
+			case 1:
+				Console.WriteLine(" - Wof-f-f..");
+				break;
+			case 2:
+				Console.WriteLine(" - Wooof! Hrraaarf!");
+				break;
+			case 3:
+				Console.WriteLine(" - Hurrrrgff!.. Gh-rrr-aaaaah! Wof!");
+				break;
+			case 4:
+				Console.WriteLine(" - WOF! R-R-RAFF! A new ide suda....");
+				break;
+			default:
+				Console.WriteLine(" - ROF! FOPH! WOF! RGRA-A-A-a-a-a.... Arghf-awww-shaaafff!!");
+				break;
+		}
+	}
+
+	public void Whine()
+	{
+		Console.WriteLine(" - Ukh!");
+	}
+}
+
+// ...
+
+Drunkard man = new Drunkard();
+
+cat.RunAwayFrom(man);
+
+IBarkable barkable2 = new Drunkard();
+
+cat.RunAwayFrom(barkable2);
+// ...
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Явная реализация инерфейсов</h2>
+					<p>
+						Помимо обычной реализации членов интерфейса существуем механизм 
+						<span class="purple">явной реализации</span>.
+					</p>
+					<blockquote>
+						Явно реализованный член интерфейса будет доступен в объекте только тогда,
+						когда объект будет представлен в форме этого интерфейса.
+					</blockquote>
+					<p>
+						С помощью этого можно "прятать" методы внутри классов, а также управлять
+						поведением членов класса в зависимости от формы их представления.
+					</p>
+				</section>
+				<section>
+					<h2>Синтаксис</h2>
+					<p>
+						Чтобы явно реализовать элемент интерфейса в классе, перед его именем нужно
+						через точку обозначить название интерфейса, которому этот элемент принадлежит:
+					</p>
+					<pre>
+						<code class="cs">
+// Интерфейс
+interface ITestable
+{
+	// С одним методом
+	void Test();
+}
+
+// Класс, реализующий его
+class TestClass : ITestable
+{
+	// Обычная реализация
+	public void Test()
+	{
+		Console.WriteLine("Implicit Interface implementation");
+	}
+
+	// Явная реализация для ITestable
+	public void ITestable.Test()
+	{
+		Console.WriteLine("Explicit Interface implementation");
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		TestClass c = new TestClass();
+		// Выведет одно
+		c.Test();
+
+		ITestable i = c;
+		// Выведет другое
+		i.Test();
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Прячем методы</h2>
+					<p>
+						В классе можно описать только явную реализацию метода интерфейса. Тогда такой
+						метод не будет виден в этом классе, даже изнутри, пока его не привести к типу интерфейса.
+					</p>
+					<pre>
+						<code class="cs">
+interface ITestable
+{
+	void Test();
+}
+
+class TestClass : ITestable
+{
+	// Только явная реализация для ITestable
+	public void ITestable.Test()
+	{
+		Console.WriteLine("Explicit Interface implementation");
+	}
+
+	// Method in wich we call Test method
+	public void TestMethodTest()
+	{
+		Console.WriteLine("Can I access Test method inside a class?");
+		Test();		// Right answer - no
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		TestClass c = new TestClass();
+
+		// Ошибка - нет такого метода
+		c.Test();
+
+		// Аналогично
+		c.TestMethodTest();
+
+		ITestable i = c;
+		// Сработает
+		i.Test();
+
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Совпадение имён</h2>
+					<p>
+						В случае совпадения названий методов в Интерфейсах/Классе, для каждого можно
+						написать свою реализацию:
+					</p>
+					<pre>
+						<code class="cs">
+// Базовый класс Спортсмен
+class Sportsman
+{
+	// Метод Run
+	public void Run()
+	{
+		Console.WriteLine("I am a Sportsman");
+	}
+}
+
+// Интерфейс Бегун
+interface IJogger
+{
+	// Метод Run
+	void Run();
+}
+
+// Интерфейс Лыжник
+interface ISkier
+{
+	// И здесь метод Run
+	void Run();
+}
+
+// Производный класс Атлет, реализующий интерфейсы ISkier, IJogger
+class Athlete: Sportsman, ISkier, IJogger
+{
+	// Перекрывающий метод базового класса метод Run
+	public new void Run() 
+	{
+		Console.WriteLine("I am an Athlete");
+	}
+	
+	// Явная реализация Run для интерфейса ISkier
+	void ISkier.Run() 
+	{
+		Console.WriteLine("I am a Skier");
+	}
+	
+	// Явная реализация Run для интерфейса IJogger
+	void IJogger.Run() 
+	{
+		Console.WriteLine("I am a Jogger");
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём атлета
+		var sp = new Athlete();
+		// Вызываем метод Run из-под атлета
+		sp.Run();
+		// Вызываем метод Run из-под спортсмена
+		(sp as Sportsman).Run();
+		// Вызываем метод Run из-под лыжника
+		(sp as ISkier).Run();
+		// Вызываем метод Run из-под бегуна
+		(sp as IJogger).Run();
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Массив в .NET</h3>
+					<p>
+						Массив в .NET представлен классом Array, и этот класс реализует интерфейс списка IList.
+					</p>
+					<p>
+						Т.е. в нём есть все методы для работы со списком: Add, Remove, Clear, IndexOf, Count 
+						(но большинство из них, конечно же, не рабочие). Увидить и применить их можно только
+						представив массив в виде интерфейса IList.
+					</p>
+					<pre>
+						<code class="cs">
+int[] mas = new int[10];
+IList<int> vs = mas;
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<h2>Гибкость</h2>
+				<blockquote>
+					Интерфейсы дают неимоверную гибкость.
+				</blockquote>
+				<p>
+					Для полиморфизма, как правило, используют именно интерфейсы. Наследование имеет
+					значительное ограничение из-за невозможности иметь нескольких родителей, поэтому
+					его на практике применяют в основном только для переиспользования кода.
+				</p>
+			</section>
+			<section>
+				<h2>Сила полиморфизма интерфейсов</h2>
+				<p>
+					Полиморфизм интерфейсов даёт нам необычайную возможность строить программу
+					на основе интерфейсов без фиксированной реализации.
+				</p>
+				<p>
+					Такая способность открывает возможность легкой поддержки и
+					модификации любых частей кода, расширяемость и адаптируемость, простоту тестирования и
+					дополнительных интеграций.
+				</p>
+			</section>
+			<section>
+				<h2>Мыслить интерфейсами</h2>
+				<p>
+					Почти во всех случаях грамотная архитектура ООП приложения должна опираться именно
+					на Интерфейсы. Любые зависимости следует представлять в виде интерфейсов, всё
+					взаимодействие программных компонентов должно вестись через интерфейсы.
+				</p>
+				<blockquote>
+					Для построения правильной архитектуры ПО нужно мыслить интерфейсами, а не классами.
+				</blockquote>
+				<a href="https://habr.com/post/30444/">Интерфейсы - для людей, классы - для животных</a>
+			</section>
+			<section>
+				<h2>Животные с интерфейсами</h2>
+				<pre>
+					<code class="cs">
+// Вместо базового класса Пища - интерфейс Съестное
+interface IEatable
+{
+	string Composition { get; set; }
+	int KKal { get; set; }
+}
+
+// Трава реализует интерфейс съестное
+class Grass : IEatable
+{
+	public string Freshness { get; set; }
+	public string Dryness { get; set; }
+	public string Composition { get; set; }
+	public int KKal { get; set; }
+
+	public override string ToString()
+	{
+		return "Grass";
+	}
+}
+
+// Орех реализует интерфейс съестное
+class Nut : IEatable
+{
+	public string Composition { get; set; }
+	public int KKal { get; set; }
+	public int Strength { get; set; }
+
+	public override string ToString()
+	{
+		return "Nut";
+	}
+}
+
+// Листья реализуют интерфейс съестное
+class Leaves : IEatable
+{
+	public int Number { get; set; }
+	public string Composition { get; set; }
+	public int KKal { get; set; }
+
+	public override string ToString()
+	{
+		return "Leaves";
+	}
+}
+
+// Теперь у нас есть интерфейс, описывающий как быть животным
+interface IAnimal
+{
+	string Specie { get; set; }
+	string Name { get; set; }
+	int Age { get; set; }
+	Random Gen { get; }
+
+	bool Breeding();
+	IAnimal GetCub();
+	bool Eat(IEatable feed);
+	string MadeSound();
+	string Print();
+}
+
+// Черепаха вместо наследования класса реализует интерфейс
+class Turtle : IAnimal
+{
+	// Закрытое поле - булевый флаг, используется в методах для контроля соответствия размножения-детёнышей
+	private bool canGetChild;
+
+	private string specie;
+	public string Specie
+	{
+		get
+		{
+			return specie;
+		}
+		set
+		{
+			if (string.Compare(value, "Green Turtle", true) == 0 ||
+				string.Compare(value, "Flatback", true) == 0 ||
+				string.Compare(value, "Loggerhead", true) == 0)
+			{
+				specie = value;
+			}
+		}
+	}
+
+	public string Name { get; set; }
+	public int Age { get; set; }
+
+	// Интересный способ инициализации
+	private Random gen;
+	public Random Gen
+	{
+		get
+		{
+			if (gen == null)
+			{
+				gen = new Random();
+			}
+			return gen;
+		}
+	}
+	
+	public Turtle()
+	{
+		canGetChild = false;
+		Specie = "Green Turtle";
+	}
+	
+	// Реализация метода Breeding из интерфейса IAnimal
+	public bool Breeding()
+	{
+		int randInt = Gen.Next(3);
+		if (randInt == 0)
+		{
+			// С шансом 1:3 черепаха откладывает яйцо
+			Console.WriteLine("Turtle {0} laid egg on the beach!", Name);
+			System.Threading.Thread.Sleep(500);
+			Console.WriteLine("...................");
+			System.Threading.Thread.Sleep(2000);
+			// И переключаем флаг на true
+			canGetChild = true;
+			Console.WriteLine("Now you can get turtles child!");
+			return true;
+		}
+		else
+		{
+			// 2:3 что яйца отложить не выйдет
+			Console.WriteLine("Turtle {0} failed to lay eggs...", Name);
+			return true;
+		}
+	}
+
+	// Реализация метода GetCub из интерфейса IAnimal
+	public IAnimal GetCub()
+	{
+		// Если было отложено яйцо
+		if (canGetChild)
+		{
+			canGetChild = false;
+			int rnd = Gen.Next(2);
+			if (rnd != 0)
+			{
+				// Выдаём черепашку с шансом 1:2
+				Console.WriteLine("New turtle hatches from egg!");
+				return new Turtle();
+			}
+			else
+			{
+				// 1:2 что черепашки не будет
+				Console.WriteLine("Oh no! Sand snake catch and kill little turtle!");
+				return null;
+			}
+		}
+		else
+		{
+			// Иначе выдаём пустую ссылку null
+			Console.WriteLine("To have a cub, turtle must first breed!");
+			return null;
+		}
+	}
+
+	// Реализация метода Eat из интерфейса IAnimal
+	// Принимает корм в виде интерфейса IEatable
+	public bool Eat(IEatable feed)
+	{
+		// Проверям, что тип пищи - трава
+		if (feed is Grass || feed is Snail)
+		{
+			Console.WriteLine("{0} {1} eats {2}", Specie, Name, feed);
+			return true;
+		}
+		else
+		{
+			// Если не трава, то черепаха не может съесть это
+			Console.WriteLine("Turtle can't eat {0}!", feed);
+			return false;
+		}
+	}
+
+	// Реализация метода MadeSound из интерфейса IAnimal
+	public string MadeSound()
+	{
+		var turtleVoice = ".......";
+		Console.WriteLine(turtleVoice);
+		return turtleVoice;
+	}
+
+	// Реализация метода Pring из интерфейса IAnimal
+	public string Print()
+	{
+		string ret = Specie + " " + Name;
+		// Будет выводить информацию зелёненьким
+		Console.ForegroundColor = ConsoleColor.Green;
+		Console.WriteLine(ret);
+		Console.ResetColor();
+		return ret;
+	}
+}
+
+// Класс улитки реализует интерфейса IAnimal - значит она животное
+// Также улитка может быть съеденой - она реализует интерфейс IEatable
+class Snail : IAnimal, IEatable
+{
+	// Булевый флаг для индикации, отложила ли улитка яйца
+	private int breedAttemptLeft;
+	// Количество отложенных яиц
+	private int eggsCount;
+
+	public string Specie { get; set; }
+	public string Name { get; set; }
+	public int Age { get; set; }
+
+	private Random gen;
+	public Random Gen
+	{
+		get
+		{
+			if (gen == null)
+			{
+				gen = new Random();
+			}
+			return gen;
+		}
+	}
+	// Конструктор по умолчанию
+	public Snail()
+	{
+		// У улитки есть 5 попытко отложить яйца
+		breedAttemptLeft = 5;
+		// Изначально у неё нет яиц
+		eggsCount = 0;
+		Specie = "Snail";
+	}
+
+	// Реализация метода Breeding из интерфейса IAnimal
+	public bool Breeding()
+	{
+		if (breedAttemptLeft != 0)
+		{
+			// Отнимаем попытку
+			breedAttemptLeft--;
+			int randInt = Gen.Next(5);
+			if (randInt == 0 || randInt == 1)
+			{
+				// С вероятностью 2:5 она откладывает 0-50 яиц
+				int eggs = Gen.Next(50);
+				Console.WriteLine("Snail {0} buried {1} eggs in the ground!", Name, eggs);
+				eggsCount += eggs;
+				System.Threading.Thread.Sleep(500);
+				Console.WriteLine("...................");
+				System.Threading.Thread.Sleep(2000);
+				Console.WriteLine("Now eggs can hatch!");
+				return true;
+			}
+			else
+			{
+				Console.WriteLine("Snail {0} failed to lay eggs...", Name);
+				return false;
+			}
+		}
+		else
+		{
+			if (eggsCount == 0)
+			{
+				Console.WriteLine("Snail {0} can no longer breed!", Name);
+			}
+			return false;
+		}
+	}
+
+	// Реализация метода GetCub из интерфейса IAnimal
+	public IAnimal GetCub()
+	{
+		// Если есть яйца
+		if (eggsCount != 0)
+		{
+			// Можно получать маленьких улиточек
+			eggsCount--;
+			Console.WriteLine("{0} eggs left...", eggsCount);
+			int randInt = Gen.Next(5);
+			// Если повезёт, т.к. не из каждого яйца они вылупляются
+			if (randInt == 0)
+			{
+				Console.WriteLine("Ctchhh! There is new Snail!");
+				return new Snail();
+			}
+			else
+			{
+				Console.WriteLine("Ctchhh! But.. Egg is empty...");
+				return null;
+			}
+		}
+		else
+		{
+			Console.WriteLine("No eggs - no cubs. Sorry.");
+			return null;
+		}
+	}
+
+	// Реализация метода Eat из интерфейса IAnimal
+	public bool Eat(IEatable feed)
+	{
+		// Если пища это Листья
+		if (feed is Leaves)
+		{
+			// То можно есть
+			Console.WriteLine("{0} {1} eats {2}", Specie, Name, feed);
+			return true;
+		}
+		else
+		{
+			// Иначе не стоит
+			Console.WriteLine("You're kidding! Snail can't eat {0}!", feed);
+			return false;
+		}
+	}
+
+	// Реализация метода MadeSound из интерфейса IAnimal
+	public string MadeSound()
+	{
+		var snailSong = "Two little eyes, one and two.\n" +
+						"One pretty shell." +
+						"Nice to meet you." +
+						"He has no legs, just a tail." +
+						"It's a snail, it's a snail, it's a snail.";
+		Console.WriteLine(snailSong);
+		return snailSong;
+	}
+
+	// Реализация метода Pring из интерфейса IAnimal
+	public string Print()
+	{
+		string ret = Specie + " " + Name;
+		// Будет выводить информацию красненьким
+		Console.ForegroundColor = ConsoleColor.Red;
+		Console.WriteLine(ret);
+		Console.ResetColor();
+		return ret;
+	}
+
+	// Реализация интерфейса IEatable в классе Улитки
+	public string Composition { get; set; }
+	public int KKal { get; set; }
+	
+	public override string ToString()
+	{
+		return Specie;
+	}
+}
+
+// Класс Зверинца
+class Menagerie
+{
+	// Список животных, теперь через интерфейс
+	public List<IAnimal> Animals { get; set; }
+
+	// Индексатор
+	public IAnimal this[int index]
+	{
+		get { return Animals[index]; }
+		set { Animals[index] = value; }
+	}
+
+	// Конструктор для инициализации списка
+	public Menagerie()
+	{
+		Animals = new List<IAnimal>();
+	}
+
+	// Метод для добавления нового животного в зверинец
+	public void AddNewAnimal(IAnimal a)
+	{
+		Animals.Add(a);
+	}
+
+	// Метод для кормления кого-то, кто реализует интерфейс IAnimal,
+	// чем-то, что реализует интерфейс IEatable
+	public void FeedAnimal(IAnimal a, IEatable f, int quantity = 1)
+	{
+		// Ищем это животное в нашем зверинце
+		int index = Animals.IndexOf(a);
+		// Если оно присутствует
+		if (index != -1)
+		{
+			// Если корм - это другое животное
+			if (f is IAnimal liveFeed)
+			{
+				// Пытаемся скормить
+				bool itIsEated = Animals[index].Eat(f);
+				// Если животное успешно съели, и оно было в нашем зверинце (было, потому что здесь же оно и удаляется)
+				if (itIsEated && Animals.Remove(liveFeed))
+				{
+					// Ругаем проектировщиков такой системы
+					Console.WriteLine("\nWhat are you do! It was " + liveFeed.Name + "!!\n");
+				}
+
+			}
+			// Иначе можно не волноваться
+			else
+			{
+				// Кормим quantity раз
+				for (int i = 0; i < quantity; ++i)
+				{
+					Animals[index].Eat(f);
+				}
+			}
+		}
+	}
+
+	// Метод для размножения случайного животного в зверинце
+	public IAnimal RandomBreed()
+	{
+		Random random = new Random();
+		int i = random.Next(Animals.Count);
+		// Выбираем случайное животное
+		IAnimal animal = Animals[i];
+		// Вызываем метод размножения
+		animal.Breeding();
+		// Возвращаем животное, которое размножалось
+		return animal;
+	}
+
+	// Метод для вывода на консоль пронумерованного списка животных в зверинце
+	public void ShowAnimals()
+	{
+		Console.WriteLine();
+		for (int i = 1; i < Animals.Count + 1; ++i)
+		{
+			Console.Write(" {0,2}. ", i);
+			// С применением метода IAnimal.Print
+			Animals[i - 1].Print();
+		}
+		Console.WriteLine();
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Черепаха Боб
+		Turtle t = new Turtle();
+		t.Name = "Bob";
+
+		// Улитка Мэгги
+		Snail s = new Snail();
+		s.Name = "Maggy";
+
+		// Улитка Маркус
+		Snail ss = new Snail();
+		ss.Name = "Markus";
+
+		// Создаём зверинец
+		Menagerie mg = new Menagerie();
+		// Забрасываем в него нашу живность
+		mg.AddNewAnimal(t);
+		mg.AddNewAnimal(s);
+		mg.AddNewAnimal(ss);
+
+		// Создаём листья
+		Leaves leaves = new Leaves();
+		// Кормим Маркуса 5 листьями
+		mg.FeedAnimal(ss, leaves, 5);
+		// Кормим боба листиком
+		mg.FeedAnimal(t, leaves);
+
+		// Пытаемся скормить Маркуса Мэгги
+		mg.FeedAnimal(s, ss);
+
+		// Отправляем Маркуса на закуску Бобу
+		mg.FeedAnimal(t, ss);
+
+
+		string[] names = { "Austin", "Brock", "Caleb", "Dominic", "Emmett", "Finn", "Guy", "Hogan", "Irving",
+							"Jace", "Kingston", "Lambert", "Mickey", "Nolan", "Oliver", "Parker", "Quinn",
+							"Ramsey", "Samson", "Thomas", "Upton", "Vinny", "Wade", "Xander", "York", "Zane" };
+
+		Random gen = new Random();
+		ConsoleKeyInfo key;
+		Console.WriteLine("Press ESC to Exit, SPACE to Show animals in the menagerie, ANY KEY to breeding attempt:");
+		// По циклу до нажатия ESC
+		do
+		{
+			Console.WriteLine();
+			Console.WriteLine("There are {0} animals in the menagerie", mg.Animals.Count);
+			Console.WriteLine();
+			key = Console.ReadKey(true);
+			// На пробел
+			switch (key.Key)
+			{
+				case ConsoleKey.Spacebar:
+					// Вызываем метод зверинца ShowAnimals
+					mg.ShowAnimals();
+					break;
+				case ConsoleKey.Escape:
+					break;
+				default:
+					// Вызываем метод случайного размножения
+					IAnimal someAnimal = mg.RandomBreed();
+					// Пытаемся получить детёныша от размножающегося животного
+					IAnimal cub = someAnimal.GetCub();
+					// Если детёныш есть
+					if (cub != null)
+					{
+						// Выбираем ему случайное имя из массива имён names
+						int randomNameIndex = gen.Next(names.Length);
+						cub.Name = names[randomNameIndex];
+						Console.WriteLine();
+						Console.WriteLine("Ta-dah! We have replenishment of the family!");
+						// Добавляем его в зверинец
+						mg.AddNewAnimal(cub);
+						Console.Write("It is a ");
+						cub.Print();
+					}
+					break;
+			}
+
+		}
+		while (key.Key != ConsoleKey.Escape);
+	}
+}
+					</code>
+				</pre>
+			</section>
+			<section>
+// Интерфейс Создатель музыки
+interface IMusicMaker
+{
+	string Type { get; set; }
+	void Play();
+}
+
+// Класс Гитара, реализует интерфейса Создатель музыки
+class Guitar : IMusicMaker
+{
+	// Свойство Количество струн
+	public int StringCount { get; set; }
+
+	// Свойство тип - из интерфейса IMusicMaker
+	public string Type { get; set; }
+
+	// Конструктор по умолчанию
+	public Guitar()
+	{
+		Type = "Spanish guitar";
+		StringCount = 6;
+	}
+
+	// Конструктор с параматерами
+	public Guitar(string type, int strings)
+	{
+		Type = type;
+		StringCount = strings;
+	}
+
+	// Реализация метода Play из интерфейса
+	// Играет музыку гитары
+	public void Play()
+	{
+		Console.WriteLine("Jug-jug-strum-neowwwwwhh");
+		Console.WriteLine("Wwwaahhhhhwahwahwahwahhhh");
+		Console.WriteLine("Neowwwwwwh... strum");
+		Console.WriteLine("Neowh-newh-newh-newh-newh-newwwwhh..");
+	}
+
+}
+
+// Класс Трубы, реализует интерфейс Создателя музыки
+class Trumpet : IMusicMaker
+{
+	// Свойство Тип из интерфейса IMusicMaker
+	public string Type { get; set; }
+
+	// Конструктор по умолчанию
+	public Trumpet()
+	{
+		Type = "Piccolo trumpet";
+	}
+
+	// Конструктор с параметром
+	public Trumpet(string type)
+	{
+		Type = type;
+	}
+
+	// Реализация метода Play из интерфейса
+	// Играет звуки трубы
+	public void Play()
+	{
+		Console.WriteLine("Thuuuuuu! Thu! Thu!");
+		Console.WriteLine("Pah-pa-pah!");
+		Console.WriteLine("Thuuuuuu-rhu! Thu! Thu! Rhuuh!");
+	}
+
+}
+
+// Класс Барабанов, реализует интерфейс Создателя музыки
+class DrumKit : IMusicMaker
+{
+	// Свойство Количество барабанов
+	public int Drums { get; set; }
+	// Свойство Тип из интерфейса IMusicMaker
+	public string Type { get; set; }
+
+	// Конструктор по умолчанию
+	public DrumKit()
+	{
+		Type = "Four-piece kit";
+		Drums = 4;
+	}
+
+	// Конструктор с параметрами
+	public DrumKit(string type, int drums)
+	{
+		Type = type;
+		Drums = drums;
+	}
+
+	// Реализация метода Play из интерфейса
+	// Издаёт звуки барабанов
+	public void Play()
+	{
+		Console.WriteLine("Rub-a-dub dabum tish!");
+		Console.WriteLine("Bum! Brrum! Brrrumble!!!!");
+		Console.WriteLine("Pump-a-rum-parum Pump-a-rum! Tish! ");
+	}
+}
+
+// Интерфейс Музыканта
+interface IMusicPlayer
+{
+	IMusicMaker Instrument { get; set; }
+	void PerformMusic();
+}
+// Класс Музыкант
+class Musician : IMusicPlayer
+{
+	// Свойста Имя, Опыт
+	public string Name { get; private set; }
+	public int Experience { get; set; }
+
+	// Свойство Инструмент теперь от интерфейса IMusicPlayer
+	public IMusicMaker Instrument { get; set; }
+
+	// Конструктор с параметрами
+	public Musician(string name, int exp, IMusicMaker instrum)
+	{
+		this.Name = name;
+		this.Experience = exp;
+		this.Instrument = instrum;
+	}
+
+	// Метод "Исполнять музыку" от интерфейса IMusicPlayer
+	public void PerformMusic()
+	{
+		// Вызывает метод Play для его текущего инструмента
+		this.Instrument.Play();
+	}
+
+}
+
+// Класс Воробей, который реализует интерфейс Исполнителя музыки
+class Sparrow : IMusicPlayer
+{
+	// Свойство Гнездо
+	public string Nest { get; set; }
+	// Свойство Вид
+	public string Kind { get; set; }
+
+	// Реализация интерфейса Исполнителя музыки
+	public IMusicMaker Instrument { get; set; }
+
+	public void PerformMusic()
+	{
+		if (Instrument is Voice voice)
+		{
+			for (int i = 0; i < 3; ++i)
+			{
+				voice.SetVoice();
+				voice.Play();
+			}
+		}
+	}
+}
+
+// Класс Voice, реализующий интерфейс IMusicMaker
+class Voice : IMusicMaker
+{
+	// Свойство Type из интерфейса IMusicMaker
+	public string Type { get; set; }
+
+	// Свойство - список издаваемых звуков
+	private List<string> voices;
+
+	// Конструктор
+	public Voice()
+	{
+		voices = new List<string>();
+	}
+
+	// Метод для задания звуков
+	public void SetVoice(params string[] voices)
+	{
+		this.voices = new List<string>(voices);
+	}
+
+	// Метод Play из интерфейса IMusicMaker
+	public void Play()
+	{
+		Random randGen = new Random();
+		// Выбираем случайным образом количество повторений
+		int voiceIndex, num = randGen.Next(1, voices.Count + 1);
+		for (int i = 0; i < num; ++i)
+		{
+			// Выбираем случайный звук из списка
+			voiceIndex = randGen.Next(voices.Count);
+			Console.WriteLine(voices[voiceIndex]);
+		}
+		Console.WriteLine();
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём инструменты
+		Guitar guitar = new Guitar();
+		Trumpet trumpet = new Trumpet("Baroque trumpet");
+		DrumKit drumKit = new DrumKit("Electronic drums", 8);
+
+		// Создаём музыканта
+		Musician musician = new Musician("Robert", 12, guitar);
+		ConsoleKeyInfo key;
+		do
+		{
+			Console.WriteLine("Choose an instrument or start playing music!");
+			Console.WriteLine("  1 - Select Guitar");
+			Console.WriteLine("  2 - Select Trumpet");
+			Console.WriteLine("  3 - Select DrumKit");
+			Console.WriteLine("  Other - Start Playing");
+			Console.WriteLine("  ESC - Exit");
+			key = Console.ReadKey(true);
+			// Выбор инструмента
+			switch (key.Key)
+			{
+				// В зависимости от кейса даём музыканту разные инструменты
+				case ConsoleKey.D1:
+					musician.Instrument = guitar;
+					break;
+				case ConsoleKey.D2:
+					musician.Instrument = trumpet;
+					break;
+				case ConsoleKey.D3:
+					musician.Instrument = drumKit;
+					break;
+				case ConsoleKey.Escape:
+					break;
+				default:
+					Console.WriteLine("To stop playing music press any key.");
+					do
+					{
+						// Просто вызываем метод PerformMusic
+						musician.PerformMusic();
+						System.Threading.Thread.Sleep(1000);
+					}
+					while (!Console.KeyAvailable);
+					// Пока не будет нажата любая клавиша
+					Console.ReadKey(true);
+					break;
+			}
+			Console.Clear();
+		}
+		while (key.Key != ConsoleKey.Escape);
+		// Заканчиваем программу по нажатию ESC
+	}
+}
+			</section>
+			<section>
+				<h2>Пример 3</h2>
+				<pre>
+					<code class="cs">
+// Интерфейс Логгера
+interface ILogger
+{
+	// С одним методом - для записи строки
+	void Log(string text);
+}
+
+// Перечисление видов логгеров
+enum LoggerType { Console, File }
+
+// Статический класс для создания логгера
+static class LoggerFabric
+{
+	// Вложенные типы: классы, видимые только внутри класса:
+
+	// Приватный класс Консольного логгера, реализует интерфейс ILogger
+	private class ConsoleLogger : ILogger
+	{
+		// Реализация метода Log из интерфейса ILogger
+		public void Log(string text)
+		{
+			// Выводим строку на консоль
+			Console.WriteLine(text);
+		}
+	}
+
+	// Приватный класс Файлового логгера, тоже реализует интерфейс логгера
+	private class FileLogger : ILogger
+	{
+		// Приватное поле только для чтения для имени файла
+		private readonly string filename;
+
+		// Конструктор по умолчанию
+		public FileLogger()
+		{
+			// Задаём имя файла
+			filename = "log.log";
+		}
+
+		// Реализация метода Log из интерфейса ILogger
+		public void Log(string text)
+		{
+			// Записываем строку в файл
+			File.AppendAllText(filename, text + "\n");
+		}
+	}
+
+	// Обычные члены класса LoggerFabric:
+
+	// Приватный статический словарь
+	// Ключом выступаем элемент перечисления LoggerType
+	// Значением - объект, реализующий интерфейс логгера
+	private static Dictionary<LoggerType, ILogger> loggers;
+
+	// Статический конструктор
+	static LoggerFabric()
+	{
+		// Создание списка
+		loggers = new Dictionary<LoggerType, ILogger>();
+	}
+
+	// Публичный статический метод Получения логгера
+	// Выдаёт запрашиваемый логгер, по типу логгера
+	public static ILogger GetLogger(LoggerType type)
+	{
+		ILogger logger;
+		// Пытаемся получить логгер из словаря по переданному типу логгера в качестве ключа
+		if (loggers.TryGetValue(type, out logger))
+		{
+			// Если он есть, возвращаем его
+			return logger;
+		}
+		else
+		{
+			// Если элемента с таким ключом в словаре нет
+			// То, в зависимости от переданного типа логгера
+			switch (type)
+			{
+				case LoggerType.Console:
+					// Если это Console - создаём объект класса консольного логгера
+					logger = new ConsoleLogger();
+					break;
+				case LoggerType.File:
+					// Если File - создаём объект класса файлового логгера
+					logger = new FileLogger();
+					break;
+			}
+			// Добавляем созданный объект логгера в словарь по ключу его типа
+			loggers.Add(type, logger);
+			// И возвращаем его
+			return logger;
+		}
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		ILogger console = LoggerFabric.GetLogger(LoggerType.Console);
+		console.Log("First String to Console Logger");
+		console.Log("Second string to Console Logger");
+		console.Log("Third string to Console Logger");
+
+		ILogger file = LoggerFabric.GetLogger(LoggerType.File);
+		file.Log("First String to File Logger");
+		file.Log("Second string to File Logger");
+		file.Log("Third string to File Logger");
+
+		ILogger file2 = LoggerFabric.GetLogger(LoggerType.File);
+		console.Log((file == file2).ToString());
+	}
+}
+					</code>
+				</pre>
+			</section>
+			<section>
+				<h2>Стандартные интерфейсы .NET</h2>
+				<p>
+					В .NET есть много готовых интерфейсов, которые можно использовать на своих классах,
+					чтобы назначить им какую-либо функциональность.
+				</p>
+				<ul>
+					<li>IClonable</li>
+					<li>IComparable</li>
+					<li>IEnumerable, IEnumerator</li>
+					<li>IList</li>
+					<li>IConvertible</li>
+					<li>IFormattable</li>
+				</ul>
+			</section>
+			<section>
+				<h2>Пример с IFormattable</h2>
+				<pre>
+					<code class="cs">
+// Класс Температуры, реализующий стандартный интерфейс IFormattable
+public class Temperature : IFormattable
+{
+	// Закрытое поле для хранения температуры (в Цельсиях)
+	private decimal temp;
+
+	// Конструктор
+	public Temperature(decimal temperature)
+	{
+		// Проверяем адекватность значения
+		if (temperature < -273.15m)
+			throw new ArgumentOutOfRangeException(string.Format("{0} is less than absolute zero.",
+													temperature));
+		this.temp = temperature;
+	}
+
+	// Свойство для получения температуры в Цельсиях
+	public decimal Celsius
+	{
+		get { return temp; }
+	}
+
+	// Свойство для получения температуры в Фаренгейтах
+	public decimal Fahrenheit
+	{
+		get { return temp * 9 / 5 + 32; }
+	}
+
+	// Свойство для получения температуры в Кельвинах
+	public decimal Kelvin
+	{
+		get { return temp + 273.15m; }
+	}
+
+	// Переопределение метода ToString от Object-а
+	public override string ToString()
+	{
+		// Вызываем ToString с форматированием по культуре
+		return this.ToString("G", CultureInfo.CurrentCulture);
+	}
+
+	// Перегрузка метода ToString с одним параметром - форматом
+	public string ToString(string format)
+	{
+		// Вызываем ToString с форматированием по культуре
+		return this.ToString(format, CultureInfo.CurrentCulture);
+	}
+
+	// Перегрузка ToString с параметрами формата и культуры, в соответствии с которой нужно провести форматирование
+	public string ToString(string format, IFormatProvider provider)
+	{
+		// Если формат не задан
+		if (string.IsNullOrEmpty(format))
+		{
+			// Задаём как глобальный
+			format = "G";
+		}
+		// Если культура не задана
+		if (provider == null)
+		{
+			// Задаём как текущую культуру в системе
+			provider = CultureInfo.CurrentCulture;
+		}
+		// В зависимости от переданного формата
+		switch (format.ToUpperInvariant())
+		{
+			case "G":
+			case "C":
+				// Если G или C возвращаем в градусах Цельсия
+				return temp.ToString("F2", provider) + " °C";
+			case "F":
+				// Если F - в градусах Фаренгейта
+				return Fahrenheit.ToString("F2", provider) + " °F";
+			case "K":
+				// Если K - в Кельвинах
+				return Kelvin.ToString("F2", provider) + " K";
+			default:
+				// Если какой-то другой формат - исключение
+				throw new FormatException(string.Format("The {0} format string is not supported.", format));
+		}
+	}
+}
+
+class Program
+{
+	public static void Main()
+	{
+		// Создаём объект температуры 
+		Temperature temp1 = new Temperature(0);
+		// Используем наше форматирование во WriteLine
+		Console.WriteLine("{0:C} (Celsius) = {0:K} (Kelvin) = {0:F} (Fahrenheit)\n", temp1);
+
+		// Создаём новый объект температуры
+		temp1 = new Temperature(-40);
+		// Используем метод форматирования с разными вариантами CultureInfo
+		// Для текущей культуры установленной в системе
+		Console.WriteLine(string.Format(CultureInfo.CurrentCulture, "{0:C} (Celsius) = {0:K} (Kelvin) = {0:F} (Fahrenheit)", temp1));
+		// Для французской культуры
+		Console.WriteLine(string.Format(new CultureInfo("fr-FR"), "{0:C} (Celsius) = {0:K} (Kelvin) = {0:F} (Fahrenheit)\n", temp1));
+
+		// Опять создаём новый объект температуры
+		temp1 = new Temperature(32);
+		// Выводим консоль с использованием версии ToString с форматом
+		Console.WriteLine("{0} (Celsius) = {1} (Kelvin) = {2} (Fahrenheit)\n",
+							temp1.ToString("C"), temp1.ToString("K"), temp1.ToString("F"));
+	}
+}
+					</code>
+				</pre>
 			</section>
 		</div>
 	</div>
