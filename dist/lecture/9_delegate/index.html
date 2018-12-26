@@ -1,0 +1,1507 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Object-oriented programming</title>
+	<meta name="description" content="programming paradigm OOP in C#, concept of classes and objects, attributes and methods">
+	<meta name="keywords" content="c#, oop, class, object, interface">
+	<meta name="author" content="Edward & Albert">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="../../css/bundle.min.css">
+	<!--[if lt IE 9]>
+		<script src="../../js/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+                <section>
+                    <h1>Объектно-ориентированное программирование</h1>
+                    <h3>Делегаты, лямбды и события</h3>
+                    <p>
+                        <small>Edward &amp; Albert / <a href="https://github.com/tgjmjgj/sharp/">github:Tgjmjgj</a></small>
+                    </p>
+                </section>
+				<section>
+					<h2>Содержание лекции</h2>
+					<nav id="presentable-toc" class="table-content"></nav>
+				</section>
+			</section>
+			<section>
+				<h2>Расширяем сознание</h2>
+				<p>
+					У нас были переменные, которые хранят значения.
+				</p>
+				<p>
+					Были переменные, которые хранят адреса.
+				</p>
+				<p>
+					А теперь будут переменные, которые <span class="purple">хранят функции</span>.
+				</p>
+				<small>Ну, на самом деле также адрес, только адрес функции</small>
+			</section>
+			<section>
+				<section>
+					<h1>Делегаты</h1>
+					<blockquote>
+						<span class="purple">Делегаты</span> - объекты, которые указывают на методы.
+					</blockquote>
+					<p>
+						С помощью объекта типа делегата можно вызывать хранимые в нём методы.
+					</p>
+				</section>
+				<section>
+					<h2>Описание делегата</h2>
+					<p>
+						Как классы, интерфейсы, структуры и перечисления, делегаты являются специальными
+						типами объектов, и требуют предварительного описания перед использованием.
+					</p>
+					<p>
+						Делегаты описываются с помощью ключевого слова <span class="blue">delegate</span>:
+					</p>
+					<pre>
+						<code class="cs">
+delegate возвр_тип ИмяДелегата (список_параметров);
+						</code>
+					</pre>
+					<p>
+						Описание делегата похоже на объявление абстрактного метода без реализации.
+					</p>
+				</section>
+				<section>
+					<h2>Характеристики делегатов</h2>
+					<p>
+						Тип делегата характерезуется его <span class="purple">типом возвращаемого значения</span>
+						и <span class="purple">типами параметров</span>.
+					</p>
+					<p>
+						Делегат может ссылаться только на <u>методы, которые соответствуют 
+							его типу возвращаемого значения и типам параметров</u>.
+					</p>
+				</section>
+				<section>
+					<h3>Объяснение</h3>
+					<p>
+						Т.е. объект вот такого вот делегата FunctionRef:
+					</p>
+					<pre>
+						<code class="cs">
+delegate void FunctionRef();
+						</code>
+					</pre>
+					<p>
+						Сможет хранить только методы, которые возвращают void и не имеют параметров.
+					</p>
+					<p>
+						А объект делегата MyDelegate:
+					</p>
+					<pre>
+						<code class="cs">
+delegate float MyDelegate(Dog a, Dog b);
+						</code>
+					</pre>
+					<p>
+						Сможет хранить только методы, которые возвращают float и принимают 2 объекта типа Dog.
+					</p>
+				</section>
+				<section>
+					<h2>Суть</h2>
+					<p>
+						В делегат можно записать ссылку на любой метод, который соответствует его описанию.
+						Это может быть как статический метод класса, так и метод какого-либо объекта.
+					</p>
+					<p>
+						Самое главное, что метод, записанный в делегате, можно вызвать. А поскольку делегат
+						является переменной, метод в нём можно перезаписывать и менять.
+					</p>
+					<p>
+						Что даёт возможность определять, какой метод вызвать, не во время компиляции, а  прямо
+						во время выполнения.
+					</p>
+				</section>
+				<section>
+					<h2>Использование делегата</h2>
+					<p>
+						Делегат создаётся как и любой объект, через описание типа и имени.
+					</p>
+					<p>
+						Допустим, вы описали следующий тип делегата:
+					</p>
+					<pre>
+						<code class="cs">
+delegate void DelegateType(int a);
+						</code>
+					</pre>
+					<p>
+						Тогда, чтобы создать объект этого делегата, нужно просто написать:
+					</p>
+					<pre>
+						<code class="cs">
+static void Main(string[] args)
+{
+	DelegateType d;
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Инициализация делегата</h2>
+					<p>
+						При создании у делегата нет значения (null). А значениями для делегата
+						служат методы.
+					</p>
+					<p>
+						Пусть у нас есть такой метод ShowInt:
+					</p>
+					<pre>
+						<code class="cs">
+public static void ShowInt(int num)
+{
+	Console.WriteLine("Переданное число: {0}", num);
+	Console.WriteLine("Его квадрат: {0}", num);
+}
+						</code>
+					</pre>
+					<p>
+						Тогда можно присвоить нашему делегату этот метод:
+					</p>
+					<pre>
+						<code class="cs">
+DelegateType d;
+d = ShowInt;
+						</code>
+					</pre>
+					<p>
+						И вызывать:
+					</p>
+					<pre>
+						<code class="cs">
+d(1234);
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cs">
+// Статический класс для статических методов
+static class MyMath
+{
+	// Обратите внимание, что у всех методов одинаковые
+	// типы возвращаемого значения и типы параметров
+	public static int Sum(int a, int b)
+	{
+		return a + b;
+	}
+
+	public static int Sub(int a, int b)
+	{
+		return a - b;
+	}
+
+	public static int Mul(int a, int b)
+	{
+		return a * b;
+	}
+
+	public static int Div(int a, int b)
+	{
+		return a / b;
+	}
+}
+
+// Определён тип делегата с возвращаемым значением типа int
+// И двумя параметрами типа int
+delegate int Operation(int arg1, int arg2);
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём 2 целочисленных переменных
+		int x = 3, y = 4;
+		// Создаём делегат
+		Operation op;
+
+		// Назначаем ему статический метод Sum из класса MyMath
+		op = MyMath.Sum;
+		// Вызываем делегат, передавая ему в качестве параметров x и y
+		// Результат сохраняем в переменную res
+		// Здесь произойдёт вызов метода MyMath.Sum
+		int res = op(x, y);
+		// Вывод результата
+		Console.WriteLine("1) {0} + {1} = {2}", x, y, res);
+
+		// Далее назначаем делегату метод Sub
+		op = MyMath.Sub;
+		// И вызываем делегат
+		// Теперь, поскольку в нём уже метод Sub, произойдёт вызов именно метода Sub
+		res = op(x, y);
+		Console.WriteLine("2) {0} - {1} = {2}", x, y, res);
+
+		// Назначаем делегату метод Mul
+		op = MyMath.Mul;
+		// Вызываем делегат == вызываем метод Mul
+		res = op(x, y);
+		Console.WriteLine("3) {0} * {1} = {2}", x, y, res);
+
+		// Назначаем делегату метод Div
+		op = MyMath.Div;
+		// Вызываем делегат == вызываем метод Div
+		res = op(x, y);
+		Console.WriteLine("4) {0} / {1} = {2}", x, y, res);
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Ещё пример</h3>
+					<pre>
+						<code class="cs">
+class Program
+{
+	// Объявляем тип делегата:
+	// Без возвращаемого значения и без параметров
+	delegate void Message();
+	
+	// И 2 метода для него:
+	// Один выводит на консоль "Доброе утро"
+	private static void GoodMorning()
+	{
+		Console.WriteLine("Good Morning");
+	}
+
+	// Другой выводит на консоль "Добрый вечер"
+	private static void GoodEvening()
+	{
+		Console.WriteLine("Good Evening");
+	}
+
+	static void Main(string[] args)
+	{
+		// Создаём делегат
+		Message mes;
+		// Если сейчас по времени меньше 12 часов
+		if (DateTime.Now.Hour < 12)
+		{
+			// Назначаем делегату метод GoodMorning
+			mes = GoodMorning;
+		}
+		else
+		{
+			// Иначе назначаем делегату метод GoodEvening
+			mes = GoodEvening;
+		}
+		// Вызываем делегат
+		// В итоге выполнится либо метод GoodMorning, либо GoodEvening - в зависимости от времени
+		mes();
+		Console.ReadKey(true);
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Множественное назначение</h2>
+					<p>
+						Ещё одна уникальная черта делегата:
+					</p>
+					<p>
+						Делегату может быть назначен не один метод, а любое количество. Это позволяет создавать
+						так называемую <span class="purple">цепочку вызовов</span>: при вызове делегата,
+						методы, назначенные ему, последовательно вызываются друг за другом.
+					</p>
+					<p>
+						Для добавления дополнительных методов к делегату используются операторы 
+						<span class="blue">+</span> и <span class="blue">+=</span>.
+					</p>
+					<p>
+						А для удаления делегата применяются операторы <span class="blue">-</span> и 
+						<span class="blue">-=</span>.	
+					</p>
+				</section>
+				<section>
+					<h2>Демонстрация</h2>
+					<pre>
+						<code class="cs">
+// Методы для работы с массивом
+// Все методы возвращают void и принимают массив
+static class ArrayUtils
+{
+	// Обобщённый метод для вывода массива на консоль
+	public static void ShowArray&lt;T&gt;(T[] arr)
+	{
+		Console.Write("Array:  ");
+		// С помощью метода Join класса string
+		// Массив преобразовывается в строку с добавлением запятых между элементами
+		Console.WriteLine(string.Join(", ", arr));
+	}
+
+	// Метод для вывода максимального элемента массива
+	public static void ShowMax(int[] arr)
+	{
+		if (arr.Length == 0)
+		{
+			Console.WriteLine("Array is empty");
+		}
+		int max = arr[0];
+		for (int i = 1; i < arr.Length; ++i)
+		{
+			if (max < arr[i])
+			{
+				max = arr[i];
+			}
+		}
+		Console.WriteLine("Max value in the array is {0}", max);
+	}
+	
+	// Метод для вывода минимального элемента массива
+	public static void ShowMin(int[] arr)
+	{
+		if (arr.Length == 0)
+		{
+			Console.WriteLine("Array is empty");
+			return;
+		}
+		int min = arr[0];
+		for (int i = 1; i < arr.Length; ++i)
+		{
+			if (min > arr[i])
+			{
+				min = arr[i];
+			}
+		}
+		Console.WriteLine("Min value in the array is {0}", min);
+	}
+
+	// Метод для вывода среднего значения элементов массива
+	public static void ShowAvg(int[] arr)
+	{
+		if (arr.Length == 0)
+		{
+			Console.WriteLine("Array is empty");
+			return;
+		}
+		int sum = 0;
+		for (int i = 0; i < arr.Length; ++i)
+		{
+			sum += arr[i];
+		}
+		float avg = (float)sum / arr.Length;
+		Console.WriteLine("Average value in the array is {0}", avg);
+	}
+
+	// Метод для вывода нормализованного массива
+	// *Нормализованный - все элементы редуцированы до значений -1, 0 и 1
+	public static void ShowNormalize(int[] arr)
+	{
+		int[] tmpArr = new int[arr.Length]; 
+		arr.CopyTo(tmpArr, 0);
+		for (int i = 0; i < tmpArr.Length; ++i)
+		{
+			// Вс положительные элементы
+			if (tmpArr[i] > 0)
+			{
+				// Заменяются на 1
+				tmpArr[i] = 1;
+			}
+			// Все отрицательные элементы
+			else if (tmpArr[i] < 0)
+			{
+				// Заменяются на -1
+				tmpArr[i] = -1;
+			}
+		}
+		Console.Write("Normalize array:  ");
+		Console.WriteLine(string.Join(", ", tmpArr));
+	}
+}
+
+// Объявлен тип делегата для вышеописанных методов
+delegate void MultiDelegate(int[] array);
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаётся массив
+		int[] array1 = { -2, 17, 23, 6, -5, 14, 0, -11, -2 };
+
+		// Создаётся делегат, в него записывается метод ShowArray
+		// *Конкретный тип для обобщённого метода определяется автоматически
+		// На основании типов делегата
+		MultiDelegate multigate = ArrayUtils.ShowArray;
+		// А затем к делегату добавляются другие методы
+		multigate += ArrayUtils.ShowAvg;
+		// В том порядке, в котором они добавляются
+		multigate += ArrayUtils.ShowMax;
+		// Они и будут вызываться
+		multigate += ArrayUtils.ShowMin;
+		multigate += ArrayUtils.ShowNormalize;
+
+		// Вызов делегата запускает цепочку вызовов
+		// Всех записанных в него методов
+		multigate(array1);
+		Console.WriteLine();
+
+		// Из делегата удаляются некоторые методы
+		multigate -= ArrayUtils.ShowMin;
+		multigate -= ArrayUtils.ShowMax;
+		multigate -= ArrayUtils.ShowAvg;
+
+		// Делегат вызывается снова
+		// Теперь будут выполнены лишь оставшиеся методы
+		multigate(array1);
+					
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h3>Ковариантность и контравариантность делегатов</h3>
+					<p>
+						У делегатов тоже есть эти страшные свойства. Только, в отличие от обобщённых интерфейсов,
+						для делегатов они действуют всегда по умолчанию.
+					</p>
+					<p>
+						Свойство <span class="purple">ковариантности</span> позволяет присвоить делегату метод, 
+						возвращаемым типом которого служит класс, производный от класса, 
+						указываемого в возвращаемом типе делегата.
+					</p>
+					<p>
+						Свойство <span class="purple">контравариантности</span> позволяет присвоить делегату метод, 
+						типом параметра которого служит класс, являющийся базовым 
+						для класса, указываемого в объявлении делегата.
+					</p>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre>
+						<code class="cs">
+// Класс Здание
+class Building
+{
+	// ...
+}
+
+// Производный от него класс Школа
+class School : Building
+{
+	// ...
+}
+// Производный от здания класс Отель
+class Hotel : Building
+{
+	// ...
+}
+
+// Класс строительной компании
+class ConstructCompany
+{
+	// Метод Постройки школы, возвращающий новый объект школы
+	public School BuildSchool()
+	{
+		Console.WriteLine("Construction company is building a school");
+		// Создаётся и возвращается объект класса School
+		return new School();
+	}
+
+	// Метод Постройки отеля, возвращающий объект отеля
+	public Hotel BuildHotel()
+	{
+		Console.WriteLine("Construction company is building a new hotel");
+		// Создаётся и возвращается объект Hotel
+		return new Hotel();
+	}
+}
+
+// Класс Горожанин
+class Citizen
+{
+	// Метод Посещения постройки, принимает постройку в качестве параметра
+	public void VisitBuilding(Building someBuilding)
+	{
+		Console.WriteLine("The citizen decided to visit the Building");
+	}
+
+	// Методы Посещения отеля, принимает объект класса Hotel
+	public void VisitHotel(Hotel hotel)
+	{
+		Console.WriteLine("The citizen decided to visit the Hotel");
+	}
+}
+
+// Делегат для демонстрации ковариантности
+// Возвращаемым типом указан Building
+delegate Building CreateBuilding();
+
+// Делегат для демонстрации контравариантности
+// Принимает аргумент типа Hotel
+delegate void Visit(Hotel building);
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём строительную компанию
+		ConstructCompany company = new ConstructCompany();
+
+		// Создаём делегат типа CreateBuilding
+		CreateBuilding build;
+		Random randGen = new Random();
+		int randNum = randGen.Next(2);
+		// 50 на 50
+		if (randNum == 0)
+		{
+			// Что назначим делегату метод BuildSchool
+			// Хотя у делегата указано, что тип возвращаемого значения должен быть Building
+			// Мы можем назначит метод, который возвращает School - производный от указанного класса Building
+			// Это и есть ковариантность
+			build = company.BuildSchool;
+		}
+		else
+		{
+			// Или метод BuildHotel
+			build = company.BuildHotel;
+		}
+		// Вызываем делегат и сохраняем полученную постройку в переменную b
+		Building b = build();
+
+		// Создаём горожанина
+		Citizen adler = new Citizen();
+		// Создаём делегат типа Visit и назначаем ему метод VisitBuilding
+		// Хотя у делегата отмечено, что он должен принимать параметр типа Hotel
+		// Мы можем назначит ему метод, принимающий параметр типа Building - базовый для класса Hotel
+		// Это - контравариантность
+		Visit visit = adler.VisitBuilding;
+		// А потом ещё раз (можно несколько раз назначать делегату один метод)
+		// Тогда он просто вызовется несколько раз
+		visit += adler.VisitBuilding;
+		// Также добавляем к делегату метод VisitHotel,
+		visit += adler.VisitHotel;
+		// И ещё один VisitBuilding
+		visit += adler.VisitBuilding;
+
+		// Если строительная компания построила отель, а не школу
+		if (b is Hotel hot)
+		{
+			// Вызываем делегат, и передаём в качестве параметра объект отеля hot
+			// Полученный путём преобразования оператора is в условии проверки if
+			visit(hot);
+		}
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Делегаты и методы объекта</h2>
+					<p>
+						Делегат спокойно может указывать на метод какого-либо объекта:
+					</p>
+					<pre>
+						<code class="cs">
+// Класс Авиакомпания
+class Airline
+{
+	private static Random gen;
+
+	static Airline()
+	{
+		gen = new Random();
+	}
+
+	// Метод Отправить самолёт в рейс
+	public int SendFlight()
+	{
+		// Случайное количество пассажиров
+		int passengers = gen.Next(140, 780);
+		// Выводим на консоль, что, мол, столько-то человек отправилось в небесное плавание
+		Console.WriteLine("The plane leaves with {0} passengers on board", passengers);
+		// Возвращаем количество отправленных пассажиров
+		return passengers;
+	}
+
+	// Метод задержать самолёт
+	public int DelayedFlight()
+	{
+		// Выводим на консоль, что самолёт задержан
+		Console.WriteLine("The plane is delayed");
+		// Возвращаем 0, что значит, что не было отправлено ни одного пассажира
+		return 0;
+	}
+}
+
+// Объявлен тип делегата AirlineAction
+// Возвращаемое значени типа int, параметров нет
+delegate int AirlineAction();
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём экземпляр Авиакомпании
+		Airline myAirline = new Airline();
+
+		// Создаём делегат и назначаем ему метод SendFlight объекта myAirline
+		AirlineAction act = myAirline.SendFlight;
+
+		Random rndGen = new Random();
+		int rnd = 0;
+		do
+		{
+			// Случайное число
+			rnd = rndGen.Next(20);
+			// Если не повезло
+			if (rnd == 13)
+			{
+				// Назначаем делегату метод DelayedFlight
+				act = myAirline.DelayedFlight;
+			}
+			// Вызываем делегат, т.е. метод на который он ссылается
+			act();
+		}
+		while (act == myAirline.SendFlight);
+		// Цикл продолжается, пока метод делегата - метод SendFlight
+		
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Сравнение делегатов</h2>
+					<p>
+						Да, как вы могли заметить, делегат можно сравнивать с методами.
+					</p>
+					<p>
+						А также с другими делегатами такого же типа. С делегатами другого типа нельзя.
+					</p>
+					<pre>
+						<code class="cs">
+static void Main(string[] args)
+{
+	// Авиакомпания №1
+	Airline myAirline = new Airline();
+	// Авиакомпания №2
+	Airline air2 = new Airline();
+
+	// Первому делегату назначен метод SendFlight объекта myAirline
+	AirlineAction act1 = myAirline.SendFlight;
+
+	// Второму делегату назначен метод DelayedFlight объект myAirline
+	AirlineAction act2 = myAirline.DelayedFlight;
+
+	// Третьему делегату назначен метод DelayedFlight объект air2
+	AirlineAction act3 = air2.DelayedFlight;
+
+	// Сравниматся первый делегат с методом Send Flight объекта myAirline
+	if (act1 == myAirline.SendFlight)
+	{
+		// Именно этот метод был ему назначен, поэтому условие выполнится
+		Console.WriteLine("Delegate act1 refers to the method SendFlight of the object myAirline");
+	}
+	// Сравнивается первый делегат со вторым делегатом
+	if (act1 != act2)
+	{
+		// Они ссылаются на разные методы, а значит не равны, поэтому условие выполнится
+		Console.WriteLine("Delegates act1 and act2 refers to different methods");
+	}
+	// Сравнивается второй делегат с третьим
+	// Хотя они оба указывают на метод DelayedFlight
+	// Но эти методы принадлежат разным объектам, поэтому считаются разными
+	if (act2 != act3)
+	{
+		// Методы не совпадают, поэтому условие выполнится
+		Console.WriteLine("The same methods from different object are not equal.");
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Делегат как свойство класса</h2>
+					<p>
+						Добавим в последний пример немного инкапсуляции:
+					</p>
+					<pre>
+						<code class="cs">
+// Всё тот же тип делегата
+delegate int AirlineAction();
+
+// Всё тот же класс Авиакомпании
+class Airline
+{
+	private static Random gen;
+
+	// Свойство Flight типа делегата AirlineAction (!)
+	// Задавать значение которому можно только изнутри этого класса
+	public AirlineAction Flight { get; private set; }
+
+	static Airline()
+	{
+		gen = new Random();
+	}
+
+	// Конструктор по умолчанию
+	public Airline()
+	{
+		// Назначает свойству Flight (т.е. делегату)
+		// метод SendFlight, который теперь приватный (!)
+		Flight = SendFlight;
+	}
+
+	// Метод SendFlight стал приватным, т.е. его больше нельзя вызвать напрямую извне
+	private int SendFlight()
+	{
+		int passengers = gen.Next(140, 780);
+		Console.WriteLine("The plane leaves with {0} passengers on board", passengers);
+		// Генерируем новое случайное число
+		int badLuck = gen.Next(20);
+		// Если удача подвела
+		if (badLuck == 13)
+		{
+			// Назначаем свойству Flight (которое имеет тип делегата)
+			// Метод DelayedFlight, который также стал приватным
+			Flight = DelayedFlight;
+		}
+		return passengers;
+	}
+
+	// Приватный метод DelayedFlight
+	private int DelayedFlight()
+	{
+		Console.WriteLine("The plane is delayed");
+		// Возвращает делегату Flight метод SendFlight
+		Flight = SendFlight;
+		return 0;
+
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Здесь всё работает так же, как и раньше:
+		// Создаётся авиакомпания
+		Airline myAirline = new Airline();
+
+		// Переменная для количества пассажиров, которое вернёт Flight
+		int passgrs;
+		do
+		{
+			// Вызываем свойство (!) Flight нашей авиакомпании
+			// Поскольку свойство имеет тип делегата, то его можно вызвать
+			passgrs = myAirline.Flight();
+			// И иногда это будет вызов метода SendFlight, а иногда вызов метода DelayedFlight
+			// В зависимости от внутренней логики класса Airline
+			// Там в принципе может вызываться что-угодно!
+		}
+		while (passgrs != 0);
+		// Заканчиваем цикл, когда метод в свойстве Flight вернёт 0
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Делегаты и методы</h2>
+					<p>
+						А теперь самое главное: делегаты можно использовать в качестве аргументов методов, а также
+						в качестве возвращаемых значений.
+					</p>
+					<p>
+						И это очень распространённый, гибкий и мощный инструмент.
+					</p>
+					<p>
+						В аргумент метода типа делегата может быть передан как непосредственно делегат такого типа,
+						так и просто метод подходящего описания.
+					</p>
+				</section>
+				<section>
+					<h2>Делегат в аргументах метода</h2>
+					<pre>
+						<code class="cs">
+// Определение типа делегата WorkAction
+// С возвращаемым значением int и без параметров
+delegate int WorkAction();
+
+// Класс Горожанин
+class Citizen
+{
+	// Приватное поле типа делегата WorkAction
+	private WorkAction workAction;
+	// Обычное свойство Имя горожанина
+	public string Name { get; set; }
+	// Статический объект рандома
+	public static Random Random { get; set; }
+
+	// Статический конструктор для инициализации генератора случайных чисел
+	static Citizen()
+	{
+		Random = new Random();
+	}
+
+	// Конструктор с параметром, для создания горожанина с именем
+	public Citizen(string name)
+	{
+		Name = name;
+	}
+
+	// Метод SetWork, который принимает в качестве параметра аргумент типа делегата WorkAction
+	public void SetWork(WorkAction newWork)
+	{
+		// Если этот делегат содержит ссылку на метод(ы)
+		if (newWork != null)
+		{
+			// Записываем его в закрытое поле workAction
+			workAction = newWork;
+		}
+	}
+
+	// Метод Work
+	public int Work()
+	{
+		// Создаём переменную, в которой будет сохраняться сумма заработанных денег
+		int earnedMoney = 0;
+		// Если рабочего действия нет
+		if (workAction == null)
+		{
+			// Выводим сообщение, что у горожанина нет работы
+			Console.WriteLine("The Citizen {0} has no work!", Name);
+			return earnedMoney;
+		}
+		// Случайное число, которое определяет, сколько итераций будет у цикла работы
+		int randomWork = Random.Next(10);
+		Console.WriteLine("Beginning of work!");
+		// По циклу, столько раз, сколько выпало рандомом
+		for (int i = 0; i < randomWork; ++i)
+		{
+			// Вызывается делегат workAction
+			// И значение, которое он возвращает, прибавляется к значению переменной earnedMoney
+			earnedMoney += workAction();
+		}
+		Console.WriteLine("End of work!");
+		Console.WriteLine("Today citizen {0} earned {1} money!", Name, earnedMoney);
+		// Возвращается количество заработанных денег
+		return earnedMoney;
+	}
+}
+
+class Program
+{
+	// Статический метод, описывающий действие по работе писателя
+	static int Write()
+	{
+		Console.WriteLine("Writes something...");
+		// Возвращает случайное число - количество денег, полученное за эту работу
+		return Citizen.Random.Next(120, 190);
+	}
+
+	// Статический метод, описывающий действие по работе программиста
+	static int Programming()
+	{
+		Console.WriteLine("Programs back-end...");
+		// Также возвращает случайное число
+		return Citizen.Random.Next(160, 410);
+	}
+
+	static void Main(string[] args)
+	{
+		// Создаём первого горожанина
+		Citizen human1 = new Citizen("Bob");
+		// Он пытается работать
+		human1.Work();
+
+		// Вызывается метод SetWork, который принимает делегат
+		// В качестве параметра мы передаём метод Write,
+		// Который по сигнатуре схож с описанием делегата
+		// Этот метод Write записывается в закрытое поле класса,
+		// Чтобы потом использоваться в методе Work
+		human1.SetWork(Write);
+		// Отправляем Боба на работу
+		human1.Work();
+
+		// Создаём Ричарда
+		Citizen human2 = new Citizen("Richard");
+		// Пытаемся поработать
+		human2.Work();
+		// Назначаем действия по работе программиста
+		human2.SetWork(Programming);
+		// Отправялем на работу 2 раза
+		human2.Work();
+		human2.Work();
+
+		// Назначаем Бобу тоже работу программиста
+		human1.SetWork(Programming);
+		// И отправляем его на работу
+		human1.Work();
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Ещё пример</h3>
+					<pre>
+						<code class="cs">
+// Объявляем тип делегата, возвращающий булево значение
+// И принимающий 2 параметра типа int
+delegate bool Comparison(int a, int b);
+
+static class ArrayUtils
+{
+	// Вместо метода для поиска минимального элемента,
+	// Метода для поиска максимального элемента, и др.
+	// Мы добавили один единственный универсальный метод
+	// Условие работы которого определяется вторым аргументом
+	// Типа делегата Comparison
+	public static int ShowByExpr(int[] arr, Comparison compare)
+	{
+		if (arr.Length == 0)
+		{
+			Console.WriteLine("Array is empty");
+		}
+		int element = arr[0];
+		for (int i = 1; i < arr.Length; ++i)
+		{
+			// Там, где в алгоритме раньше находилась ключевая проверка
+			// Вызывается делегат. И от результата его выполнения зависит вся логика этого метода
+			if (compare(arr[i], element))
+			{
+				element = arr[i];
+			}
+		}
+		// Возвращаем полученный результат
+		return element;
+	}
+}
+
+class Program
+{
+	// Вспомогательный статический метод
+	// Для поиска минимального элемента методом ShowByExpr
+	static bool Min(int a, int b)
+	{
+		return a < b;
+	}
+
+	// Вспомогательный статический метод
+	// Для поиска максимального элемента методом ShowByExpr
+	static bool Max(int a, int b)
+	{
+		return a > b;
+	}
+
+	// Вспомогательный статический метод
+	// Для поиска минимального положительного элемента методом ShowByExpr
+	static bool MinPositive(int a, int b)
+	{
+		return a > 0 ? Min(a, b) : false;
+	}
+
+	// И тут можно написать ещё сколько угодно разных методов,
+	// Которые будут как-либо менять поведение метода ShowByExpr
+
+	static void Main(string[] args)
+	{
+		// Создаётся массив
+		int[] array1 = { 10, 17, 23, 6, -5, 14, 0, -11, -2 };
+
+		// Вызывается метод ShowByExpr, в качестве параметра-делегата
+		// Передаётся метод Min - благодаря чему метод возвращает минимальное число
+		int result = ArrayUtils.ShowByExpr(array1, Min);
+		Console.WriteLine("Min value in the array is {0}", result);
+
+		// Вызывается метод ShowByExpr, в качестве параметра-делегата
+		// Передаётся метод Max - благодаря чему метод возвращает максимальное число
+		result = ArrayUtils.ShowByExpr(array1, Max);
+		Console.WriteLine("Max value in the array is {0}", result);
+
+		// Вызывается метод ShowByExpr, в качестве параметра-делегата
+		// Передаётся метод MinPositive - благодаря чему метод возвращает минимальное положительное число
+		result = ArrayUtils.ShowByExpr(array1, MinPositive);
+		Console.WriteLine("Min positive value in the array is {0}", result);
+	}
+}							
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Анонимные функции</h2>
+					<p>
+						Объявление целых методов в классе довольно громозтко и излишне в том случае, когда
+						эти методы очень короткие и используются лишь для присваивания делегату.
+					</p>
+					<p>
+						Поэтому в C# существует возможность создавать <span class="purple">анонимные функции</span> -
+						безымянные кодовые блоки, служащие для инициализации делегатов.
+					</p>
+					<p>
+						У анонимных функций имеется 2 формы записи (старая и новая):
+					</p>
+					<ul>
+						<li>Анонимный метод</li>
+						<li>Лямбда-выражение</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Анонимные методы</h2>
+					<p>
+						<span class="purple">Анонимный метод</span> - старый способ создания безымянного блока кода,
+						инициализирующего какой-то конкретный делегат.
+					</p>
+					<p>
+						Для описания анонимного метода нужно описать обычный функциональный блок после ключевого слова
+						<span class="blue">delegate</span>:
+					</p>
+					<pre>
+						<code class="cs">
+delegate (список_параметров)
+{
+	// Код метода
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Пример 1</h2>
+					<pre>
+						<code class="cs">
+class Program
+{
+	// Объявлен делегат
+	delegate void MessageHandler(string message);
+
+	static void Main(string[] args)
+	{
+		// Создаётся экземпляр делегата и инициализируется анонимным методом
+		MessageHandler handler = delegate(string mes)
+		{
+			// Анонимный метод выводит значение параметра на консоль
+			Console.WriteLine(mes);
+		};
+		// Делегат вызывается, происходит выполнение анонимного метода
+		handler("Hello world from anonymous method!");
+		Console.ReadKey(true);
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Пример 2</h2>
+					<pre>
+						<code class="cs">
+delegate bool Comparison(int a, int b);
+
+static class ArrayUtils
+{
+	public static int ShowByExpr(int[] arr, Comparison compare)
+	{
+		if (arr.Length == 0)
+		{
+			Console.WriteLine("Array is empty");
+		}
+		int element = arr[0];
+		for (int i = 1; i < arr.Length; ++i)
+		{
+			if (compare(arr[i], element))
+			{
+				element = arr[i];
+			}
+		}
+		return element;
+	}
+}
+
+class Program
+{
+	// Больше нет ненужных вспомогательных методов
+
+	static void Main(string[] args)
+	{
+		// Создаётся массив
+		int[] array1 = { 10, 17, 23, 6, -5, 14, 0, -11, -2 };
+		
+		// Теперь при вызове метода ShowByExpr второй параметр-делегат инициализируется
+		// Анонимным методом, описанным прямо здесь
+		int result = ArrayUtils.ShowByExpr(array1, delegate(int a, int b) { return a < b; });
+		Console.WriteLine("Min value in the array is {0}", result);
+		
+		// В каждом случае то же самое, по аналогии - анонимный метод
+		result = ArrayUtils.ShowByExpr(array1, delegate (int a, int b) { return a > b; });
+		Console.WriteLine("Max value in the array is {0}", result);
+
+		// И здесь свой анонимный метод
+		result = ArrayUtils.ShowByExpr(array1, delegate (int a, int b) { return a > 0 ? a < b : false; });
+		Console.WriteLine("Min positive value in the array is {0}", result);
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h3>Рассмотри такой пример</h3>
+					<pre>
+						<code class="cs">
+// Объявление делегата Sum
+delegate int Sum(int number);
+
+class Program
+{
+	// Метод SomeVar, который возвращает делегат Sum
+	static Sum SomeVar()
+	{
+		int result = 0;
+
+		// Создаётся экземпляр делегата Sum и ему присваивается
+		// Анонимный метод
+		Sum del = delegate (int number)
+		{
+			// Который считает сумму чисел до заданного
+			for (int i = 0; i <= number; i++)
+			{
+				result += i;
+			}
+			// И возращает её
+			return result;
+		};
+		// Метод SomeVar возвращает делегат del
+		return del;
+	}
+
+	static void Main()
+	{
+		// Создаётся объект делегата Sum del1 и ему назначается
+		// Делегат, который вернул метод SomeVar (а он вернул делегат с анонимным методом)
+		Sum del1 = SomeVar();
+
+		// Для чисел от 1 до 5 включительно:
+		for (int i = 1; i <= 5; i++)
+		{
+			// Выводит сумму всех целых положительных чисел до заданного
+			// Посредством вызова делегата del1
+			Console.WriteLine("Cумма {0} равна: {1}", i, del1(i));
+		}
+
+		Console.ReadKey(true);
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Замыкания</h2>
+					<p>
+						Вывод на консоль предыдущего примера может озадачить.
+					</p>
+					<p>
+						Если присмотреться к коду, можно заметить, что в анонимном методе используется
+						переменная result, объявленная во внешнем методе SomeVar. Такие переменные
+						называются <span class="purple">Захваченными</span>.
+					</p>
+					<p>
+						А сам механизм захвата окружающих анонимный метод переменных назвается
+						<span class="purple"><u>Замыканием</u></span>.
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Лямбда-выражения</h2>
+					<img src="img/lambda.jpg" />
+				</section>
+				<section>
+					<h2>Лямбда-выражения</h2>
+					<p>
+						<span class="purple">Лямбда-выражения</span> представляют собой упрощённый синтаксис
+						описания анонимных методов.
+					</p>
+					<p>
+						Для описания Лямбда-выражения используется <span class="purple">лямбда-оператор</span>
+						<span class="blue">=></span>.
+					</p>
+					<p>
+						Бывает 2 вида лямбда-выражений:
+					</p>
+					<ul>
+						<li>Одиночные</li>
+						<li>Блочные</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Одиночные лямбды</h2>
+					<p>
+						Одиночное лямбда выражение используется, когда действие, выполняемое анонимной функцией
+						может быть описано одним выражением(действием.)
+					</p>
+					<p>
+						Имеет следующий синтаксис:
+					</p>
+					<pre>
+						<code class="cs">
+параметр => выражение
+						</code>
+					</pre>
+					<p>
+						Или
+					</p>
+					<pre>
+						<code class="cs">
+(список_параметров) => выражение
+						</code>
+					</pre>
+					<p>
+						Одиночные лямбды по умолчанию возвращают результат описанного в них выражения, поэтому
+						если в анонимной функции предполагался return - его писать не нужно.
+					</p>
+				</section>
+				<section>
+					<h2>Демонстрация</h2>
+					<p>
+						Покажем синтаксис описания лямбда-выражений в сравнении с ранее написанными анонимными методами:
+					</p>
+					<pre>
+						<code class="cs">
+// Эквивалентные записи:
+// Анонимный метод
+MessageHandler handler = delegate(string mes)
+{
+	Console.WriteLine(mes);
+};
+// Лямбда
+MessageHandler handler = mes => Console.WriteLine(mes);
+						</code>
+					</pre>
+					<pre>
+						<code class="cs">
+// Эквивалентные записи:
+// Анонимный метод
+int result = ArrayUtils.ShowByExpr(array1, delegate(int a, int b) { return a < b; });
+// Лямбда
+int result = ArrayUtils.ShowByExpr(array1, (a, b) => a < b);
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Блочные лямбды</h2>
+					<p>
+						Внутри блочных лямбда-выражений может содержаться любое количество выражений, любой код,
+						т.е. нет никаких ограничений. На за счёт этого приходится расплачиваться красотой синтаксиса:
+					</p>
+					<pre>
+						<code class="cs">
+параметр => { // ... }
+
+						</code>
+					</pre>
+					<pre>
+						<code class="cs">
+(список_параметров) => { // ... return ... }
+						</code>
+					</pre>
+					<p>
+						Тело блочного лямбда-выражения берётся в фигурные скобки, и в случае наличия 
+						возвращаемого значения в нём необходимо обозначать return.
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Пример 1</h2>
+					<pre>
+						<code class="cs">
+class Program
+{
+	delegate int Operation(int x, int y);
+	delegate int Square(int x);
+
+	static void Main(string[] args)
+	{
+		Operation operation = (x, y) => x + y;
+
+		Console.WriteLine(operation(10, 20));
+		Console.WriteLine(operation(40, 20));
+
+		Square square = i => i * i;
+
+		int z = square(6);
+		Console.WriteLine(z);
+
+		Console.ReadKey(true);
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Пример 2</h2>
+					<pre>
+						<code class="cs">
+// Создадим несколько делегатов имитирующих 
+// простейшую форму регистрации
+delegate int LengthLogin(string s);
+delegate bool BoolPassword(string s1, string s2);
+delegate void Captha(string s1, string s2);
+
+class Program
+{
+	private static void SetLogin()
+	{
+		Console.Write("Введите логин: ");
+		string login = Console.ReadLine();
+
+		// Используем лямбда-выражение
+		LengthLogin lengthLoginDelegate = s => s.Length;
+
+		int lengthLogin = lengthLoginDelegate(login);
+		if (lengthLogin > 25)
+		{
+			Console.WriteLine("Слишком длинное имя\n");
+
+			// Рекурсия на этот же метод, чтобы ввести заново логин
+			SetLogin();
+		}
+	}
+
+	static void Main()
+	{
+		SetLogin();
+
+		Console.Write("Введите пароль: ");
+		string password1 = Console.ReadLine();
+		Console.Write("Повторите пароль: ");
+		string password2 = Console.ReadLine();
+
+		// Используем лямбда выражение
+		BoolPassword bp = (s1, s2) => s1 == s2;
+
+		if (bp(password1, password2))
+		{
+			Random ran = new Random();
+			string resCaptha = "";
+			for (int i = 0; i < 10; i++)
+				resCaptha += (char)ran.Next(0, 100);
+			Console.WriteLine("Введите код с капчи: " + resCaptha);
+			string resCode = Console.ReadLine();
+
+			// Реализуем блочное лямбда-выражение
+			Captha cp = (s1, s2) =>
+			{
+				if (s1 == s2)
+					Console.WriteLine("Регистрация удалась!");
+				else
+					Console.WriteLine("Не переживай, в следующий раз получится :)");
+				return;
+			};
+			cp(resCaptha, resCode);
+		}
+		else
+			Console.WriteLine("Регистрация провалилась. Пароли не совпадают");
+
+		Console.ReadLine();
+	}
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Пример 3</h2>
+					<pre>
+						<code class="cs">
+delegate bool Predicate&lt;T&gt;(T first, T second);
+
+static class ArrayUtils
+{
+	public static T[] Sort&lt;T&gt;(T[] array, Predicate&lt;T&gt; predicate)
+	{
+		for (int i = 0; i < array.Length; ++i)
+		{
+			for (int j = i; j < array.Length; ++j)
+			{
+				if (predicate(array[i], array[j]))
+				{
+					T tmp = array[j];
+					array[j] = array[i];
+					array[i] = tmp;
+				}
+			}
+		}
+		return array;
+	}
+
+	public static void Show&lt;T&gt;(T[] array)
+	{
+		Console.WriteLine(string.Join(", ", array));
+	}
+}
+
+class Program
+{
+
+	static void Main(string[] args)
+	{
+		int[] arr1 = { -3, 8, 0, 13, 6, 82, 34, 2, -6, -10, 1, 3 };
+
+		ArrayUtils.Sort(arr1, (a, b) => a > b);
+		ArrayUtils.Show(arr1);
+
+		double[] arr2 = { 0.354, -9.234, 0.3, 5.19, -1.628, -7.62, 4.001, 8.971, -0.045, 13.58 };
+
+		ArrayUtils.Sort(arr2, (a, b) => a < b);
+		ArrayUtils.Show(arr2);
+
+		string[] arr3 = { "Matthew", "Abraham", "Bill", "Jimmy", "Nancy", "Ronald", "Isaac" };
+
+		ArrayUtils.Sort(arr3, (a, b) => a[0] > b[0]);
+		ArrayUtils.Show(arr3);
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Callback</h2>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>События</h2>
+				</section>
+			</section>
+		</div>
+	</div>
+	<aside id="presentable-icon" class="cpp">
+		<a title="Содержание лекции" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x"></i>
+		</a>
+	</aside>
+	<script src="../../js/bundle.min.js"></script>
+</body>
+
+</html>
