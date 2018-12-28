@@ -35,7 +35,7 @@
 
 Полиморфизм подтипов. Полиморфизм интерфейсов. Применение полиморфизма.
 
-[Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/6_plymorphism/index.html "Лекция")
+[Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/6_polymorphism/index.html "Лекция")
 
 ### Тема 7. Обобщения
 

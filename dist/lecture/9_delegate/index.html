@@ -76,7 +76,7 @@ delegate возвр_тип ИмяДелегата (список_параметр
 				<section>
 					<h2>Характеристики делегатов</h2>
 					<p>
-						Тип делегата характерезуется его <span class="purple">типом возвращаемого значения</span>
+						Тип делегата характеризуется его <span class="purple">типом возвращаемого значения</span>
 						и <span class="purple">типами параметров</span>.
 					</p>
 					<p>
@@ -1050,7 +1050,7 @@ class Program
 				<section>
 					<h2>Анонимные функции</h2>
 					<p>
-						Объявление целых методов в классе довольно громозтко и излишне в том случае, когда
+						Объявление целых методов в классе довольно громоздко и излишне в том случае, когда
 						эти методы очень короткие и используются лишь для присваивания делегату.
 					</p>
 					<p>
@@ -1224,7 +1224,7 @@ class Program
 						называются <span class="purple">Захваченными</span>.
 					</p>
 					<p>
-						А сам механизм захвата окружающих анонимный метод переменных назвается
+						А сам механизм захвата окружающих анонимный метод переменных называется
 						<span class="purple"><u>Замыканием</u></span>.
 					</p>
 				</section>
@@ -1336,19 +1336,32 @@ int result = ArrayUtils.ShowByExpr(array1, (a, b) => a < b);
 						<code class="cs">
 class Program
 {
+	// Делегат Operation, в качестве параметров принимающий 2 int-а
 	delegate int Operation(int x, int y);
+	// Делегат Square, в качестве параметра принимающий 1 int
 	delegate int Square(int x);
 
 	static void Main(string[] args)
 	{
+		// Создаём объект делегата и присваиваем ему анонимную функцию
+		// Заданную лямбда-выражением, принимающую 2 параметра x и y
+		// И возвращающую их сумму (x + y)
 		Operation operation = (x, y) => x + y;
 
+		// Выводим на консоль результат вызова делегата operation с параметрами 10 и 20
+		// Он будет выполнять лямбда-выражение, заданное выше, т.е. посчитает x + y
 		Console.WriteLine(operation(10, 20));
+		// То же самое только для параметров 40 и 20
 		Console.WriteLine(operation(40, 20));
 
+		// Создаём делегат типа Square и назначаем ему лямбда-выражение
+		// С параметром i, возвращающее квадрат этого числа i
 		Square square = i => i * i;
 
+		// Вызываем делегат square с аргументов 6
+		// Вызовется лямбда-выражение, которое возведёт 6 в квадрат
 		int z = square(6);
+		// Результат выведется на консоль
 		Console.WriteLine(z);
 
 		Console.ReadKey(true);
@@ -1361,68 +1374,99 @@ class Program
 					<h2>Пример 2</h2>
 					<pre>
 						<code class="cs">
-// Создадим несколько делегатов имитирующих 
-// простейшую форму регистрации
+// *Пример с кривым и нелогичным дизайном, просто для демонстрации лямбда
+
+// Объявляем 3 типа делегатов, которые понадобятся нам в дальнейшем
 delegate int LengthLogin(string s);
 delegate bool BoolPassword(string s1, string s2);
-delegate void Captha(string s1, string s2);
+delegate void Captcha(string s1, string s2);
 
+// Программа имитирует процесс регистрации пользователя
 class Program
 {
+	// Статический метод Ввода логина
 	private static void SetLogin()
 	{
-		Console.Write("Введите логин: ");
+		// Пользователя просят ввести логин
+		Console.Write("Enter your login: ");
 		string login = Console.ReadLine();
 
-		// Используем лямбда-выражение
+		// Создаём объект делегата LenghtLogin, которому назначаем лямбда-выражение
+		// Которое принимает строковый параметр и возвращает длину этой строки
 		LengthLogin lengthLoginDelegate = s => s.Length;
 
+		// Этот делегат вызывается с введённым логином в качестве аргумента
+		// И возвращает длину этого логина
 		int lengthLogin = lengthLoginDelegate(login);
+		// Если логин из более чем 25 символов
 		if (lengthLogin > 25)
 		{
-			Console.WriteLine("Слишком длинное имя\n");
+			Console.WriteLine("The login is too long.\n");
 
-			// Рекурсия на этот же метод, чтобы ввести заново логин
+			// Рекурсия на этот же метод, чтобы попытаться ввести логин заново
 			SetLogin();
 		}
 	}
 
 	static void Main()
 	{
+		// Вызов метода ввода логина
 		SetLogin();
 
-		Console.Write("Введите пароль: ");
+		// Пользователь вводит пароль
+		Console.Write("Enter password: ");
 		string password1 = Console.ReadLine();
-		Console.Write("Повторите пароль: ");
+		// Пользователь повторяет пароль
+		Console.Write("Please, confirm password: ");
 		string password2 = Console.ReadLine();
 
-		// Используем лямбда выражение
+		// Делегат типа BoolPassword, инициализированный лямбда-выражением
+		// Которое принимаем 2 строки и возвращает результат их сравнения на равенство
 		BoolPassword bp = (s1, s2) => s1 == s2;
 
+		// Если вызов этого делегата вернул true, т.е. два ввода пароля совпадают
 		if (bp(password1, password2))
 		{
 			Random ran = new Random();
-			string resCaptha = "";
+			// Имитируем капчу, для проверки на робота
+			string resCaptcha = "";
+			// Создаём строку из 10 случайных символов
 			for (int i = 0; i < 10; i++)
-				resCaptha += (char)ran.Next(0, 100);
-			Console.WriteLine("Введите код с капчи: " + resCaptha);
+			{
+				// Случайное число от 0 до 100, преобразуется к символу с таким кодом
+				// И добавляется в конец строки resCaptha
+				resCaptcha += (char)ran.Next(0, 100);
+			}
+			// Пользователь тщетно пытается ввести капчу
+			Console.WriteLine("Enter this Captcha to prove that you are not a robot: " + resCaptcha);
 			string resCode = Console.ReadLine();
 
-			// Реализуем блочное лямбда-выражение
-			Captha cp = (s1, s2) =>
+			// В делегат типа Captcha записывается блочное лямбда-выражение
+			// Принимающее 2 параметра строки s1 и s2
+			Captcha cp = (s1, s2) =>
 			{
+				// Если эти строки равны
 				if (s1 == s2)
-					Console.WriteLine("Регистрация удалась!");
+				{
+					// Выводим сообщение об успешной регистрации
+					Console.WriteLine("Registration is successfully completed!");
+				}
 				else
-					Console.WriteLine("Не переживай, в следующий раз получится :)");
-				return;
+				{
+					// Если строки не равны, регистрация не удалась
+					Console.WriteLine("We sorry, but it seems that you are a robot");
+				}
 			};
-			cp(resCaptha, resCode);
+			// Вызываем делегат cp для проверки капчи
+			// Передавая параметры эталонной капчи и введённой пользователем попытки
+			cp(resCaptcha, resCode);
 		}
 		else
-			Console.WriteLine("Регистрация провалилась. Пароли не совпадают");
-
-		Console.ReadLine();
+		{
+			// Если пароли не совпадают, регистрация не удалась
+			Console.WriteLine("Registration failed. Please try again.");
+		}
+		Console.ReadLine(true);
 	}
 }
 						</code>
@@ -1432,56 +1476,255 @@ class Program
 					<h2>Пример 3</h2>
 					<pre>
 						<code class="cs">
+// Определяем обобщённый делегат Predicate
+// Возвращающий bool, а принимающий 2 аргумента типа T (типа-параметра)
 delegate bool Predicate&lt;T&gt;(T first, T second);
 
+// Статический класс наших методов для работы с массивом
 static class ArrayUtils
 {
+	// Статический обобщённый метод сортировки массива любого типа
+	// Первым параметров принимает массив из элементов типа T,
+	// Возвращает также массив из элементов типа T
+	// Самое интересное - второй параметр: объект делегата Predicate с типом-параметром T
+	// Метод в этом делегате будет использоваться для управления логикой алгоритма сортировки
 	public static T[] Sort&lt;T&gt;(T[] array, Predicate&lt;T&gt; predicate)
 	{
+		// Обычный алгоритм "пузырьковой сортировки"
 		for (int i = 0; i < array.Length; ++i)
 		{
+			// Сравниваем элемент массива "каждый с каждым"
 			for (int j = i; j < array.Length; ++j)
 			{
+				// Используем вызов делегата для i и j элемента массива
+				// В условии if-а, который определяет порядок и условие сортировки
 				if (predicate(array[i], array[j]))
 				{
+					// Если предикат вернул true для i-ого и j-ого элемента
+					// Они переставляются "стаканчиком"
 					T tmp = array[j];
 					array[j] = array[i];
 					array[i] = tmp;
 				}
 			}
 		}
+		// В конце возвращается отсортированный массив
 		return array;
 	}
 
+	// Обобщённый статический метод Show для вывода массива любого типа на консоль
 	public static void Show&lt;T&gt;(T[] array)
 	{
+		// Объединяет элементы массива в строку при помощь метода Join
 		Console.WriteLine(string.Join(", ", array));
 	}
 }
 
 class Program
 {
-
 	static void Main(string[] args)
 	{
+		// Создаём неупорядоченный массив из целых чисел
 		int[] arr1 = { -3, 8, 0, 13, 6, 82, 34, 2, -6, -10, 1, 3 };
 
+		// Вызываем описанный нами метод сортировки Sort для этого массива arr1
+		// Во второй параметр типа делегата Predicate передаём лямбда-выражение
+		// Которое возвращает результат сравнения чисел a и b (a > b)
 		ArrayUtils.Sort(arr1, (a, b) => a > b);
+		// С помощью метода Show выводим массив arr1 на консоль
 		ArrayUtils.Show(arr1);
 
+		// Создаём неупорядоченный массив чисел с плавающей точкой
 		double[] arr2 = { 0.354, -9.234, 0.3, 5.19, -1.628, -7.62, 4.001, 8.971, -0.045, 13.58 };
 
+		// Вызываем метод сортировки Sort для этого массива
+		// И вторым параметром передаём лямбду, которая возвращает
+		// Результат сравнения двух параметров a < b
 		ArrayUtils.Sort(arr2, (a, b) => a < b);
+		// Выводим то, что получилось
 		ArrayUtils.Show(arr2);
 
+		// Третий массив из строк
 		string[] arr3 = { "Matthew", "Abraham", "Bill", "Jimmy", "Nancy", "Ronald", "Isaac" };
 
+		// Вызываем метод сортировки, в качестве делегата передаём лямбда-выражение
+		// Которое сравнивает первые символы строк a и b, и возвращает результат их сравнения a[0] > b[0] 
 		ArrayUtils.Sort(arr3, (a, b) => a[0] > b[0]);
+		// Выводим отсортированный массив на консоль
 		ArrayUtils.Show(arr3);
 	}
 }
 						</code>
 					</pre>
+				</section>
+				<section>
+					<h2>Пример 4</h2>
+					<pre>
+						<code class="cs">
+// Класс Хоккейная команда
+public class HockeyTeam
+{
+	// Приватные поля для Названия и Года основания 
+	private string _name;
+	private int _founded;
+	
+	// Свойства для этих полей
+	public string Name {
+		get { return _name; }
+		private set { _name = value; }
+	}
+
+	public int Founded {
+		get { return _founded; }
+		private set { _name = value; }
+	}
+
+	// Конструктор
+	public HockeyTeam(string name, int year)
+	{
+		Name = name;
+		Founded = year;
+	}
+
+}
+
+public class Example
+{
+	public static void Main()
+	{
+		Random rnd = new Random();
+		// Создаём список хоккейных команд
+		List&lt;HockeyTeam&lt; teams = new List&gt;HockeyTeam&gt;();
+		// Добавляем в него 6 объектов команд
+		teams.AddRange( new HockeyTeam[] { new HockeyTeam("Detroit Red Wings", 1926), 
+											new HockeyTeam("Chicago Blackhawks", 1926),
+											new HockeyTeam("San Jose Sharks", 1991),
+											new HockeyTeam("Montreal Canadiens", 1909),
+											new HockeyTeam("St. Louis Blues", 1967) } );
+		// Массив годов для поиска
+		int[] years = { 1920, 1930, 1980, 2000 };
+		// Выбираем из этого массива случайный год
+		int foundedBeforeYear = years[rnd.Next(0, years.Length)];
+		Console.WriteLine("Teams founded before {0}:", foundedBeforeYear);
+		// Ищем в списке команды, основанные до выбранного года
+		// Встроенный метод списка FindAll принимает в качестве параметра делегат,
+		// Анонимную функцию, которая будет вызываться для каждого элемента из этого списка
+		// Иначе говоря, FindAll вернёт список из тех элементов списка, для которых условие
+		// В переданном делегате выполняется (возвращает true)
+		foreach (var team in teams.FindAll( x => x.Founded <= foundedBeforeYear))
+		{
+			// В цикле перебираем все элементы полученного списка, и выводим информацию о командах
+			Console.WriteLine("{0}: {1}", team.Name, team.Founded);
+		}
+	}
+}
+						</code>
+					</pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Встроенные делегаты</h2>
+					<p>
+						Вообще, в .NET есть набор встроенных обобщённых типов делегатов, которые можно применять
+						практически в любой ситуации, когда нужны делегаты.
+					</p>
+					<p>
+						Т.е. нет необходимости объявлять свои типы делегатов.
+					</p>
+					<p>
+						Встроенные типы делегатов:
+					</p>
+					<u>
+						<li><span class="turquoise">Action</span></li>
+						<li><span class="turquoise">Predicate</span></li>
+						<li><span class="turquoise">Func</span></li>
+					</u>
+				</section>
+				<section>
+					<h2>Делегаты Action</h2>
+					<p>
+						Встроенный делегат Action принимает до 16 параметров любых типов и не имеет
+						возвращаемого значения. 
+					</p>
+					<p>
+						Что значит до 16 параметров? Для этого делегата описано 17 перегрузок для
+						любого количества параметров до 16.
+					</p>
+					<p>
+						Описаны делегаты Action следующим образом:
+					</p>
+					<pre>
+						<code class="cs">
+public delegate void Action();
+public delegate void Action&lt;in T1&gt;(T1 obj1);
+public delegate void Action&lt;in T1, in T2&gt;(T1 obj1, T2 obj2);
+// И т.д. до
+public delegate void Action&lt;in T1, in T2, in T3, in T4, in T5, in T6, in T7, in T8,
+	in T9, in T10, in T11, in T12, in T13, in T14, in T15, in T16&gt;(T1 obj1, T2 obj2,
+	T3 obj3, T4 obj4, T5 obj5, T6 obj6, T7 obj7, T8 obj8, T9 obj9, T10 obj10, T11 obj11, 
+	T12 obj12, T13 obj13, T14 obj14, T15 obj15, T16 obj16);
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h3>Использование Action</h3>
+					<pre>
+						<code class="cs">
+// Статический метод Operation, принимающий 2 числа и делегат типа Action&lt;int, int&gt;
+// Т.е. делегат с 2 параметрами типа int и без возвращаемого значения
+static void Operation(int x1, int x2, Action&lt;int, int&gt; op)
+{
+	// Если первое число больше второго
+	if (x1 > x2)
+	{
+		// Вызываем делегат из третьего параметра, передавая ему эти 2 числа x1 и x2
+		op(x1, x2);
+	}
+}
+
+// Использование встроенного делегата Action вместо описания собственного делегата:
+// delegate void MyDelegate(int a, int b);
+
+static void Main(string[] args) 
+{
+	// Создаём объект делегата Action&lt;int, int&gt;
+	Action&lt;int, int&gt; op;
+	// Назначаем ему лямбда-выражение, выводящее на консоль сумму параметров
+	op = (x, y) => Console.WriteLine("Сумма чисел: " + (x + y));
+	// Вызываем статический метод Operation, передавая 2 числа и делегат op
+	Operation(10, 6, op);
+	// Переназначаем делегату новое лямбда-выражение для разности чисел
+	op = (x, y) => Console.WriteLine("Разность чисел: " + (x1 - x2));
+	// Вызываем метод Operation, передаём делегат op
+	Operation(10, 6, op);
+	
+	Console.ReadKey(true);
+}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Делегат Predicate</h2>
+					<p>
+						Обобщённый делегат Predicate существует лишь в одной вариации, и принимает 
+						параметр любого типа, а возвращает bool.
+					</p>
+					<p>
+						Как правило, он используется для различных методов фильтрации коллекций,
+						например, поиска элементов по заданному предикату.
+					</p>
+					<p>
+						Описан как:
+					</p>
+					<pre>
+						<code class="cs">
+public delegate bool Predicate&lt;in T&gt;(T obj);
+						</code>
+					</pre>
+				</section>
+				<section>
+					<h2>Делегат Func</h2>
 				</section>
 			</section>
 			<section>
