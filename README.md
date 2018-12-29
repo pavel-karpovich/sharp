@@ -84,3 +84,19 @@
 * Задание 4.
 
 [*Интерфейсы*](https://tgjmjgj.github.io/sharp/dist/task/task_4/task_4.pdf "Интерфейсы")
+
+* Задание 5.
+
+[*Операторы и обобщения*](https://tgjmjgj.github.io/sharp/dist/task/task_5/task_5.pdf "Операторы и обобщения")
+
+* Задание 6.
+
+[*Делегаты*](https://tgjmjgj.github.io/sharp/dist/task/task_6/task_6.pdf "Делегаты")
+
+* Задание 7.
+
+[*WPF*](https://tgjmjgj.github.io/sharp/dist/task/task_7/task_7.pdf "WPF")
+
+* Задание 8.
+
+[*Калькулятор*](https://tgjmjgj.github.io/sharp/dist/task/task_8/task_8.pdf "Калькулятор")
