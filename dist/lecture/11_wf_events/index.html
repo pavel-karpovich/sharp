@@ -11,6 +11,16 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="../../css/bundle.min.css">
+	
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? '/css/print/pdf.css' : '/css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+
 	<!--[if lt IE 9]>
 		<script src="../../js/html5shiv.min.js"></script>
 	<![endif]-->
@@ -123,6 +133,11 @@
 			<i class="fa fa-list-ul fa-2x"></i>
 		</a>
 	</aside>
+    <aside id="presentable-icon-close">
+        <a title="К списку материалов" href="../../index.html#/1">
+            <i class="fa fa-times fa-2x"></i>
+        </a>
+    </aside>
 	<script src="../../js/bundle.min.js"></script>
 </body>
 

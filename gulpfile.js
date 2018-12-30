@@ -7,7 +7,6 @@ const gulp = require('gulp'),
     browserSync = require('browser-sync'),
     cleanCSS = require('gulp-clean-css'),
     csslint = require('gulp-csslint'),
-    csslintReporter = require('gulp-csslint-report'),
     del = require('del'),
     imagemin = require('gulp-imagemin'),
     newer = require('gulp-newer'),
@@ -34,7 +33,8 @@ const srcPath = {
     'font': './src/font/**/*.*',
     'analysis': './code-analysis/',
     'task': './src/task/**/*.pdf',
-    'cmpl': './src/completed/**/*.*'
+    'cmpl': './src/completed/**/*.*',
+    'print': './src/css/print/*.css'
 };
 
 const distPath = {
@@ -42,6 +42,7 @@ const distPath = {
     'html': './dist/',
     'img': './dist/',
     'css': './dist/css/',
+    'print': './dist/css/print',
     'js': './dist/',
     'font': './dist/font/',
     'task': './dist/task/',
@@ -124,6 +125,11 @@ gulp.task('font', () => {
         .pipe(gulp.dest(distPath.font));
 });
 
+gulp.task('print', () => {
+    return gulp.src(srcPath.print)
+        .pipe(gulp.dest(distPath.print))
+});
+
 gulp.task('serve', () => {
     browserSync.init({
         server: distPath.dist,
@@ -150,7 +156,8 @@ gulp.task('build', gulpSequence('clean', ['js:lint', 'css:lint'], [
     'css',
     'font',
     'task',
-    'cmpl'
+    'cmpl',
+    'print'
 ]));
 
 gulp.task('watch', () => {
@@ -161,6 +168,7 @@ gulp.task('watch', () => {
     watch(srcPath.font, () => gulp.start('font'));
     watch(srcPath.task, () => gulp.start('task'));
     watch(srcPath.cmpl, () => gulp.start('cmpl'));
+    watch(srcPath.print, () => gulp.start('print'));
 });
 
 gulp.task('default', gulpSequence('build', ['watch', 'serve']));
