@@ -16,7 +16,7 @@ body {
 
 .reveal {
   font-family: "Source Sans Pro", Helvetica, sans-serif;
-  font-size: 42px;
+  font-size: 32px;
   font-weight: normal;
   color: #fff; }
 
@@ -55,13 +55,13 @@ body {
   word-wrap: break-word; }
 
 .reveal h1 {
-  font-size: 2.5em; }
-
-.reveal h2 {
   font-size: 1.6em; }
 
+.reveal h2 {
+  font-size: 1.4em; }
+
 .reveal h3 {
-  font-size: 1.3em; }
+  font-size: 1.2em; }
 
 .reveal h4 {
   font-size: 1em; }
@@ -198,7 +198,7 @@ body {
 
 .reveal small {
   display: inline-block;
-  font-size: 0.6em;
+  font-size: 0.4em;
   line-height: 1.2em;
   vertical-align: top; }
 
