@@ -1,9 +1,10 @@
 # ОБЪЕКТНО-ОРИЕНТИРОВАННОЕ ПРОГРАММИРОВАНИЕ. [ЛЕКЦИИ](https://tgjmjgj.github.io/sharp/dist/index.html "Лекции")
 
 ***
+
 ### Тема 1. Знакомство с .NET Framework
 
-Концепции виртуальной машины и промежуточного кода. Платформа .NET Framework. CLR и FCL. .NET Core. 
+Концепции виртуальной машины и промежуточного кода. Платформа .NET Framework. CLR и FCL. .NET Core.
 
 [Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/1_dot_net/index.html "Лекция")
 

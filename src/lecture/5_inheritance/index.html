@@ -11,6 +11,16 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="../../css/bundle.min.css">
+	
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? '/css/print/pdf.css' : '/css/print/paper.css';
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+
 	<!--[if lt IE 9]>
 		<script src="../../js/html5shiv.min.js"></script>
 	<![endif]-->
@@ -23,9 +33,17 @@
                 <section>
                     <h1>Объектно-ориентированное программирование</h1>
                     <h3>Наследование классов</h3>
-                    <p>
-                        <small>Edward &amp; Albert / <a href="https://github.com/tgjmjgj/sharp/">github:Tgjmjgj</a></small>
-                    </p>
+					<div>
+						<p style="display: inline-block;">
+							Edward &amp; Albert / 
+						</p>
+						<a href="https://github.com/tgjmjgj" class="icon-button github">
+							<i class="fa fa-github"></i><span></span>
+						</a>
+						<a href="https://facebook.com/paradox7master" class="icon-button facebook">
+							<i class="fa fa-facebook"></i><span></span>
+						</a>
+					</div>
                 </section>
 				<section>
 					<h2>Содержание лекции</h2>
