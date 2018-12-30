@@ -13,7 +13,7 @@ const gulp = require('gulp'),
     pipe = require('multipipe'),
     sourcemaps = require('gulp-sourcemaps'),
     jshint = require('gulp-jshint'),
-    uglify = require('gulp-uglify'),
+    uglify = require('gulp-uglify-es').default,
     useref = require('gulp-useref'),
     watch = require('gulp-watch'),
     run = require('gulp-run');
@@ -34,7 +34,7 @@ const srcPath = {
     'analysis': './code-analysis/',
     'task': './src/task/**/*.pdf',
     'cmpl': './src/completed/**/*.*',
-    'print': './src/css/print/*.css'
+    'print': './src/css/print/*.css',
 };
 
 const distPath = {
@@ -73,20 +73,20 @@ gulp.task('clean', () => {
 });
 
 gulp.task('html', () => {
-    return gulp.src(srcPath.html)
-        .pipe(newer(distPath.html))
-        .pipe(useref({}, pipe(sourcemaps.init)))
-        .pipe(gulpif('*.js', pipe(
-            uglify()
-        )))
-        .pipe(gulpif('*.css',
-            pipe(
-                autoprefixer(pluginSettings.autoprefixer),
-                cleanCSS(pluginSettings.cleanCSS)
-            )
-        ))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(distPath.html));
+        return gulp.src(srcPath.html)
+            .pipe(newer(distPath.html))
+            .pipe(useref({}, pipe(sourcemaps.init)))
+            .pipe(gulpif('*.js', pipe(
+                uglify()
+            )))
+            .pipe(gulpif('*.css',
+                pipe(
+                    autoprefixer(pluginSettings.autoprefixer),
+                    cleanCSS(pluginSettings.cleanCSS)
+                )
+            ))
+            .pipe(sourcemaps.write())
+            .pipe(gulp.dest(distPath.html));
 });
 
 gulp.task('css', () => {
@@ -149,6 +149,11 @@ gulp.task('cmpl', () => {
         .pipe(gulp.dest(distPath.cmpl));
 });
 
+gulp.task('hl', () => {
+    return gulp.src('./src/js/highlight/*.js')
+    .pipe(gulp.dest('./dist/js/'))
+})
+
 gulp.task('build', gulpSequence('clean', ['js:lint', 'css:lint'], [
     'html',
     'img',
@@ -157,6 +162,7 @@ gulp.task('build', gulpSequence('clean', ['js:lint', 'css:lint'], [
     'font',
     'task',
     'cmpl',
+    'hl',
     'print'
 ]));
 
@@ -169,6 +175,7 @@ gulp.task('watch', () => {
     watch(srcPath.task, () => gulp.start('task'));
     watch(srcPath.cmpl, () => gulp.start('cmpl'));
     watch(srcPath.print, () => gulp.start('print'));
+    watch('./src/js/highlight/*.js', () => gulp.start('hl'))
 });
 
 gulp.task('default', gulpSequence('build', ['watch', 'serve']));

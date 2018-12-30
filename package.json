@@ -30,7 +30,7 @@
     "gulp-run": "*",
     "gulp-sequence": "*",
     "gulp-sourcemaps": "*",
-    "gulp-uglify": "*",
+    "gulp-uglify-es": "^1.0.4",
     "gulp-useref": "*",
     "gulp-watch": "*",
     "jshint": "^2.9.7",
