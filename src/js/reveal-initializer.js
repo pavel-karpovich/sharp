@@ -30,7 +30,7 @@
         debugger;
         if (codeBlocks) {
 
-            let worker = new Worker("/js/worker.js");
+            let worker = new Worker("worker.js");
             worker.onmessage = function (event) {
 
                 let data = JSON.parse(event.data);
