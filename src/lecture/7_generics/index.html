@@ -183,7 +183,7 @@ class Program
 					</p>
 					<pre>
 						<code class="cs">
-class Имя_класса < список_параметров_типов >
+class Имя_класса &lt; список_параметров_типов &gt;
 {
 	// Здесь можно использовать типы из списка параметров
 }
@@ -193,7 +193,7 @@ class Имя_класса < список_параметров_типов >
 				<section>
 					<h2>Пример</h2>
 					<p>
-						Здесь создаётся параметризированный класс с типом-параметров T:
+						Здесь создаётся параметризированный (обобщённый) класс с типом-параметров T:
 					</p>
 					<pre>
 						<code class="cs">
@@ -204,7 +204,7 @@ class GenericClass&lt;T&gt;
 						</code>
 					</pre>
 					<p>
-						А здесь интерфейс:
+						А здесь обобщённый интерфейс:
 					</p>
 					<pre>
 						<code class="cs">
@@ -572,7 +572,7 @@ class Program
 public class StaticDemo&lt;T&gt;
 {
 	// Статическое свойство
-	public static int X { get; set; };
+	public static int X { get; set; }
 }
 
 static void Main(string[] args)
@@ -612,7 +612,7 @@ static void Main(string[] args)
 class ObEx&lt;T&gt;
 {
 	// Свойство типа T
-	public T Obj { get; set; };
+	public T Obj { get; set; }
 
 	// Конструктор по умолчанию
 	public ObEx()
@@ -808,7 +808,7 @@ class SimpleUserInfo : IUserInfo
 	public int Age { get; set; }
 
 	// Конструктор
-	public SimpleInfo(string name, int age)
+	public SimpleUserInfo(string name, int age)
 	{
 		this.Name = name;
 		this.Age = age;
@@ -866,7 +866,7 @@ class Info&lt;T&gt; where T : IUserInfo
 		if (i < 3)
 		{
 			// В i-ый элемент массива записываем переданный
-			UserList[i] = obj;
+			userList[i] = obj;
 			// Увеличиваем количество/индекс
 			i++;
 		}
@@ -890,9 +890,9 @@ class Program
 		// Создаём объект Info для типа FullUserInfo
 		Info&lt;FullUserInfo&gt; database1 = new Info&lt;FullUserInfo&gt;();
 		// Добавляем в него 3 объекта
-		database1.Add(new FullUserInfo(Name: "Marlyn", Surname: "Erwyn", Age: 26));
-		database1.Add(new FullUserInfo(Name: "Lex", Surname: "Freeday", Age: 28));
-		database1.Add(new FullUserInfo(Name: "Amanta", Surname: "Joseph", Age: 50));
+		database1.Add(new FullUserInfo(name: "Marlyn", surname: "Erwyn", age: 26));
+		database1.Add(new FullUserInfo(name: "Lex", surname: "Freeday", age: 28));
+		database1.Add(new FullUserInfo(name: "Amanta", surname: "Joseph", age: 50));
 		// Вызываем метод вывода на консоль
 		database1.ShowAll();
 
@@ -924,7 +924,6 @@ class EmployeeList&lt;T&gt; where T : Employee, IEmployee, System.IComparable&lt
 					<p>
 						Обобщённые методы могут быть определены внутри необобщённого класса.
 					</p>
-					
 				</section>
 				<section>
 					<h3>Пример</h3>
@@ -1045,7 +1044,7 @@ class UserWithPass : User
 	public string Password { get; set; }
 
 	// Конструктор
-	public UserPass(string Name, int Age, string Pass)
+	public UserWithPass(string Name, int Age, string Pass)
 		: base(Name, Age)
 	{
 		Password = Pass;
@@ -1068,10 +1067,10 @@ class Program
 	static void Main()
 	{
 		// Создаём пользователя с очень надёжным паролем
-		UserPass user1 = new UserPass(Name: "Martin", Age: 26, Pass: "12345");
+		UserWithPass user1 = new UserWithPass(Name: "Martin", Age: 26, Pass: "12345");
 
-		// Вызываем обобщенный метод для класса UserPass
-		string s = InfoObject.Info&lt;UserPass&gt;(user1);
+		// Вызываем обобщенный метод для класса UserWithPass
+		string s = InfoObject.Info&lt;UserWithPass&gt;(user1);
 		Console.WriteLine(s);
 
 		Console.ReadKey(true);
@@ -1099,7 +1098,7 @@ class MyObj&lt;T&gt; : IShow&lt;T&gt; where T : struct
 	// Свойство для хранения количества элементов массива 
 	public int LongOb { get; set; }
 	// Приватное поле для самого массива
-	privateT[] myarr;
+	private T[] myarr;
 
 	// Конструктор с один параметром
 	public MyObj(int i)
@@ -1189,7 +1188,7 @@ class Foo : ICloneable&lt;Foo&gt;
 						использовать значения разных типов, связанных между собой наследованием.
 					</p>
 					<p>
-						Есть 3 варианта:
+						Есть 3 варианта этого поведения:
 					</p>
 					<ul>
 						<li>Инвариантность (по умолчанию)</li>
@@ -1198,7 +1197,7 @@ class Foo : ICloneable&lt;Foo&gt;
 					</ul>
 					<p>
 						Упрощая, можно сказать, что ковариантность позволяет настраивать полиморфизм
-						для обобщённых интерфейсов.
+						для обобщённых интерфейсов (и делегатов).
 					</p>
 				</section>
 				<section>
@@ -1419,10 +1418,13 @@ class EnormousClass&lt;T, U, V, W&gt;
 					<pre>
 						<code class="cs">
 class Base { }
+
 class Test&lt;T, U&gt;
 	where U : struct
 	where T : Base, new()
-{ }
+{ 
+	// ...
+}
 						</code>
 					</pre>
 				</section>
@@ -1601,7 +1603,7 @@ class Program
 					<h2>Ошибки при использовании нескольких параметров типов</h2>
 					<p>
 						При использовании перегрузок методов в обобщённых классах с несколькими параметрами типов
-						можно допустить ошибку неоднозначности перегрузок, в случае когда у вас есть несколько
+						можно допустить ошибку неоднозначности перегрузок, в случае, когда у вас есть несколько
 						перегрузок методов, отличающихся только типами-параметрами.
 					</p>
 					<pre>
@@ -1614,7 +1616,7 @@ class Gen&lt;T, V&gt;
 	private V ob2;
 	
 	// Метод Set с типом параметра T
-	public void Set(Т о)
+	public void Set(T о)
 	{
 		ob1 = о;
 	}
@@ -1640,6 +1642,7 @@ class Gen&lt;T, V&gt;
 			notOK.Set(10);
 		}
 	}
+}
 						</code>
 					</pre>
 				</section>
