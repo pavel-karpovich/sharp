@@ -488,7 +488,7 @@ if (fruit is Banana ban)
 					</p>
 				</section>
 				<section>
-					<h2>Особенности</h2>
+					<h2>Боксинг и анбоксинг</h2>
 					<p>
 						Но у такого представления в виде типа <span class="blue">object</span> есть и 
 						свои преимущества. А именно, если говорить о хранении в виде <span class="blue">object</span>
@@ -519,7 +519,7 @@ if (fruit is Banana ban)
 			<section>
 				<h2>Виды полиморфизма</h2>
 				<p>
-					Ещё одни виды полиморфизма.
+					Ещё одна классификация видов полиморфизма.
 				</p>
 				<p>
 					По типу применяемых элементов полиморфизм делится на:
@@ -553,7 +553,7 @@ if (fruit is Banana ban)
 				<section>
 					<h2>Перегрузка методов</h2>
 					<p>
-						Ответ: с помощью перегрузки методов.
+						И это ответ: с помощью перегрузки методов.
 					</p>
 					<p>
 						Описав в базовом классе виртуальный метод, функция, работающая с
@@ -662,6 +662,7 @@ class Program
 					</p>
 				</section>
 				<section>
+					<h3>Демонстрация различий</h3>
 					<pre>
 						<code class="cs">
 class Fruit
@@ -1220,7 +1221,7 @@ class Snail : Animal
 class Menagerie
 {
 	// Список животных
-	public List<Animal> Animals { get; set; }
+	public List&lt;Animal&gt; Animals { get; set; }
 
 	// Индексатор
 	public Animal this[int index]
@@ -1232,7 +1233,7 @@ class Menagerie
 	// Конструктор для инициализации списка
 	public Menagerie()
 	{
-		Animals = new List<Animal>();
+		Animals = new List&lt;Animal&gt;();
 	}
 
 	// Метод для добавления нового животного в зверинец
@@ -1350,7 +1351,7 @@ class Program
 			<section>
 				<h2>Полиморфизм интерфейсов</h2>
 				<p>
-					Также как и с базовыми классами, объекты, реализующие какой-либо интерфейс могут быть
+					Также, как и с базовыми классами, объекты, реализующие какой-либо интерфейс, могут быть
 					представлены в виде объекта типа этого интерфейса. Такой тип полиморфизма
 					называется <span class="purple">Полиморфизм интерфейсов</span>.
 				</p>
@@ -1763,7 +1764,7 @@ class Program
 					<pre>
 						<code class="cs">
 int[] mas = new int[10];
-IList<int> vs = mas;
+IList&lt;int&gt; vs = mas;
 						</code>
 					</pre>
 				</section>
@@ -2162,7 +2163,7 @@ class Snail : IAnimal, IEatable
 class Menagerie
 {
 	// Список животных, теперь через интерфейс
-	public List<IAnimal> Animals { get; set; }
+	public List&lt;IAnimal&gt; Animals { get; set; }
 
 	// Индексатор
 	public IAnimal this[int index]
@@ -2174,7 +2175,7 @@ class Menagerie
 	// Конструктор для инициализации списка
 	public Menagerie()
 	{
-		Animals = new List<IAnimal>();
+		Animals = new List&lt;IAnimal&gt;();
 	}
 
 	// Метод для добавления нового животного в зверинец
@@ -2333,6 +2334,7 @@ class Program
 				</pre>
 			</section>
 			<section>
+				<h2>Пример 2</h2>
 // Интерфейс Создатель музыки
 interface IMusicMaker
 {
@@ -2500,18 +2502,18 @@ class Voice : IMusicMaker
 	public string Type { get; set; }
 
 	// Свойство - список издаваемых звуков
-	private List<string> voices;
+	private List&lt;string&gt; voices;
 
 	// Конструктор
 	public Voice()
 	{
-		voices = new List<string>();
+		voices = new List&lt;string&gt;();
 	}
 
 	// Метод для задания звуков
 	public void SetVoice(params string[] voices)
 	{
-		this.voices = new List<string>(voices);
+		this.voices = new List&lt;string&gt;(voices);
 	}
 
 	// Метод Play из интерфейса IMusicMaker
@@ -2642,13 +2644,13 @@ static class LoggerFabric
 	// Приватный статический словарь
 	// Ключом выступаем элемент перечисления LoggerType
 	// Значением - объект, реализующий интерфейс логгера
-	private static Dictionary<LoggerType, ILogger> loggers;
+	private static Dictionary&lt;LoggerType, ILogger&gt; loggers;
 
 	// Статический конструктор
 	static LoggerFabric()
 	{
 		// Создание списка
-		loggers = new Dictionary<LoggerType, ILogger>();
+		loggers = new Dictionary&lt;LoggerType, ILogger&gt;();
 	}
 
 	// Публичный статический метод Получения логгера
