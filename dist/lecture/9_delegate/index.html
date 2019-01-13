@@ -1606,7 +1606,6 @@ public class HockeyTeam
 
 public class Example
 {
-<<<<<<< HEAD
     public static void Main()
     {
         Random rnd = new Random();
@@ -1635,35 +1634,6 @@ public class Example
             {1}", team.Name, team.Founded);
         }
     }
-=======
-	public static void Main()
-	{
-		Random rnd = new Random();
-		// Создаём список хоккейных команд
-		List&lt;HockeyTeam&gt; teams = new List&lt;HockeyTeam&gt;();
-		// Добавляем в него 6 объектов команд
-		teams.AddRange( new HockeyTeam[] { new HockeyTeam("Detroit Red Wings", 1926), 
-											new HockeyTeam("Chicago Blackhawks", 1926),
-											new HockeyTeam("San Jose Sharks", 1991),
-											new HockeyTeam("Montreal Canadiens", 1909),
-											new HockeyTeam("St. Louis Blues", 1967) } );
-		// Массив годов для поиска
-		int[] years = { 1920, 1930, 1980, 2000 };
-		// Выбираем из этого массива случайный год
-		int foundedBeforeYear = years[rnd.Next(0, years.Length)];
-		Console.WriteLine("Teams founded before {0}:", foundedBeforeYear);
-		// Ищем в списке команды, основанные до выбранного года
-		// Встроенный метод списка FindAll принимает в качестве параметра делегат,
-		// Анонимную функцию, которая будет вызываться для каждого элемента из этого списка
-		// Иначе говоря, FindAll вернёт список из тех элементов списка, для которых условие
-		// В переданном делегате выполняется (возвращает true)
-		foreach (var team in teams.FindAll( x => x.Founded <= foundedBeforeYear))
-		{
-			// В цикле перебираем все элементы полученного списка, и выводим информацию о командах
-			Console.WriteLine("{0}: {1}", team.Name, team.Founded);
-		}
-	}
->>>>>>> 3c7998037f8039fe75f1f94bc4e1d0592ce0f6c0
 }
                         </code>
                     </pre>
