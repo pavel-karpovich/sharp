@@ -193,7 +193,7 @@ class DerivedClass : SomeClass
 				<section>
 					<h3>Пример</h3>
 					<pre>
-						<code class="cpp">
+						<code class="cs">
 // Класс собаки
 class Dog
 {
@@ -341,6 +341,7 @@ class Program
 					<img src="img/inheritance_egg.jpg" />
 				</section>
 				<section>
+					<h2>Потомок класса собаки</h2>
 					<pre>
 						<code class="cs">
 // Класс собаки-ищейки, производный от класса собаки
@@ -1016,7 +1017,7 @@ class MusicalInstrument
 		Name = "Unnamed";
 		SoundRange = "0";
 		Timbre = "void";
-		UniqueId = GetRandomId();
+		UniqueId = 0;
 	}
 
 	// Конструктор с параметрами
@@ -1059,15 +1060,15 @@ class StringInstrument : MusicalInstrument
 		StringCount = stringCount;
 		ScaleLength = scaleLength;
 	}
-	
+
 }
 
 // Класс фортепиано
 class Piano : StringInstrument
 {
 	// Свойства
-	public int KeyCount { get; set; };
-	public int PedalsCount { get; set; };
+	public int KeyCount { get; set; }   
+	public int PedalsCount { get; set; }
 
 }
 						</code>
@@ -1101,7 +1102,7 @@ class MusicalInstrument
 		Name = "Unnamed";
 		SoundRange = "0";
 		Timbre = "void";
-		UniqueId = GetRandomId();
+		UniqueId = 0;
 	}
 
 	// Конструктор с параметрами
@@ -1122,22 +1123,25 @@ class StringInstrument : MusicalInstrument
 	public int StringCount { get; set; }
 	public int ScaleLength { get; set; }
 
-	// Конструктор по умолчанию, вызывающий конструктор по умолчанию базового класса
-	public StringInstrument() : base()
+	// Конструктор по умолчанию
+	public StringInstrument() : base("Unnamed", "0", "void")
 	{
+		Type = "None";
 		StringCount = 0;
 		ScaleLength = 0;
+
 	}
 
 	// Конструктор с параметрами, вызывающий конструктор по умолчанию базового класса
-	public StringInstrument(string type, int stringCount, int scaleLength) : base()
+	public StringInstrument(string type, int stringCount, int scaleLength)
+		: base("Unnamed", "0", "void")
 	{
 		Type = type;
 		StringCount = stringCount;
 		ScaleLength = scaleLength;
 	}
 
-	// Конструктор с параметрами, вызывающий конструктор с параметрами базового класса
+	// Конструктор с параметрами
 	public StringInstrument(string name, string soundRange, string timbre, string type, int stringCount, int scaleLength)
 		: base(name, soundRange, timbre)
 	{
@@ -1145,28 +1149,28 @@ class StringInstrument : MusicalInstrument
 		StringCount = stringCount;
 		ScaleLength = scaleLength;
 	}
-	
+
 }
 
 // Класс фортепиано
 class Piano : StringInstrument
 {
 	// Свойства
-	public int KeyCount { get; set; };
-	public int PedalCount { get; set; };
+	public int KeyCount { get; set; }   
+	public int PedalsCount { get; set; }
 
 	// Конструктор по умолчанию, вызывающий конструктор по умолчанию базового класса
 	public Piano() : base()
 	{
 		KeyCount = 0;
-		PedalCount = 0;
+		PedalsCount = 0;
 	}
 
 	// Конструктор с параметрами, вызывающий конструктор по умолчанию базового класса
 	public Piano(int keyCount, int pedalCount) : base()
 	{
 		KeyCount = keyCount;
-		PedalCount = pedalCount;
+		PedalsCount = pedalCount;
 	}
 
 	// Конструктор с параметрами, вызывающий конструктор с параметрами базового класса
@@ -1174,7 +1178,7 @@ class Piano : StringInstrument
 		: base(name, soundRange, timbre, type, stringCount, scaleLength)
 	{
 		KeyCount = keyCount;
-		PedalCount = pedalCount;
+		PedalsCount = pedalCount;
 	}
 
 }
@@ -1191,7 +1195,7 @@ class Piano : StringInstrument
 					</p>
 					<p>
 						Обычно, абстрактные классы используются в качестве начального компонента иерархии классов.
-						Или просто когда класс описывает какую-то абстрактную сущность, от которой 
+						Или просто, когда класс описывает какую-то абстрактную сущность, от которой 
 						всегда должны наследоваться другие классы.
 					</p>
 					<p>
@@ -1246,7 +1250,7 @@ class Piano : StringInstrument
 				<section>
 					<h2>Замечание про static</h2>
 					<p>
-						abstract и static не совместимы. Собственно, как и virtual со static.
+						Ключевые слова abstract и static несовместимы. Собственно, как и virtual со static.
 					</p>
 					<p>
 						Статические члены класса в принципе не могут быть ни абстрактными,
@@ -1448,7 +1452,7 @@ class SomeClass3 : ParentClass, IInterface1, IInterface2, IInterface3
 					</p>
 					<p>
 						В отличие от абстрактных классов, в интерфейсе не может присутствовать ничего
-						другого, т.е. никакой реализации (до версии C#8.0)
+						другого, т.е. никакой реализации (до версии C#8.0).
 					</p>
 					<p>
 						Абстрактные члены в абстрактном классе могут иметь различные спецификаторы
@@ -1471,7 +1475,7 @@ class SomeClass3 : ParentClass, IInterface1, IInterface2, IInterface3
 					</p>
 					<p>
 						А интерфейсы описывают <span class="purple">способность</span> делать что-то,
-						выполнять какую-либо функциональность. 
+						наличие какой-либо функциональности. 
 					</p>
 					<p>
 						Например, интерфейс <span class="turquoise">ICallable</span> - описывает способность 
@@ -1588,7 +1592,7 @@ class Dog : IBarkable
 				<section>
 					<h2>Наследование интерфейсов</h2>
 					<p>
-						Интерфейсы, также как и классы, могут наследовать другие интерфейсы.
+						Интерфейсы, также, как и классы, могут наследовать другие интерфейсы.
 					</p>
 					<p>
 						Но тут нет ничего особенного. Если у класса в интерфейсах встретятся 
@@ -1598,7 +1602,7 @@ class Dog : IBarkable
 			</section>
 			<section>
 				<section>
-					<h2>Классы импотенты</h2>
+					<h2>Стерильные классы</h2>
 					<p>
 						Или <span class="purple">запечатанные классы</span> - это классы, от которых запрещено
 						наследоваться, от такого класса невозможно создать производный.
@@ -1683,6 +1687,21 @@ public override sealed bool Breeding()
 					<p>
 						Для сокрытия метода, скрывающий метод должен быть помечен ключевым словом 
 						<span class="blue">new</span>.
+					</p>
+				</section>
+				<section>
+					<h2>Применение</h2>
+					<p>
+						Главным образом сокрытие нужно тогда, когда вам в классе обязательно нужен метод
+						с каким-то названием, а метод с таким названием уже есть в базовом классе, и он
+						не виртуальный.
+					</p>
+					<p>
+						Из-за того, что он не виртуальный, нельзя выполнить переопределение этого метода. 
+					</p>
+					<p>
+						И тогда единственным способом описать метод с таким же именем остаётся
+						механизм сокрытия.
 					</p>
 				</section>
 				<section>
@@ -1838,4 +1857,4 @@ class Program
 	<script src="../../js/bundle.min.js"></script>
 </body>
 
-</html>
+</html>	

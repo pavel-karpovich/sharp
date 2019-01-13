@@ -1,6 +1,5 @@
 onmessage = function (event) {
     let data = JSON.parse(event.data);
-    debugger;
     if (data.index == -1) {
 
         close();

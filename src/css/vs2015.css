@@ -44,10 +44,18 @@
 
 .hljs-subst,
 .hljs-function,
-.hljs-title,
 .hljs-params,
 .hljs-formula {
   color: #DCDCDC;
+}
+
+.hljs-title {
+  color: #4EC9B0;
+}
+
+.hljs-builtin-name
+{
+  color: #4EC9B0;
 }
 
 .hljs-comment,
@@ -72,10 +80,10 @@
 }
 
 .hljs-attr,
-.hljs-attribute,
-.hljs-builtin-name {
+.hljs-attribute {
   color: #9CDCFE;
 }
+
 
 .hljs-section {
   color: gold;
