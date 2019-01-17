@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Windows Forms</title>
-    <meta name="description" content="creation of window application based on Microsoft Windows Forms">
-    <meta name="keywords" content="c#, oop, windowsForms, winforms, mwf">
+    <title>WPF</title>
+    <meta name="description" content="learning of creating desktop windows apps based on WPF technology">
+    <meta name="keywords" content="c#, oop, wpf, desktop, app">
     <meta name="author" content="Edward & Albert">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -548,6 +548,24 @@ namespace TestWpfApp1
                     </p>
                 </section>
                 <section>
+                    <h2>Классы элементов управления</h2>
+                    <p>
+                        Все элементы управления - это классы.
+                    </p>
+                    <blockquote>
+                        Добавляя в редакторе элемент управления на поверхность окна,
+                        вы создаёте объект класса этого элемента управления и помещаете
+                        его внутрь класса вашего окна.
+                    </blockquote>
+                    <p>
+                        Все свойства на Панели Свойств - это свойства класса выбранного
+                        элемента управления.
+                    </p>
+                    <u>
+                        К этим свойствам можно обращаться из кода, по таким же именам.
+                    </u>
+                </section>
+                <section>
                     <h1>Элементы управления</h1>
                     <p>
                         Все элементы, доступные для размещения в области интерфейса, можно разделить на 2 категории:
@@ -574,16 +592,24 @@ namespace TestWpfApp1
                 </ul>
             </section>
             <section>
+                <h2>Подробное описание</h2>
+                <p>
+                    Если нужно узнать что-то об элементах управления более глубоко,
+                    то это все можно сделать, прочитав 6 главу из 
+                    <a href="https://drive.google.com/uc?export=view&id=1nBMgi0clK6X3QVZ4tik7T_1nvuWnWhDt">прилагаемой книги по WPF</a>
+                </p>
+            </section>
+            <section>
                 <section>
                     <h2>Элементы управления содержимым</h2>
                     <p>
                         К элементам управления содержимым относятся:
                     </p>
                     <ul>
-                        <li>Label (метки)</li>
-                        <li>Button (кнопки)</li>
-                        <li>CheckBox (чекбоксы)</li>
-                        <li>RadioButton (эээ.. радиокнопки?)</li>
+                        <li><span class="purple">Label</span> (метки)</li>
+                        <li><span class="purple">Button</span> (кнопки)</li>
+                        <li><span class="purple">CheckBox</span> (чекбоксы)</li>
+                        <li><span class="purple">RadioButton</span> (эээ.. радиокнопки?)</li>
                     </ul>
                     <blockquote>
                         Главной особенностью всех элементов управления содержимым является то,
@@ -603,11 +629,12 @@ namespace TestWpfApp1
                     <h2>Метки Label</h2>
                     <img src="img/label.jpg" />
                     <blockquote>
-                        Label - статический элемент управления, по умолчанию содержащий
-                        неизменяемый текст.
+                        <span class="purple">Label</span> - статический элемент
+                        управления, по умолчанию содержащий неизменяемый текст.
                     </blockquote>
                     <p>
-                        Но вместо текста есть возможность вложить в него любой другой элемент управления.
+                        Но вместо текста есть возможность вложить в него любой 
+                        другой элемент управления.
                     </p>
                 </section>
                 <section>
@@ -618,7 +645,8 @@ namespace TestWpfApp1
                     <h2>Кнопки Button</h2>
                     <img src="img/button.jpg" />
                     <blockquote>
-                        Button - обычная кнопка, для того чтобы пользователь мог нажимать на неё.
+                        <span class="purple">Button</span> - обычная кнопка, 
+                        для того чтобы пользователь мог нажимать на неё.
                     </blockquote>
                 </section>
                 <section>
@@ -629,8 +657,8 @@ namespace TestWpfApp1
                     <h2>Чекбоксы CheckBox</h2>
                     <img src="img/checkbox.jpg" />
                     <blockquote>
-                        CheckBox - переключатель. Кнопка с двумя состояниями:
-                        активирована / не активирована.
+                        <span class="purple">CheckBox</span> - переключатель. 
+                        Кнопка с двумя состояниями: активирована / не активирована.
                     </blockquote>
                     <p>
                         Также рядом с кнопкой отображается текстовая надпись (вместо надписи
@@ -642,14 +670,15 @@ namespace TestWpfApp1
                     <img src="img/example_checkboxes.jpg" />
                 </section>
                 <section>
-                    <h2>Радиобаттон Radiobutton</h2>
+                    <h2>Радиобаттон RadioButton</h2>
                     <img src="img/radiobutton.jpg" />
                     <p>
-                        Radiobutton похожи на чекбоксы, это такая же кнопка, которая может
-                        быть активирована или не активирована (правда, кнопка тут по умолчанию круглая).
+                        <span class="purple">RadioButton</span> похожи на чекбоксы,
+                        это такая же кнопка, которая может быть активирована или 
+                        не активирована (правда, кнопка тут по умолчанию круглая).
                     </p>
                     <blockquote>
-                        Главной особенностью является то, что Radiobutton всегда применяются в группе
+                        Главной особенностью является то, что RadioButton всегда применяются в группе
                         из нескольких штук. И в группе радиобаттонов активным может быть только одна 
                         кнопка.
                     </blockquote>
@@ -659,7 +688,7 @@ namespace TestWpfApp1
                     </p>
                 </section>
                 <section>
-                    <h3>Примеры Radiobutton</h3>
+                    <h3>Примеры RadioButton</h3>
                     <img src="img/example_radiobuttons.jpg" />
                 </section>
             </section>
@@ -670,9 +699,9 @@ namespace TestWpfApp1
                         К этим элементам управления относятся:
                     </p>
                     <ul>
-                        <li>GroupBox (группа)</li>
-                        <li>TabItem (вкладка)</li>
-                        <li>Expander (раскрывающаяся штучка)</li>
+                        <li><span class="purple">GroupBox</span> (группа)</li>
+                        <li><span class="purple">TabItem</span> (вкладка)</li>
+                        <li><span class="purple">Expander</span> (раскрывающаяся штучка)</li>
                     </ul>
                     <blockquote>
                         Также как и простые элементы управления содержимым, они 
@@ -685,7 +714,8 @@ namespace TestWpfApp1
                     <h2>Группа GroupBox</h2>
                     <img src="img/groupbox.jpg" />
                     <blockquote>
-                        GroupBox используется для группировки других логически связанных
+                        <span class="purple">GroupBox</span> используется для 
+                        группировки других логически связанных
                         между собой элементов управления.
                     </blockquote>
                     <blockquote>
@@ -706,8 +736,10 @@ namespace TestWpfApp1
                     <h2>Вкладка TabItem</h2>
                     <img src="img/tab.jpg" />
                     <p>
-                        Сначала нужно оговориться, что вкладки (TabItem) могут помещаться
-                        только внутрь контейнера вкладок - элемента управления TabControl.
+                        Сначала нужно оговориться, что вкладки 
+                        (<span class="purple">TabItem</span>) могут помещаться
+                        только внутрь контейнера вкладок - элемента управления 
+                        <span class="purple">TabControl</span>.
                         Этот элемент управления предназначен только для хранения вкладок.
                     </p>
                     <p>
@@ -726,7 +758,8 @@ namespace TestWpfApp1
                     <h2>Раскрывающийся Expander</h2>
                     <img src="img/expander.jpg" />
                     <blockquote>
-                        Expander - элемент управления, предназначенный для создания блока 
+                        <span class="purple">Expander</span> - элемент 
+                        управления, предназначенный для создания блока 
                         элементов с возможностью сворачивания/разворачивания.
                     </blockquote>
                     <p>
@@ -745,10 +778,10 @@ namespace TestWpfApp1
                         К текстовым элементам управления относятся:
                     </p>
                     <ul>
-                        <li>TextBox (текстовое поле)</li>
-                        <li>TextBlock (просто текст)</li>
-                        <li>PasswordBox (текстовое поле для паролей)</li>
-                        <li>RichTextBox (поле для красочного текста)</li>
+                        <li><span class="purple">TextBox</span> (текстовое поле)</li>
+                        <li><span class="purple">TextBlock</span> (просто текст)</li>
+                        <li><span class="purple">PasswordBox</span> (текстовое поле для паролей)</li>
+                        <li><span class="purple">RichTextBox</span> (поле для красочного текста)</li>
                     </ul>
                     <blockquote>
                         Разумеется, отличительной особенностью этих элементов
@@ -760,7 +793,8 @@ namespace TestWpfApp1
                     <h2>Текстовое поле TextBox</h2>
                     <img src="img/textbox.jpg" />
                     <blockquote>
-                        TextBox - базовый элемент для пользовательского ввода, поле в
+                        <span class="purple">TextBox</span> - базовый элемент 
+                        для пользовательского ввода, поле в
                         которое можно вводить значение.
                     </blockquote>
                 </section>
@@ -772,7 +806,8 @@ namespace TestWpfApp1
                     <h2>Текст TextBlock</h2>
                     <img src="img/textblock.jpg" />
                     <p>
-                        TextBlock предназначен для отображения статического текста, на
+                        <span class="purple">TextBlock</span> предназначен 
+                        для отображения статического текста, на
                         содержание которого пользователь никак повлиять не может.
                     </p>
                     <p>
@@ -788,7 +823,8 @@ namespace TestWpfApp1
                     <h2>Текстовое поле для паролей PasswordBox</h2>
                     <img src="img/passwordbox.jpg" />
                     <p>
-                        Элемент управлений PasswordBox предназначен, как можно догадаться,
+                        Элемент управления <span class="purple">PasswordBox</span>
+                        предназначен, как можно догадаться,
                         для ввода пользователем паролей и другой секретной информации.
                     </p>
                     <p>
@@ -807,7 +843,7 @@ namespace TestWpfApp1
                 <section>
                     <h2>Поле для красочного текста RichTextBox</h2>
                     <blockquote>
-                        RichTextBox - интересный элемент управления для отображения
+                        <span class="purple">RichTextBox</span> - интересный элемент управления для отображения
                         сложно структурированного текстового содержимого с вложениями.
                     </blockquote>
                     <p>
@@ -822,8 +858,8 @@ namespace TestWpfApp1
                         Это:
                     </p>
                     <ul>
-                        <li>ListBox (список)</li>
-                        <li>ComboBox (выпадающий список)</li>
+                        <li><span class="purple">ListBox</span> (список)</li>
+                        <li><span class="purple">ComboBox</span> (выпадающий список)</li>
                     </ul>
                     <blockquote>
                         Основной задачей элеменов управления списком является отображение
@@ -834,7 +870,8 @@ namespace TestWpfApp1
                     <h2>Список ListBox</h2>
                     <img src="img/listbox.jpg" />
                     <p>
-                        ListBox - элемен управления, в котором отображается список из
+                        <span class="purple">ListBox</span> - элемен управления, 
+                        в котором отображается список из
                         множества элементов. Как правило, ListBox используется, когда нужно 
                         показать большое количество значений, и этот список играет
                         ключевую роль в интерфейсе пользователя.
@@ -847,7 +884,8 @@ namespace TestWpfApp1
                 <section>
                     <h3>ListBoxItem</h3>
                     <p>
-                        Внутри ListBox содержатся только элементы ListBoxItem. Они являются
+                        Внутри <span class="purple">ListBox</span> содержатся только 
+                        элементы <span class="purple">ListBoxItem</span>. Они являются
                         элементами управления содержимым, это значит, могут содержать в себе
                         1 другой элемент управления.
                     </p>
@@ -863,7 +901,8 @@ namespace TestWpfApp1
                     <h2>Выпадающий список ComboBox</h2>
                     <img src="img/combobox.jpg" />
                     <p>
-                        ComboBox так же содержит список элементов, но не отображает весь
+                        <span class="purple">ComboBox</span> так же содержит список 
+                        элементов, но не отображает весь
                         список на экране, а выводит его только при нажатии на ComboBox.
                     </p>
                     <p>
@@ -884,8 +923,8 @@ namespace TestWpfApp1
                 <section>
                     <h2>Элементы управления диапазонами значений</h2>
                     <ul>
-                        <li>ProgressBar (индикатор выполнения)</li>
-                        <li>Slider (слайдер)</li>
+                        <li><span class="purple">ProgressBar</span> (индикатор выполнения)</li>
+                        <li><span class="purple">Slider</span> (слайдер)</li>
                     </ul>
                     <blockquote>
                         Эти элементы управления хранят числовое значение
@@ -914,7 +953,8 @@ namespace TestWpfApp1
                     <h2>Слайдер Slider</h2>
                     <img src="img/slider.jpg" />
                     <blockquote>
-                        Slider имеет ползунок, с помощью которого пользователь может
+                        <span class="purple">Slider</span> имеет ползунок, 
+                        с помощью которого пользователь может
                         менять хранящееся в нём значение.
                     </blockquote>
                     <p>
@@ -936,26 +976,538 @@ namespace TestWpfApp1
                         К ним относятся:
                     </p>
                     <ul>
-                        <li>Calendar (календарь)</li>
-                        <li>DatePicker (свёрнутый календарь)</li>
+                        <li><span class="purple">Calendar</span> (календарь)</li>
+                        <li><span class="purple">DatePicker</span> (свёрнутый календарь)</li>
                     </ul>
                     <p>
                         Ну, тут всё понятно, они нужны для ввода даты.
                     </p>
                     <p>
-                        Содержат в себе значение DateTime.
+                        Содержат в себе значение <span class="purple">DateTime</span>.
                     </p>
                 </section>
                 <section>
                     <h2>Календарь DatePicker</h2>
                     <img src="img/calendar.jpg" />
+                    <p>
+                        Используется, когда нужно показать пользователю календарь.
+                    </p>
+                    <p>
+                        И когда нужно выбрать дату, и есть много свободного места. Потому
+                        что календарь занимает много места.
+                    </p>
                 </section>
                 <section>
                     <h2>Свёрнутый календарь DatePicker</h2>
                     <img src="img/datepicker.jpg" />
+                    <p>
+                        Аналогичен простому календарю по функциональности. Просто более компактный.
+                    </p>
                 </section>
             </section>
+            <section>
+                <section>
+                    <h2>Прочие элементы управления</h2>
+                    <ul style="font-size:80%;">
+                        <li><span class="purple">Border</span> - для дополнительной границы</li>
+                        <li><span class="purple">DataGrid</span> - таблица, обычно для работы с базами данных</li>
+                        <li><span class="purple">Document Viewer</span> - просмотрщик для PDF и подобного</li>
+                        <li><span class="purple">Frame</span> - контейнер для страничной разметки</li>
+                        <li><span class="purple">Image</span> - отдельная картинка</li>
+                        <li><span class="purple">ListView</span> - листбокс со столбцами</li>
+                        <li><span class="purple">MediaElement</span> - для видео и аудио</li>
+                        <li><span class="purple">Menu</span> - для меню</li>
+                        <li><span class="purple">ScrollBar</span> - полосы прокрутки</li>
+                        <li><span class="purple">ScrollViewer</span> - контейнер с прокруткой</li>
+                        <li><span class="purple">Separator</span> - разделительная линия</li>
+                        <li><span class="purple">StatusBar</span> - статусная панель</li>
+                        <li><span class="purple">ToolBar</span>, <span class="purple">ToolBarPanel</span>,
+                            <span class="purple">ToolBarTray</span> - для панелей инструментов</li>
+                        <li><span class="purple">TreeView</span> - для древовидной структуры</li>
+                        <li><span class="purple">WebBrowser</span> - для встраивания веб-страниц</li>
+                    </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Компоновка</h2>
+                    <blockquote>
+                        <span class="purpl">Компоновка</span> - это процесс 
+                        организации элементов управления в
+                        упорядоченную структуру, направленный на создание гибкого,
+                        практичного и привлекательного внешнего вида.
+                    </blockquote>
+                    <p>
+                        Главная сложность при проектировании интерфейсов в WPF - 
+                        адаптация компоновки к различным размерам окна.
+                    </p>
+                    <p>
+                        В WPF компоновка формируется с использованием разнообразных 
+                        <span class="purple">контейнеров</span>.
+                    </p>
+                </section>
+                <section>
+                    <h2>Принципы хорошей компоновки</h2>
+                    <ul>
+                        <li>Элементы управления не должны иметь явно установленных размеров</li>
+                        <li>Нельзя указывать позицию элемента в экранных координатах</li>
+                        <li>Контейнеры компоновки должны разделять доступное пространство
+                            между своими дочерними элементами
+                        </li>
+                        <li>Контейнеры компоновки могут быть вложенными</li>
+                    </ul>
+                    <p>
+                        Если следовать этим принципам - окно получится красивым и масштабируемым.
+                    </p>
+                    <p>
+                        Если не следовать, и делать на скорую руку - при масштабировании окна
+                        вся компоновка будет рассыпаться.
+                    </p>
+                </section>
+            </section>
+            <section>
+                <h2>Более подробно</h2>
+                <p>
+                    Всё о компоновке и контейнерах для компоновки можно узнать из 2 главы
+                    <a href="https://drive.google.com/uc?export=view&id=1nBMgi0clK6X3QVZ4tik7T_1nvuWnWhDt">книги по WPF</a>
+                </p>
+            </section>
+            <section>
+                <h3>Контейнеры для компоновки</h3>
+                <p>
+                    К элементам компоновки относятся:
+                </p>
+                <ul>
+                    <li><span class="purple">StackPanel</span></li>
+                    <li><span class="purple">WrapPanel</span></li>
+                    <li><span class="purple">DockPanel</span></li>
+                    <li><span class="purple">Grid</span></li>
+                    <li><span class="purple">Canvas</span></li>
+                </ul>
+                <p>
+                    <u>
+                        Только в элементы компоновки можно помещать несколько элементов управления.
+                    </u>
+                </p>
+                <p>
+                    И почти в любой ситуации можно обойтись вложенными Grid и StackPanel.
+                </p>
+            </section>
+            <section>
+                <section>
+                    <h2>StackPanel</h2>
+                    <p>
+                        <span class="purple">StackPanel</span> укладывает все свои дочерние
+                        элементы в один ряд, друг за другом.
+                    </p>
+                    <p>
+                        Можно настраивать размещение по вертикали, а можно по горизонтали.
+                        Это делается с помощью свойства <span class="light-blue">Orientation</span>.
+                    </p>
+                    <p>
+                        Значение Vertical обозначает вертикальное расположение, значение
+                        Horizontal - горизонтальное расположение.
+                    </p>
+                </section>
+                <section>
+                    <h2>Вертикальный пример</h2>
+                    <p>
+                        Здесь показано окно, в котором находится StackPanel с вертикальной
+                        ориентацией, в котором находятся 5 кнопок:
+                    </p>
+                    <img src="img/vertical_stackpanel.jpg"/>
+                </section>
+                <section>
+                    <h2>Код</h2>
+                    <pre>
+                        <code class="cs">
+&lt;Window x:Class="TestWpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"&gt;
+    
+    &lt;StackPanel Orientation="Vertical"&gt;
+        &lt;Button Content="Button"/&gt;
+        &lt;Button Content="Button"/&gt;
+        &lt;Button Content="Button"/&gt;
+        &lt;Button Content="Button With Long Text"/&gt;
+        &lt;Button Content="Button"/&gt;
 
+    &lt;/StackPanel&gt;
+&lt;/Window&gt;                        
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Горизонтальный пример</h2>
+                    <p>
+                        А если поменять в предыдущем примере ориентацию StackPanel на
+                        горизонтальную, то вот как изменится окно:
+                    </p>
+                    <img src="img/horizontal_stackpanel.jpg" />
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Свойства дочерних элементов внутри контейнера</h2>
+                    <p>
+                        Все элементы управления можно выравнивать по границам своих
+                        контейнеров, создавать вокруг себя отступы, и задавать
+                        минимальные и максимальные размеры.
+                    </p>
+                </section>
+                <section>
+                    <h2>Выравнивание</h2>
+                    <p>
+                        Выравнивание осуществляется при помощи свойств
+                        <span class="light-blue">HorizontalAlignment</span>
+                        и <span class="light-blue">VerticalAlignment</span>.
+                    </p>
+                    <img src="img/alignment.jpg" />
+                    <p>
+                        У каждого из них есть к возможных значения:
+                    </p>
+                    <ul>
+                        <li>Выравнивание по левой/верхней стороне</li>
+                        <li>Выравнивание по центру</li>
+                        <li>Выравнивание по правой/нижней стороне</li>
+                        <li>Растяжение (stretch)</li>
+                    </ul>
+                    <p>
+                        В предыдущем примере кнопки были растянуты по всему размеру
+                        StackPanel именно из-за значения выравнивания Stretch.
+                    </p>
+                </section>
+                <section>
+                    <h2>Пример выравнивания</h2>
+                    <p>
+                        Здесь у разных кнопок показаны разные значения выравнивания:
+                    </p>
+                    <img src="img/various_aligment.jpg" />
+                </section>
+                <section>
+                    <h2>Отступы</h2>
+                    <p>
+                        Отступы задаются с помощью свойства <span class="light-blue">Margin</span>.
+                    </p>
+                    <img src="img/margin.jpg" />
+                    <p>
+                        Можно отдельно назначать величину отступа для всех 4 сторон элемента.
+                    </p>
+                </section>
+                <section>
+                    <h3>Пример с отступами</h3>
+                    <p>
+                        Здесь для каждой кнопки добавлены отступы на 100 единиц справа и слева,
+                        и на 10 единиц сверху и снизу.
+                    </p>
+                    <img src="img/margin_example.jpg" />
+                </section>
+                <section>
+                    <h3>Код примера с отступами</h3>
+                    <pre>
+                        <code class="cs">
+&lt;Window x:Class="TestWpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"&gt;
+    &lt;StackPanel&gt;
+        &lt;Button Content="Button"  Margin="100,10" /&gt;
+        &lt;Button Content="Button" Margin="100,10"/&gt;
+        &lt;Button Content="Button" Margin="100,10"/&gt;
+        &lt;Button Content="Button With Long Text" Margin="100,10"/&gt;
+        &lt;Button Content="Button" Margin="100,10"/&gt;
+
+    &lt;/StackPanel&gt;
+&lt;/Window&gt;
+                        
+                        </code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Минимальный и максимальный размер</h2>
+                    <p>
+                        Минимальная ширина элемента управления задаётся свойством
+                        <span class="light-blue">MinWidth</span>, максимальная ширина -
+                        <span class="light-blue">MaxWidth</span>.
+                    </p>
+                    <p>
+                        Минимальная высота - <span class="light-blue">MinHeight</span>,
+                        максимальная высота - <span class="light-blue">MaxHeight</span>.
+                    </p>
+                    <p>
+                        Максимальные и минимальные размеры нужно задавать для того, чтобы
+                        элементы управления расширялись при расширении окна, и, соответственно,
+                        сужались при уменьшении размера окна.
+                    </p>
+                </section>
+                <section>
+                    <h3>Размеры в действии</h3>
+                    <p>
+                        Здесь задана минимальная ширина кнопок в 100 единиц, и масимальная в 400.
+                    </p>
+                    <iframe src="https://giphy.com/embed/82ukN4ek7AF7r6e5iE" width="480" height="273" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>WrapPanel</h2>
+                    <p>
+                        <span class="purpl">WrapPanel</span>, подобно StackPanel, располагает все
+                        элементы в ряд друг за другом, только с возможностью переноса на новый ряд,
+                        если в первом не хватает места.
+                    </p>
+                </section>
+                <section>
+                    <h3>Пример WrapPanel</h3>
+                    <p>
+                        Кнопки находятся во WrapPanel с горизонтальной ориентацией, т.е. располагаются
+                        друг за другом по горизонтали. Но когда элементы перестают влазить в ряд, они
+                        переносятся на следующий, ниже.
+                    </p>
+                    <iframe src="https://giphy.com/embed/bbx89SAT62fxdMi9ZN" width="672" height="280" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>DockPanel</h2>
+                    <p>
+                        Элемент компоновки <span class="purple">DockPanel</span> растягивает
+                        элементы управления вдоль одной из внешних границ.
+                    </p>
+                    <p>
+                        То, к какой стороне присоединяться, определяется через свойство
+                        <span class="light-blue">DockPanel.Dock</span> самого элемента
+                        управления, находящегося внутри DockPanel.
+                    </p>
+                    <p>
+                        Соответственно, есть 4 варианта, стыковка к каждой стороне:
+                        Left, Right, Top и Bottom.
+                    </p>
+                    <p>
+                        У самого DockPanel есть булевое свойство 
+                        <span class="light-blue">LastChildFill</span>, значение true
+                        в котором означает заполнение всего свободного пространства
+                        последним из добавленных в DockPanel элементов управления.
+                    </p>
+                </section>
+                <section>
+                    <h3>Пример DockPanel</h3>
+                    <p>
+                        Пример DockPanel с кнопками, присоединёнными к 4 разным сторонам, и
+                        центральной, которая заполняет всё свободное пространство.
+                    </p>
+                    <iframe src="https://giphy.com/embed/9P93hIMFQSGErMTwpd" width="480" height="308" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                </section>
+                <section>
+                    <h3>Код примера</h3>
+                    <pre>
+                        <code class="cs">
+&lt;Window x:Class="TestWpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"&gt;
+    &lt;DockPanel&gt;
+        &lt;Button Content="Button"  Margin="2" /&gt;
+        &lt;Button Content="Button" Margin="2" DockPanel.Dock="Right" /&gt;
+        &lt;Button Content="Button" Margin="2" DockPanel.Dock="Top" /&gt;
+        &lt;Button Content="Button" Margin="2" DockPanel.Dock="Bottom" /&gt;
+        &lt;Button Content="Button With Long Text" Margin="2" DockPanel.Dock="Top"/&gt;
+
+    &lt;/DockPanel&gt;
+&lt;/Window&gt;
+                        </code>
+                    </pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Вложение контейнеров компоновки</h2>
+                    <p>
+                        Почти в любой ситуации одним или несколькими уровнями вложенности
+                        элементов управления обойтись нельзя.
+                    </p>
+                    <p>
+                        Обычно, WPF окно представляет собой сложную многоуровневую
+                        древовидную структуру из вложений контейнеров компоновки в
+                        контейнеры компоновки, где элементы управления находятся
+                        в самой глубине.
+                    </p>
+                </section>
+                <section>
+                    <h2>Пример</h2>
+                    <p>
+                        Здесь показан шаблон окна, созданного по стандартной схеме с 
+                        расположением кнопок Ok и Cancel в нижней правой части макета.
+                    </p>
+                    <p>
+                        При любом масштабировании окна, эти кнопки всегда будут оставаться
+                        снизу справа. Это достигается за счёт использования StackPanel
+                        внутри DockPanel.
+                    </p>
+                    <img src="img/simple_ok_cancel_window.jpg" />
+                </section>
+                <section>
+                    <h2>Код примера</h2>
+                    <pre>
+                        <code class="cs">
+&lt;Window x:Class="TestWpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"&gt;
+    &lt;DockPanel LastChildFill="True"&gt;
+        &lt;StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal"&gt;
+            &lt;Button Margin="10,10,2,10" Padding="3"&gt;OK&lt;/Button&gt;
+            &lt;Button Margin="2,10,10,10" Padding="3"&gt;Cancel&lt;/Button&gt;
+        &lt;/StackPanel&gt;
+        &lt;TextBox DockPanel.Dock="Top" Margin="0"&gt;
+                    This is a test.
+        &lt;/TextBox&gt;
+    &lt;/DockPanel&gt;
+&lt;/Window&gt;                        
+                        </code>
+                </section>
+                <section>
+                    <h2>Более сложный пример</h2>
+                    <p>
+                        Теперь в основной области окна содержится не просто текст, а целый
+                        набор элементов управления.
+                    </p>
+                    <p>
+                        Уровень вложенности здесь уже похожий на настоящий: DockPanel ->
+                        StackPanel -> GroupBox -> WrapPanel -> StackPanel -> TextBlock и TextBox
+                    </p>
+                    <img style="height: 300px;" src="https://media.giphy.com/media/BZiYan95gm68O1WhsP/giphy.gif" />
+                </section>
+                <section>
+                    <h3>Пояснения</h3>
+                    <p>
+                        Самый внешний DockPanel, как в прошлом примере, используется для того,
+                        чтобы прикрепить 2 кнопки к нижней стороне окна.
+                    </p>
+                    <p>
+                        Внутри него находится StackPanel, чтобы расположить в один вертикальный
+                        ряд 2 GroupBox и нижний CheckBox.
+                    </p>
+                    <p>
+                        В каждом GroupBox находится WrapPanel, чтобы дать возможность
+                        внутренним элементам управления распределяться по доступному пространству
+                        и переноситься на новые строки, если не хватает ширины.
+                    </p>
+                    <p>
+                        Сами элементы управления (TextBlock и TextBox) обёрнуты в ещё один
+                        StackPanel, чтобы они были объединены, и переносились во WrapPanel
+                        вместе, а не разрозненно (подпись на одной строке, а поле ввода на другой).
+                    </p>
+                </section>
+                <section>
+                    <h3>Код</h3>
+                    <pre>
+                        <code class="cs">
+&lt;Window x:Class="TestWpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="600"&gt;
+    &lt;DockPanel LastChildFill="True"&gt;
+        &lt;StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal"&gt;
+            &lt;Button Margin="10,10,2,10" Padding="3"&gt;OK&lt;/Button&gt;
+            &lt;Button Margin="2,10,10,10" Padding="3"&gt;Cancel&lt;/Button&gt;
+        &lt;/StackPanel&gt;
+        &lt;StackPanel Margin="20"&gt;
+            &lt;GroupBox Header="Required fields"&gt;
+                &lt;WrapPanel Orientation="Horizontal"&gt;
+                    &lt;StackPanel Orientation="Horizontal" Margin="0,10,20,0"&gt;
+                        &lt;TextBlock Text="Name:" Width="75" Margin="0,0,15,0"&gt;&lt;/TextBlock&gt;
+                        &lt;TextBox Width="100"&gt;&lt;/TextBox&gt;
+                    &lt;/StackPanel&gt;
+                    &lt;StackPanel Orientation="Horizontal" Margin="0,10,20,0"&gt;
+                        &lt;TextBlock Text="Email:" Width="75" Margin="0,0,15,0"&gt;&lt;/TextBlock&gt;
+                        &lt;TextBox Width="100"&gt;&lt;/TextBox&gt;
+                    &lt;/StackPanel&gt;
+                    &lt;StackPanel Orientation="Horizontal" Margin="0,10,20,0"&gt;
+                        &lt;TextBlock Text="Country:" Width="75" Margin="0,0,15,0"&gt;&lt;/TextBlock&gt;
+                        &lt;TextBox Width="100"&gt;&lt;/TextBox&gt;
+                    &lt;/StackPanel&gt;
+                    &lt;StackPanel Orientation="Horizontal" Margin="0,10,20,0"&gt;
+                        &lt;TextBlock Text="Company:" Width="75" Margin="0,0,15,0"&gt;&lt;/TextBlock&gt;
+                        &lt;TextBox Width="100"&gt;&lt;/TextBox&gt;
+                    &lt;/StackPanel&gt;
+                    &lt;StackPanel Orientation="Horizontal" Margin="0,10,20,0"&gt;
+                        &lt;TextBlock Text="Position:" Width="75" Margin="0,0,15,0"&gt;&lt;/TextBlock&gt;
+                        &lt;TextBox Width="100"&gt;&lt;/TextBox&gt;
+                    &lt;/StackPanel&gt;
+                    &lt;StackPanel Orientation="Horizontal" Margin="0,10,20,0"&gt;
+                        &lt;TextBlock Text="Experience:" Width="75" Margin="0,0,15,0"&gt;&lt;/TextBlock&gt;
+                        &lt;TextBox Width="100"&gt;&lt;/TextBox&gt;
+                    &lt;/StackPanel&gt;
+                &lt;/WrapPanel&gt;
+            &lt;/GroupBox&gt;
+            &lt;GroupBox Header="Optional fields"&gt;
+                &lt;WrapPanel Orientation="Horizontal"&gt;
+                    &lt;StackPanel Orientation="Horizontal" Margin="0,10,20,0"&gt;
+                        &lt;TextBlock Text="Phone:" Width="75" Margin="0,0,15,0"&gt;&lt;/TextBlock&gt;
+                        &lt;TextBox Width="100"&gt;&lt;/TextBox&gt;
+                    &lt;/StackPanel&gt;
+                    &lt;StackPanel Orientation="Horizontal" Margin="0,10,20,0"&gt;
+                        &lt;TextBlock Text="Age:" Width="75" Margin="0,0,15,0"&gt;&lt;/TextBlock&gt;
+                        &lt;TextBox Width="100"&gt;&lt;/TextBox&gt;
+                    &lt;/StackPanel&gt;
+                &lt;/WrapPanel&gt;
+            &lt;/GroupBox&gt;
+            &lt;CheckBox Margin="20,10,20,10" Content="I agree with all conditions and accept the risk"&gt;&lt;/CheckBox&gt;
+        &lt;/StackPanel&gt;
+    &lt;/DockPanel&gt;
+&lt;/Window&gt;
+                        </code>
+                    </pre>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Сетка Grid</h2>
+                    <p>
+                        <span class="purple">Grid</span> является самым мощным и 
+                        иногофункциональным контейнером компоновки в WPF.
+                    </p>
+                    <p>
+                        Grid почти всегда используется для разбиения окна на меньшие области.
+                        В принципе Grid настолько удобен, что почти любую разметку можно сделать
+                        используя только его, без других контейнеров компоновки.
+                    </p>
+                    <blockquote>
+                        <span class="purple">Grid</span> располагатет элементы в невидимой сетке
+                        по строкам и колонкам.
+                    </blockquote>
+                </section>
+                <section>
+                    <h3>Отображение границ ячеек</h3>
+                    <p>
+                        Чтобы для тестирования отобразить границы ячеек сетки можно использовать
+                        свойство Grid-а <span class="light-blue">ShowGridLines</span>.
+                    </p>
+                    <img src="img/showgridlines.jpg" />
+                </section>
+            </section>
             <section>
                 <h2>Что почитать дополнительно?</h2>
                 <ul>

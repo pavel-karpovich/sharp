@@ -9,15 +9,14 @@
         progress: true,
         history: true,
         center: true,
+        slideNumber: false,
         transition: "slide", // none/fade/slide/convex/concave/zoom
     });
     Reveal.addEventListener("ready", function (event) {
-        //hljs.initHighlightingOnLoad(); //There is a bug, the method doesn"t call sometimes
         presentable.toc({
             framework: "revealjs"
         });
     });
-    //hljs.initHighlightingOnLoad();
 
     window.addEventListener("load", function () {
 
