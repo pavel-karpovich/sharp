@@ -90,7 +90,7 @@
 
 [*Операторы и обобщения*](https://tgjmjgj.github.io/sharp/dist/task/task_5/task_5.pdf "Операторы и обобщения")
 
-* Задание 6.
+* Задание 6 <sup>*[мутненькое]*</sup>.
 
 [*Делегаты*](https://tgjmjgj.github.io/sharp/dist/task/task_6/task_6.pdf "Делегаты")
 
