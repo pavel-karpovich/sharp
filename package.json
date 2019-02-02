@@ -4,7 +4,8 @@
   "description": "Swallow dive into .NET and OOP",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx gulp"
   },
   "repository": {
     "type": "git",
@@ -13,28 +14,24 @@
   "author": "Pavel Karpovich",
   "license": "MIT",
   "devDependencies": {
-    "browser-sync": "*",
-    "del": "*",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "*",
-    "gulp-changed": "*",
-    "gulp-clean-css": "*",
-    "gulp-cli": "*",
-    "gulp-csslint": "*",
-    "gulp-csslint-report": "*",
-    "gulp-if": "*",
-    "gulp-imagemin": "*",
-    "gulp-jshint": "*",
-    "gulp-jshint-html-reporter": "*",
-    "gulp-newer": "*",
-    "gulp-run": "*",
-    "gulp-sequence": "*",
-    "gulp-sourcemaps": "*",
+    "browser-sync": "^2.26.3",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-cli": "^2.0.1",
+    "gulp-csslint": "^1.0.1",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-jshint": "^2.1.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-run": "^1.7.1",
+    "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify-es": "^1.0.4",
-    "gulp-useref": "*",
-    "gulp-watch": "*",
+    "gulp-useref": "^3.1.6",
+    "gulp-watch": "^5.0.1",
     "jshint": "^2.9.7",
-    "npx": "*",
-    "yaspeller": "*"
+    "npx": "^10.2.0",
+    "yaspeller": "^5.0.1"
   }
 }
