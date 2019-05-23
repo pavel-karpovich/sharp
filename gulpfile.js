@@ -19,21 +19,19 @@ const browserSync = require('browser-sync'),
 
 //variables
 
-const yaspellerDictionary = 'yadict.json';
-
 const srcPath = {
     'src': './src',
     'html': './src/**/*.html',
     'img': './src/**/*.+(jpg|jpeg|png|svg|gif)',
     'css': ['./src/!(css|js)*/**/*.css'],
     'cssLint': './src/**/*.css',
-    'js': './src/!(js)*/**/*.js',
-    'jsLint': ['./src/**/*.js', '!./src/**/*.min.js'],
+    'js': './src/!(js|completed)*/**/*.js',
+    'jsLint': ['./src/**/*.js', '!./**/node_modules/**', '!./src/**/*.min.js'],
     'font': './src/font/**/*.*',
     'analysis': './code-analysis/',
-    'task': './src/task/**/*.pdf',
-    'cmpl': './src/completed/**/*.*',
-    'print': './src/css/print/*.css',
+    'task': './src/task/**/*.+(pdf|тых|html|css)',
+    'cmpl': ['./src/completed/**/*.*', '!./**/node_modules/**'],
+    'print': './src/css/print/*.css'
 };
 
 const distPath = {
@@ -136,16 +134,26 @@ const copyCompletedFiles = function() {
 
 const copyPrintJsFiles = function() {
     return gulp.src(srcPath.print)
-        .pipe(gulp.dest(distPath.print))
+        .pipe(gulp.dest(distPath.print));
+}
+
+const copyThemeCssFiles = function() {
+    return gulp.src('./src/css/theme/*.css')
+        .pipe(gulp.dest('./dist/css/theme/'));
 }
 
 const copyHlJsFiles = function() {
     return gulp.src('./src/js/highlight/*.js')
-        .pipe(gulp.dest('./dist/js/'))
+        .pipe(gulp.dest('./dist/js/'));
+}
+
+const copyCustomCss = function() {
+    return gulp.src('./src/css/custom.css')
+        .pipe(gulp.dest('./dist/css/'));
 }
 
 const lint = gulp.parallel(lintJs, lintCss);
-const translate = gulp.parallel(parseHtml, parseCss, copyJs, parseImages, copyFonts, copyTaskFiles, copyCompletedFiles, copyPrintJsFiles, copyHlJsFiles);
+const translate = gulp.parallel(parseHtml, parseCss, copyJs, parseImages, copyFonts, copyCustomCss, copyTaskFiles, copyCompletedFiles, copyPrintJsFiles, copyThemeCssFiles, copyHlJsFiles);
 
 const build = gulp.series(cleanDist, lint, translate);
 
@@ -160,6 +168,7 @@ const watchServ = function() {
     watch(srcPath.cmpl, copyCompletedFiles);
     watch(srcPath.print, copyPrintJsFiles);
     watch('./src/js/highlight/*.js', copyHlJsFiles);
+    watch('./src/css/custom.css', copyCustomCss);
 
 }
 
@@ -175,7 +184,7 @@ const serverWatch = gulp.parallel(watchServ, serveDir);
 const default_task = gulp.series(build, serverWatch);
 
 const ya = function(cb) {
-    run(`npx yaspeller --dictionary ${yaspellerDictionary} -e ".md,.html" .\\`).exec()
+    run(`npx yaspeller .\\`).exec()
         .on("error", function(err) {
             console.error(err.message);
             cb();

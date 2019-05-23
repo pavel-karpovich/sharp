@@ -26,6 +26,7 @@ html {
 /* Remove any elements not needed in print. */
 .nestedarrow,
 .reveal .controls,
+.controls,
 .reveal .progress,
 .reveal .playback,
 .reveal.overview,

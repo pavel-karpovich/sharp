@@ -6,12 +6,13 @@
 	<title>WPF 2</title>
 	<meta name="description" content="Continuing to learn WPF technology">
 	<meta name="keywords" content="c#, oop, class, object, interface">
-	<meta name="author" content="Edward & Albert">
+	<meta name="author" content="Pavel Karpovich">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0 ">
 	<link rel="stylesheet" href="../../css/bundle.min.css">
 	
+	<link rel="stylesheet" href="../../css/custom.css" />
 	<!-- Printing and PDF exports -->
 	<script>
 		var link = document.createElement('link');
@@ -27,6 +28,7 @@
 </head>
 
 <body>
+	<script src="../../js/theme.js"></script>
 	<div class="reveal">
 		<div class="slides">
 			<section>
@@ -58,14 +60,32 @@
 	</div>
 	<aside id="presentable-icon" class="cpp">
 		<a title="Содержание лекции" href="#/0/1">
-			<i class="fa fa-list-ul fa-2x"></i>
+			<i class="fa fa-list-ul fa-2x controls"></i>
 		</a>
 	</aside>
-    <aside id="presentable-icon-close">
-        <a title="К списку материалов" href="../../index.html#/1">
-            <i class="fa fa-times fa-2x"></i>
-        </a>
-    </aside>
+	<aside id="presentable-icon-close">
+		<a title="К списку материалов" href="../../index.html#/1">
+			<i class="fa fa-times fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-theme-picker">
+		<div id="hidden-bar" class="invisible">
+			<div>
+				<div data-theme="beige" class="theme-circle theme-beige"></div>
+				<div data-theme="black" class="theme-circle theme-black"></div>
+				<div data-theme="blood" class="theme-circle theme-blood"></div>
+				<div data-theme="league" class="theme-circle theme-league"></div>
+				<div data-theme="moon" class="theme-circle theme-moon"></div>
+				<div data-theme="night" class="theme-circle theme-night"></div>
+				<div data-theme="serif" class="theme-circle theme-serif"></div>
+				<div data-theme="simple" class="theme-circle theme-simple"></div>
+				<div data-theme="sky" class="theme-circle theme-sky"></div>
+				<div data-theme="solarized" class="theme-circle theme-solarized"></div>
+				<div data-theme="white" class="theme-circle theme-white"></div>
+			</div>
+		</div>
+		<div id="selected-theme" class="theme-circle"></div>
+	</aside>
 	<script src="../../js/bundle.min.js"></script>
 </body>
 

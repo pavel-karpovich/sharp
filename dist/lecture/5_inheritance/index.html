@@ -12,6 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0 ">
 	<link rel="stylesheet" href="../../css/bundle.min.css">
 	
+	<link rel="stylesheet" href="../../css/custom.css" />
 	<!-- Printing and PDF exports -->
 	<script>
 		var link = document.createElement('link');
@@ -27,6 +28,7 @@
 </head>
 
 <body>
+	<script src="../../js/theme.js"></script>
 	<div class="reveal">
 		<div class="slides">
 			<section>
@@ -174,8 +176,7 @@
 						Для того чтобы объявить, что класс является производным от какого-то другого класса,
 						нужно при его описании после имени класса через двоеточие (:) написать имя родительского класса. 
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Какой-то класс
 class SomeClass
 {
@@ -187,13 +188,11 @@ class DerivedClass : SomeClass
 {
 	// ...
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс собаки
 class Dog
 {
@@ -230,13 +229,11 @@ class PoliceDog : Dog
 {
 
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Program
 {
 	public static void Main(string[] args)
@@ -255,8 +252,7 @@ class Program
 		dog2.Walk();
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -279,8 +275,7 @@ class Program
 				</section>
 				<section>
 					<h3>Пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Gadget
 {
 	// Открытое свойство
@@ -325,8 +320,7 @@ class Program
 		sm.UpdateNameVersion();     // Не доступно
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -342,8 +336,7 @@ class Program
 				</section>
 				<section>
 					<h2>Потомок класса собаки</h2>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс собаки-ищейки, производный от класса собаки
 class PoliceDog : Dog
 {
@@ -376,8 +369,7 @@ class PoliceDog : Dog
 	}
 
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -418,8 +410,7 @@ class PoliceDog : Dog
 				</section>
 				<section>
 					<h3>Пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Dog
 {
 	public string Name { get; set; }
@@ -558,8 +549,7 @@ class Program
 		dog2.FindSmth(100);		// "explosive!"
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -597,8 +587,7 @@ class Program
 					<p>
 						Модифицируем метод FindSmth, чтобы он выполнял оригинальный метод, а потом наш дополнительный код.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // ...
 public override string FindSmth(int distance)
 {
@@ -630,8 +619,7 @@ public static void Main(string[] args)
 	dog2.FindSmth(100);		// "rabbit"
 	dog2.FindSmth(100);		// "explosive!"
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -644,14 +632,12 @@ public static void Main(string[] args)
 					<p>
 						В случае с классом собаки:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Здесь сначала вызывается конструктор по умолчанию класса Object
 // Затем конструктор по умолчанию класса Dog
 // И последним конструктор класса PoliceDog, в который мы передаём параметры
 var dog2 = new PoliceDog("Arnold", 12, "Rottweiler", "Sgt. Bobbey", 2, "explosive");
-						</code>
-					</pre>
+					</code></pre>
 					<p>
 						Погодите-ка, какой ещё класс <span class="turquoise">Object</span>?
 					</p>
@@ -747,16 +733,14 @@ var dog2 = new PoliceDog("Arnold", 12, "Rottweiler", "Sgt. Bobbey", 2, "explosiv
 					<p>
 						Например, когда вы пишите:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 Dog myDog = new Dog();
 
 // Здесь объект класса Dog преобразовывается с помощью метода ToString в строку для вывода на консоль
 Console.WriteLine(myDog);
 // И здесь 
 string str = "Dog: " + myDog;
-						</code>
-					</pre>
+					</code></pre>
 					<p>
 						<u>Объект любого класса может быть преобразован к строке.</u>
 					</p>
@@ -770,15 +754,13 @@ string str = "Dog: " + myDog;
 						Другое дело, что стандартная реализация этого метода преобразует к строке не
 						слишком то и хорошо.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 Dog myDog = new Dog();
 Console.WriteLine(myDog);	// TestConsoleApp1.Dog
 
 int[] arr = { 1, 2, 3, 4 };
 Console.WriteLine(arr);		// System.Int32[]
-						</code>
-					</pre>
+					</code></pre>
 					<p>
 						По умолчанию, базовая реализация метода ToString, которая описана в классе Object,
 						возвращает строку с полным именем типа текущего объекта.
@@ -790,8 +772,7 @@ Console.WriteLine(arr);		// System.Int32[]
 						Переопределив в классе метод ToString можно написать свою реализацию преобразования
 						объекта класса в строку. Например:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Dog
 {
 	public string Name { get; set; }
@@ -851,8 +832,7 @@ class Program
 
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Переопределяем переопределённый метод</h3>
@@ -861,8 +841,7 @@ class Program
 						выводить на консоль. Для этого в этом классе можно также переопределить 
 						переопределённый метод ToString.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Dog
 {
 	public string Name { get; set; }
@@ -963,8 +942,7 @@ class Program
 
 	}
 }	
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -991,8 +969,7 @@ class Program
 					<p>
 						Проблема:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс музыкального инструмента
 class MusicalInstrument
 {
@@ -1071,13 +1048,11 @@ class Piano : StringInstrument
 	public int PedalsCount { get; set; }
 
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Использование конструкторов базового класса</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс музыкального инструмента
 class MusicalInstrument
 {
@@ -1182,8 +1157,7 @@ class Piano : StringInstrument
 	}
 
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -1226,8 +1200,7 @@ class Piano : StringInstrument
 						Свойства, помеченные как абстрактные, не должны иметь реализации, т.е.
 						у них не должно быть кода аксессоров get и set:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 спецификатор_доступа abastract тип Имя
 {
 	get;
@@ -1235,17 +1208,14 @@ class Piano : StringInstrument
 	set;
 	// Set без тела
 }
-						</code>
-					</pre>
+					</code></pre>
 					<p>
 						Абстрактные методы не должны иметь тела функции, только сигнатуру вызова:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 спецификатор_доступа abstract возвращаемый_тип Имя(параметры);
 // Метод без тела
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Замечание про static</h2>
@@ -1259,8 +1229,7 @@ class Piano : StringInstrument
 				</section>
 				<section>
 					<h3>Пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Абстрактный класс животного 
 abstract class Animal
 {
@@ -1369,8 +1338,7 @@ class Turtle : Animal
 		}
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -1390,14 +1358,12 @@ class Turtle : Animal
 					<p>
 						Интерфейсы, это отдельные элементы в программировании, наподобие классов, структур, перечислений.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 interface IName
 {
 	// ...
 }
-						</code>
-					</pre>
+					</code></pre>
 					<p>
 						Имена интерфейсов должны начинаться на букву <span class="purple">I</span>. 
 					</p>
@@ -1426,8 +1392,7 @@ interface IName
 						Единственное, что имя родительского класса, если он есть, 
 						должно всегда идти первым в списке.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class SomeClass1 : IInterface1
 {
 	// ...
@@ -1442,8 +1407,7 @@ class SomeClass3 : ParentClass, IInterface1, IInterface2, IInterface3
 {
 	// ...
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Различия интерфейсов и абстрактных классов</h2>
@@ -1500,23 +1464,20 @@ class SomeClass3 : ParentClass, IInterface1, IInterface2, IInterface3
 					<p>
 						Интерфейсы играют особую роль в полиморфизме, но об этом попозже.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 interface ICallable
 {
 	bool MakeCall(string number);
 	void TakeCall();
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Примеры</h3>
 					<p>
 						Модифицируем пример с собакой, добавив к нему интерфейс для способности лаять:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 interface IBarkable
 {
 	void Bark(int power);
@@ -1586,8 +1547,7 @@ class Dog : IBarkable
 		Console.WriteLine(".....");
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Наследование интерфейсов</h2>
@@ -1619,8 +1579,7 @@ class Dog : IBarkable
 				</section>
 				<section>
 					<h3>Пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс Змеи, производный от класса Животного
 class Snake : Animal
 {
@@ -1634,8 +1593,7 @@ sealed class GreenTreePython : Snake
 	// ...
 }
 
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Запечатанные методы</h2>
@@ -1649,8 +1607,7 @@ sealed class GreenTreePython : Snake
 				</section>
 				<section>
 					<h3>Пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Допустим, метод Breeding у класса Snake:
 // sealed может быть только у override метода
 public override sealed bool Breeding()
@@ -1661,8 +1618,7 @@ public override sealed bool Breeding()
 }
 
 // Теперь класс GreenTreePython не сможет переопределить этот метод
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -1706,8 +1662,7 @@ public override sealed bool Breeding()
 				</section>
 				<section>
 					<h3>Пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Dog
 {
 	public string Name { get; set; }
@@ -1821,8 +1776,7 @@ class Program
 		// Вывод: The police dog stamina: 100/100
 	}
 }	
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Сокрытие, переопределение...</h3>
@@ -1846,14 +1800,32 @@ class Program
 	</div>
 	<aside id="presentable-icon" class="cpp">
 		<a title="Содержание лекции" href="#/0/1">
-			<i class="fa fa-list-ul fa-2x"></i>
+			<i class="fa fa-list-ul fa-2x controls"></i>
 		</a>
 	</aside>
-    <aside id="presentable-icon-close">
-        <a title="К списку материалов" href="../../index.html#/1">
-            <i class="fa fa-times fa-2x"></i>
-        </a>
-    </aside>
+	<aside id="presentable-icon-close">
+		<a title="К списку материалов" href="../../index.html#/1">
+			<i class="fa fa-times fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-theme-picker">
+		<div id="hidden-bar" class="invisible">
+			<div>
+				<div data-theme="beige" class="theme-circle theme-beige"></div>
+				<div data-theme="black" class="theme-circle theme-black"></div>
+				<div data-theme="blood" class="theme-circle theme-blood"></div>
+				<div data-theme="league" class="theme-circle theme-league"></div>
+				<div data-theme="moon" class="theme-circle theme-moon"></div>
+				<div data-theme="night" class="theme-circle theme-night"></div>
+				<div data-theme="serif" class="theme-circle theme-serif"></div>
+				<div data-theme="simple" class="theme-circle theme-simple"></div>
+				<div data-theme="sky" class="theme-circle theme-sky"></div>
+				<div data-theme="solarized" class="theme-circle theme-solarized"></div>
+				<div data-theme="white" class="theme-circle theme-white"></div>
+			</div>
+		</div>
+		<div id="selected-theme" class="theme-circle"></div>
+	</aside>
 	<script src="../../js/bundle.min.js"></script>
 </body>
 

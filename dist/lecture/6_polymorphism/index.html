@@ -12,6 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0 ">
 	<link rel="stylesheet" href="../../css/bundle.min.css">
 	
+	<link rel="stylesheet" href="../../css/custom.css" />
 	<!-- Printing and PDF exports -->
 	<script>
 		var link = document.createElement('link');
@@ -27,6 +28,7 @@
 </head>
 
 <body>
+	<script src="../../js/theme.js"></script>
 	<div class="reveal">
 		<div class="slides">
 			<section>
@@ -91,8 +93,7 @@
 						Это свойство классов проявляется в коде в виде возможности представить объект 
 						какого-то класса в виде объекта базового для него класса. 
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Базовый класс Фрукт
 class Fruit
 {
@@ -132,8 +133,7 @@ class Program
 		Fruit fr3 = new Apple();
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -157,8 +157,7 @@ class Program
 						Простейшим случаем Ad hoc полиморфизма можно считать перегрузку функций:
 						когда мы для различных типов параметров прописываем различные варианты методов.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс Шеф-повара
 class Chef
 {
@@ -181,8 +180,7 @@ class Chef
 	}
 	
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Ad hoc полиморфизм</h2>
@@ -191,8 +189,7 @@ class Chef
 						один общий метод, но всё равно проверяется исходный тип и для каждого типа
 						выполняются отдельные действия.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Chef
 {
 	// Метод Приготовить что-нибудь из фрукта
@@ -268,8 +265,7 @@ class Program
 				</section>
 				<section>
 					<h3>Фрукты</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 static void Main(string[] args)
 {
 	// Шефа не трогам
@@ -285,8 +281,7 @@ static void Main(string[] args)
 		Console.WriteLine("Next meal: " + meal);
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -309,11 +304,9 @@ static void Main(string[] args)
 					<p>
 						Синтаксис вы уже видели:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 объект is тип
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Класс Type</h2>
@@ -347,11 +340,9 @@ static void Main(string[] args)
 					<p>
 						Синтаксис применения у него следующий:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 typeof(тип)
-						</code>
-					</pre>
+					</code></pre>
 					<p>
 						Итак, GetType позволяет получить объект <span class="turquoise">Type</span>
 						для объекта, <span class="blue">typeof</span> позволяет получить объект
@@ -361,16 +352,13 @@ typeof(тип)
 						Скомбинировав их, мы можем записать проверку на однозначное
 						соответствие объекта какому-либо типу:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 объект.GetType() == typeof(тип)
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 Banana banan = new Banana();
 
 Console.WriteLine("Operator is:");
@@ -385,8 +373,7 @@ Console.WriteLine("  banan.GetType() == typeof(Banana): {0}", banan.GetType() ==
 Console.WriteLine("  banan.GetType() == typeof(Kiwi): {0}", banan.GetType() == typeof(Kiwi));		// false
 Console.WriteLine("  banan.GetType() == typeof(Fruit): {0}", banan.GetType() == typeof(Fruit));		// false
 Console.WriteLine("  banan.GetType() == typeof(Object): {0}", banan.GetType() == typeof(Object));	// false
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -404,8 +391,7 @@ Console.WriteLine("  banan.GetType() == typeof(Object): {0}", banan.GetType() ==
 						Если попробовать выполнить преобразование через обычный синтаксис приведения типов,
 						в случае, если попадётся не совместимый тип, программа выбросит исключение.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 public void SomeMethod(Fruit fruit)
 {
 	// В случае, если сюда передать любой фрукт, кроме банана
@@ -413,8 +399,7 @@ public void SomeMethod(Fruit fruit)
 	Banana ban = (Banana)fruit;
 	Console.WriteLine("Banana length is: " + ban.Length);
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Оператор as</h2>
@@ -430,11 +415,9 @@ public void SomeMethod(Fruit fruit)
 					<p>
 						Синтаксис у него такой:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 ожидаемый_тип новое_имя = объект as ожидаемый_тип;
-						</code>
-					</pre>
+					</code></pre>
 					<p>
 						Оператор <span class="blue">as</span> подходит только для преобразования типов,
 						связанных наследственными узами.
@@ -442,31 +425,27 @@ public void SomeMethod(Fruit fruit)
 				</section>
 				<section>
 					<h2>Использование</h2>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Теперь нужно только проверить, что преобразование удалось выполнить
 Banana ban = fruit as Banana;
 if (ban != null)
 {
 	Console.WriteLine("Banana length is: " + ban.Length);
 }
-						</code>
-					</pre>
+					</code></pre>
 					<p>
 						Вообще, с 7 версии C# оператор <span class="blue">as</span> стал
 						немного бесполезным, потому что его функциональность добавили к 
 						новой форме оператора <span class="blue">is</span>:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Теперь преобразовывать можно прямо в операторе is
 if (fruit is Banana ban)
 {
 	// Если проверка is пройдёт, то здесь будет доступен преобразованный объект ban
 	Console.WriteLine("Banana length is: " + ban.Length);
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -567,8 +546,7 @@ if (fruit is Banana ban)
 				</section>
 				<section>
 					<h2>Пример настоящего полиморфизма</h2>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Fruit
 {
 	public string Name { get; set; }
@@ -641,8 +619,7 @@ class Program
 		}
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -663,8 +640,7 @@ class Program
 				</section>
 				<section>
 					<h3>Демонстрация различий</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Fruit
 {
 	public string Name { get; set; }
@@ -738,14 +714,12 @@ class Chef
 	}
 	
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
 				<h3>Пример</h3>
-				<pre>
-					<code class="cs">
+				<pre><code class="cs">
 // Базовый абстрактный класс Музыкального Инструмента
 abstract class MusicalInstrument
 {
@@ -931,13 +905,11 @@ class Program
 		// Заканчиваем программу по нажатию ESC
 	}
 }
-					</code>
-				</pre>
+				</code></pre>
 			</section>
 			<section>
 				<h3>Пример 2</h3>
-				<pre>
-					<code class="cs">
+				<pre><code class="cs">
 // Класс Пища
 abstract class Feed
 {
@@ -1334,8 +1306,7 @@ class Program
 		while (key.Key != ConsoleKey.Escape);
 	}
 }
-					</code>
-				</pre>
+				</code></pre>
 			</section>
 			<section>
 				<h2>Проблема</h2>
@@ -1359,8 +1330,7 @@ class Program
 			<section>
 				<section>
 					<h2>Пример</h2>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Интерфейс "Лающее"
 interface IBarkable
 {
@@ -1510,13 +1480,11 @@ class Program
 		cat.RunAwayFrom(barkable);
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Дополняем</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Drunkard : IBarkable
 {
 
@@ -1561,8 +1529,7 @@ IBarkable barkable2 = new Drunkard();
 
 cat.RunAwayFrom(barkable2);
 // ...
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -1587,8 +1554,7 @@ cat.RunAwayFrom(barkable2);
 						Чтобы явно реализовать элемент интерфейса в классе, перед его именем нужно
 						через точку обозначить название интерфейса, которому этот элемент принадлежит:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Интерфейс
 interface ITestable
 {
@@ -1625,8 +1591,7 @@ class Program
 		i.Test();
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Прячем методы</h2>
@@ -1634,8 +1599,7 @@ class Program
 						В классе можно описать только явную реализацию метода интерфейса. Тогда такой
 						метод не будет виден в этом классе, даже изнутри, пока его не привести к типу интерфейса.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 interface ITestable
 {
 	void Test();
@@ -1675,8 +1639,7 @@ class Program
 
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Совпадение имён</h2>
@@ -1684,8 +1647,7 @@ class Program
 						В случае совпадения названий методов в Интерфейсах/Классе, для каждого можно
 						написать свою реализацию:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Базовый класс Спортсмен
 class Sportsman
 {
@@ -1748,8 +1710,7 @@ class Program
 		(sp as IJogger).Run();
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Массив в .NET</h3>
@@ -1761,12 +1722,10 @@ class Program
 						(но большинство из них, конечно же, не рабочие). Увидеть и применить их можно только
 						представив массив в виде интерфейса IList.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 int[] mas = new int[10];
 IList&lt;int&gt; vs = mas;
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -1806,8 +1765,7 @@ IList&lt;int&gt; vs = mas;
 			</section>
 			<section>
 				<h2>Животные с интерфейсами</h2>
-				<pre>
-					<code class="cs">
+				<pre><code class="cs">
 // Вместо базового класса Пища - интерфейс Съестное
 interface IEatable
 {
@@ -2330,8 +2288,7 @@ class Program
 		while (key.Key != ConsoleKey.Escape);
 	}
 }
-					</code>
-				</pre>
+				</code></pre>
 			</section>
 			<section>
 				<h2>Пример 2</h2>
@@ -2590,8 +2547,7 @@ class Program
 			</section>
 			<section>
 				<h2>Пример 3</h2>
-				<pre>
-					<code class="cs">
+				<pre><code class="cs">
 // Интерфейс Логгера
 interface ILogger
 {
@@ -2705,8 +2661,7 @@ class Program
 		console.Log((file == file2).ToString());
 	}
 }
-					</code>
-				</pre>
+				</code></pre>
 			</section>
 			<section>
 				<h2>Стандартные интерфейсы .NET</h2>
@@ -2725,8 +2680,7 @@ class Program
 			</section>
 			<section>
 				<h2>Пример с IFormattable</h2>
-				<pre>
-					<code class="cs">
+				<pre><code class="cs">
 // Класс Температуры, реализующий стандартный интерфейс IFormattable
 public class Temperature : IFormattable
 {
@@ -2834,21 +2788,38 @@ class Program
 							temp1.ToString("C"), temp1.ToString("K"), temp1.ToString("F"));
 	}
 }
-					</code>
-				</pre>
+				</code></pre>
 			</section>
 		</div>
 	</div>
 	<aside id="presentable-icon" class="cpp">
 		<a title="Содержание лекции" href="#/0/1">
-			<i class="fa fa-list-ul fa-2x"></i>
+			<i class="fa fa-list-ul fa-2x controls"></i>
 		</a>
 	</aside>
-    <aside id="presentable-icon-close">
-        <a title="К списку материалов" href="../../index.html#/1">
-            <i class="fa fa-times fa-2x"></i>
-        </a>
-    </aside>
+	<aside id="presentable-icon-close">
+		<a title="К списку материалов" href="../../index.html#/1">
+			<i class="fa fa-times fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-theme-picker">
+		<div id="hidden-bar" class="invisible">
+			<div>
+				<div data-theme="beige" class="theme-circle theme-beige"></div>
+				<div data-theme="black" class="theme-circle theme-black"></div>
+				<div data-theme="blood" class="theme-circle theme-blood"></div>
+				<div data-theme="league" class="theme-circle theme-league"></div>
+				<div data-theme="moon" class="theme-circle theme-moon"></div>
+				<div data-theme="night" class="theme-circle theme-night"></div>
+				<div data-theme="serif" class="theme-circle theme-serif"></div>
+				<div data-theme="simple" class="theme-circle theme-simple"></div>
+				<div data-theme="sky" class="theme-circle theme-sky"></div>
+				<div data-theme="solarized" class="theme-circle theme-solarized"></div>
+				<div data-theme="white" class="theme-circle theme-white"></div>
+			</div>
+		</div>
+		<div id="selected-theme" class="theme-circle"></div>
+	</aside>
 	<script src="../../js/bundle.min.js"></script>
 </body>
 

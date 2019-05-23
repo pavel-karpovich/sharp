@@ -8,23 +8,25 @@
     <meta name="keywords" content="c#, oop, class, object, interface">
     <meta name="author" content="Edward & Albert">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <link rel="stylesheet" href="../../css/bundle.min.css">
-    
-    <!-- Printing and PDF exports -->
-    <script>
-        let link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.type = "text/css";
-        link.href = window.location.search.match(/print-pdf/gi) ? "../../css/print/pdf.css" : "../../css/print/paper.css";
-        document.getElementsByTagName("head")[0].appendChild(link);
-    </script>
+	<link rel="stylesheet" href="../../css/bundle.min.css">
+	
+	<link rel="stylesheet" href="../../css/custom.css" />
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? "../../css/print/pdf.css" : "../../css/print/paper.css";
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
 
-    <!--[if lt IE 9]>
-        <script src="../../js/html5shiv.min.js"></script>
-    <![endif]-->
+	<!--[if lt IE 9]>
+		<script src="../../js/html5shiv.min.js"></script>
+	<![endif]-->
 </head>
 
 <body>
+	<script src="../../js/theme.js"></script>
     <div class="reveal">
         <div class="slides">
             <section>
@@ -80,11 +82,9 @@
                     <p>
                         Делегаты описываются с помощью ключевого слова <span class="blue">delegate</span>:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 delegate возвр_тип ИмяДелегата (список_параметров);
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Описание делегата похоже на объявление абстрактного метода без реализации.
                     </p>
@@ -105,22 +105,18 @@ delegate возвр_тип ИмяДелегата (список_параметр
                     <p>
                         Т.е. объект вот такого вот делегата FunctionRef:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 delegate void FunctionRef();
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Сможет хранить только методы, которые возвращают void и не имеют параметров.
                     </p>
                     <p>
                         А объект делегата MyDelegate:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 delegate float MyDelegate(Dog a, Dog b);
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Сможет хранить только методы, которые возвращают float и принимают 2 объекта типа Dog.
                     </p>
@@ -148,22 +144,18 @@ delegate float MyDelegate(Dog a, Dog b);
                     <p>
                         Допустим, вы описали следующий тип делегата:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 delegate void DelegateType(int a);
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Тогда, чтобы создать объект этого делегата, нужно просто написать:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 static void Main(string[] args)
 {
     DelegateType d;
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Инициализация делегата</h2>
@@ -174,39 +166,32 @@ static void Main(string[] args)
                     <p>
                         Пусть у нас есть такой метод ShowInt:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 public static void ShowInt(int num)
 {
     Console.WriteLine("Переданное число: {0}", num);
     Console.WriteLine("Его квадрат: {0}", num);
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Тогда можно присвоить нашему делегату этот метод:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 DelegateType d;
 d = ShowInt;
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         И вызывать:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 d(1234);
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
                 <section>
                     <h3>Пример</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Статический класс для статических методов
 static class MyMath
 {
@@ -275,13 +260,11 @@ class Program
         Console.WriteLine("4) {0} / {1} = {2}", x, y, res);
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h3>Ещё пример</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 class Program
 {
     // Объявляем тип делегата:
@@ -322,8 +305,7 @@ class Program
         Console.ReadKey(true);
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -348,8 +330,7 @@ class Program
                 </section>
                 <section>
                     <h2>Демонстрация</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Методы для работы с массивом
 // Все методы возвращают void и принимают массив
 static class ArrayUtils
@@ -481,8 +462,7 @@ class Program
                     
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -505,8 +485,7 @@ class Program
                 </section>
                 <section>
                     <h3>Пример</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Класс Здание
 class Building
 {
@@ -620,8 +599,7 @@ class Program
         }
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -630,8 +608,7 @@ class Program
                     <p>
                         Делегат спокойно может указывать на метод какого-либо объекта:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Класс Авиакомпания
 class Airline
 {
@@ -697,8 +674,7 @@ class Program
         
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Сравнение делегатов</h2>
@@ -708,8 +684,7 @@ class Program
                     <p>
                         А также с другими делегатами такого же типа. С делегатами другого типа нельзя.
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 static void Main(string[] args)
 {
     // Авиакомпания №1
@@ -747,16 +722,14 @@ static void Main(string[] args)
         Console.WriteLine("The same methods from different object are not equal.");
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Делегат как свойство класса</h2>
                     <p>
                         Добавим в последний пример немного инкапсуляции:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Всё тот же тип делегата
 delegate int AirlineAction();
 
@@ -833,8 +806,7 @@ class Program
         // Заканчиваем цикл, когда метод в свойстве Flight вернёт 0
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -854,8 +826,7 @@ class Program
                 </section>
                 <section>
                     <h2>Делегат в аргументах метода</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Определение типа делегата WorkAction
 // С возвращаемым значением int и без параметров
 delegate int WorkAction();
@@ -972,13 +943,11 @@ class Program
         human1.Work();
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h3>Ещё пример</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Объявляем тип делегата, возвращающий булево значение
 // И принимающий 2 параметра типа int
 delegate bool Comparison(int a, int b);
@@ -1058,8 +1027,7 @@ class Program
         Console.WriteLine("Min positive value in the array is {0}", result);
     }
 }							
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -1091,19 +1059,16 @@ class Program
                         Для описания анонимного метода нужно описать обычный функциональный блок после ключевого слова
                         <span class="blue">delegate</span>:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 delegate (список_параметров)
 {
     // Код метода
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Пример 1</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 class Program
 {
     // Объявлен делегат
@@ -1122,13 +1087,11 @@ class Program
         Console.ReadKey(true);
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Пример 2</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 delegate bool Comparison(int a, int b);
 
 static class ArrayUtils
@@ -1174,15 +1137,13 @@ class Program
         Console.WriteLine("Min positive value in the array is {0}", result);
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
                 <section>
                     <h3>Рассмотри такой пример</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Объявление делегата Sum
 delegate int Sum(int number);
 
@@ -1226,8 +1187,7 @@ class Program
         Console.ReadKey(true);
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Замыкания</h2>
@@ -1277,19 +1237,15 @@ class Program
                     <p>
                         Имеет следующий синтаксис:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 параметр => выражение
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Или
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 (список_параметров) => выражение
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Одиночные лямбды по умолчанию возвращают результат описанного в них выражения, поэтому
                         если в анонимной функции предполагался return - его писать не нужно.
@@ -1300,8 +1256,7 @@ class Program
                     <p>
                         Покажем синтаксис описания лямбда-выражений в сравнении с ранее написанными анонимными методами:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Эквивалентные записи:
 // Анонимный метод
 MessageHandler handler = delegate(string mes)
@@ -1310,17 +1265,14 @@ MessageHandler handler = delegate(string mes)
 };
 // Лямбда
 MessageHandler handler = mes => Console.WriteLine(mes);
-                        </code>
-                    </pre>
-                    <pre>
-                        <code class="cs">
+                    </code></pre>
+                    <pre><code class="cs">
 // Эквивалентные записи:
 // Анонимный метод
 int result = ArrayUtils.ShowByExpr(array1, delegate(int a, int b) { return a < b; });
 // Лямбда
 int result = ArrayUtils.ShowByExpr(array1, (a, b) => a < b);
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Блочные лямбды</h2>
@@ -1328,17 +1280,13 @@ int result = ArrayUtils.ShowByExpr(array1, (a, b) => a < b);
                         Внутри блочных лямбда-выражений может содержаться любое количество выражений, любой код,
                         т.е. нет никаких ограничений. На за счёт этого приходится расплачиваться красотой синтаксиса:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 параметр => { // ... }
 
-                        </code>
-                    </pre>
-                    <pre>
-                        <code class="cs">
+                    </code></pre>
+                    <pre><code class="cs">
 (список_параметров) => { // ... return ... }
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Тело блочного лямбда-выражения берётся в фигурные скобки, и в случае наличия 
                         возвращаемого значения в нём необходимо обозначать return.
@@ -1348,8 +1296,7 @@ int result = ArrayUtils.ShowByExpr(array1, (a, b) => a < b);
             <section>
                 <section>
                     <h2>Пример 1</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 class Program
 {
     // Делегат Operation, в качестве параметров принимающий 2 int-а
@@ -1383,13 +1330,11 @@ class Program
         Console.ReadKey(true);
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Пример 2</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // *Пример с кривым и нелогичным дизайном, просто для демонстрации лямбд
 
 // Объявляем 3 типа делегатов, которые понадобятся нам в дальнейшем
@@ -1485,13 +1430,11 @@ class Program
         Console.ReadLine(true);
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Пример 3</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Определяем обобщённый делегат Predicate
 // Возвращающий bool, а принимающий 2 аргумента типа T (типа-параметра)
 delegate bool Predicate&lt;T&gt;(T first, T second);
@@ -1570,13 +1513,11 @@ class Program
         ArrayUtils.Show(arr3);
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Пример 4</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Класс Хоккейная команда
 public class HockeyTeam
 {
@@ -1635,8 +1576,7 @@ public class Example
         }
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -1671,8 +1611,7 @@ public class Example
                     <p>
                         Описаны делегаты Action следующим образом:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 public delegate void Action();
 public delegate void Action&lt;in T1&gt;(T1 obj1);
 public delegate void Action&lt;in T1, in T2&gt;(T1 obj1, T2 obj2);
@@ -1681,13 +1620,11 @@ public delegate void Action&lt;in T1, in T2, in T3, in T4, in T5, in T6, in T7, 
     in T9, in T10, in T11, in T12, in T13, in T14, in T15, in T16&gt;(T1 obj1, T2 obj2,
     T3 obj3, T4 obj4, T5 obj5, T6 obj6, T7 obj7, T8 obj8, T9 obj9, T10 obj10, T11 obj11, 
     T12 obj12, T13 obj13, T14 obj14, T15 obj15, T16 obj16);
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h3>Использование Action</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Статический метод Operation, принимающий 2 числа и делегат типа Action&lt;int, int&gt;
 // Т.е. делегат с 2 параметрами типа int и без возвращаемого значения
 static void Operation(int x1, int x2, Action&lt;int, int&gt; op)
@@ -1718,8 +1655,7 @@ static void Main(string[] args)
     
     Console.ReadKey(true);
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Делегат Predicate</h2>
@@ -1734,16 +1670,13 @@ static void Main(string[] args)
                     <p>
                         Описан как:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 public delegate bool Predicate&lt;in T&gt;(T obj);
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h3>Предикаты в методах списка</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 class Program
 {
     static void Main(string[] args)
@@ -1793,8 +1726,7 @@ class Program
         }
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Делегат Func</h2>
@@ -1805,20 +1737,17 @@ class Program
                     <p>
                         Описания делегатов Func:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 public delegate TResult Func&lt;out TResult&gt;();
 public delegate TResult Action&lt;in T, out TResult&gt;(T arg);
 public delegate TResult Action&lt;in T1, in T2, out TResult&gt;(T1 arg1, T2 arg2);
 public delegate TResult Action&lt;in T1, in T2, in T3, out TResult&gt;(T1 arg1, T2 arg2, T3 arg3);
 // И т.д.
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h3>Пример</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Класс Постройка
 class Building
 {
@@ -1927,8 +1856,7 @@ class Program
         mr4.Build(building2, lazyWork);
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -1972,18 +1900,15 @@ class Program
                         принтере, после которой необходимо выполнить какой-то код, этот код передаётся в качестве
                         коллбэка в метод печати.
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 коллбэк = { действия_которые_нужно_выполнить_после_печати };
 Печать(документы, коллбэк);
 // коллбэк будет выполнен, когда закончится печать документов
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Крутой пример</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Класс поезда метро
 class Metro
 {
@@ -2180,15 +2105,13 @@ class SubwayOrganisation
         metro.Run(100, (m) => m.Run(100, onAccident: rescueCall), rescueCall);
     }
 }								
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
                 <section>
                     <h2>Паттерн Decorator</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 class Program
 {
     // У нас есть метод, который принимает другой метод (Action func)
@@ -2239,8 +2162,7 @@ class Program
         printCyanMessage();
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -2280,8 +2202,7 @@ class Program
                     <p>
                         По аналогии с простым свойством и аксессорами get и set.
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Полная форма записи
 private event WorkAction reachedEndStation;
 public event Action ReachedEndStation
@@ -2292,8 +2213,7 @@ public event Action ReachedEndStation
 
 // Сокращённая форма записи
 public event Action ReachedEndStation;
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Вызов события</h2>
@@ -2305,15 +2225,13 @@ public event Action ReachedEndStation;
                         где логически происходит действие с которым ассоциировано это событие,
                         должен быть описан его вызов:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Вызов события
 if (this.ReachedEndStation != null)
 {
     this.ReachedEndStation();
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Обработчик события</h2>
@@ -2321,8 +2239,7 @@ if (this.ReachedEndStation != null)
                         Обработчик события (функция) назначается событию, как обычному делегату.
                         Это, как правило, происходит уже за пределами класса, в котором событие описано.
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Описание метода-обработчика
 public void OnSubwayReachedEndStation1()
 {
@@ -2333,8 +2250,7 @@ public void OnSubwayReachedEndStation1()
 
 // Назначение обработчика событию
 metro.ReachedEndStation += OnSubwayReachedEndStation1;
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Делегат для события и тип аргументов</h2>
@@ -2344,11 +2260,9 @@ metro.ReachedEndStation += OnSubwayReachedEndStation1;
                     <p>
                         Но обычно для событий в C# создаются специальные делегаты, следующего формата:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 delegate void Какой_нибудь_EventHandler(object sender, Какие_нибудь_EventArgs e);
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Тип возвращаемого значения - всегда <span class="blue">void</span>.
                     </p>
@@ -2363,8 +2277,7 @@ delegate void Какой_нибудь_EventHandler(object sender, Какие_н�
                 <section>
                     <h3>Полный пример</h3>
                     <h3>Метро через события</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Класс Аргументов для события Аварии метро
 // Производный от класса EventArgs
 // Имена классов аргументов принято заканчивать словами EventArgs
@@ -2583,8 +2496,7 @@ class SubwayOrganisation
         metro.Run(100);
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Событие консоли CancelKeyPress</h2>
@@ -2600,8 +2512,7 @@ class SubwayOrganisation
                         в тот момент, когда пользователь нажимает сочетание клавиш 
                         <span class="purple">Ctrl</span> + <span class="purple">C</span>.
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 public static void Main(string[] args)
 {
     Console.CancelKeyPress += Console_CancelKeyPress;
@@ -2612,23 +2523,40 @@ private static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs
 {
     Console.WriteLine("Cancel KeyPress");
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
         </div>
     </div>
-    <aside id="presentable-icon" class="cpp">
-        <a title="Содержание лекции" href="#/0/1">
-            <i class="fa fa-list-ul fa-2x"></i>
-        </a>
-    </aside>
-    <aside id="presentable-icon-close">
-        <a title="К списку материалов" href="../../index.html#/1">
-            <i class="fa fa-times fa-2x"></i>
-        </a>
-    </aside>
-    <script src="../../js/bundle.min.js"></script>
+	<aside id="presentable-icon" class="cpp">
+		<a title="Содержание лекции" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-icon-close">
+		<a title="К списку материалов" href="../../index.html#/1">
+			<i class="fa fa-times fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-theme-picker">
+		<div id="hidden-bar" class="invisible">
+			<div>
+				<div data-theme="beige" class="theme-circle theme-beige"></div>
+				<div data-theme="black" class="theme-circle theme-black"></div>
+				<div data-theme="blood" class="theme-circle theme-blood"></div>
+				<div data-theme="league" class="theme-circle theme-league"></div>
+				<div data-theme="moon" class="theme-circle theme-moon"></div>
+				<div data-theme="night" class="theme-circle theme-night"></div>
+				<div data-theme="serif" class="theme-circle theme-serif"></div>
+				<div data-theme="simple" class="theme-circle theme-simple"></div>
+				<div data-theme="sky" class="theme-circle theme-sky"></div>
+				<div data-theme="solarized" class="theme-circle theme-solarized"></div>
+				<div data-theme="white" class="theme-circle theme-white"></div>
+			</div>
+		</div>
+		<div id="selected-theme" class="theme-circle"></div>
+	</aside>
+	<script src="../../js/bundle.min.js"></script>
 </body>
 
 </html>

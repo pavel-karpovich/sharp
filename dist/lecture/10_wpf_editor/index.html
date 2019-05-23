@@ -10,23 +10,25 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 ">
-    <link rel="stylesheet" href="../../css/bundle.min.css">
-    
-    <!-- Printing and PDF exports -->
-    <script>
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? "../../css/print/pdf.css" : "../../css/print/paper.css";
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
-    </script>
+	<link rel="stylesheet" href="../../css/bundle.min.css">
+	
+	<link rel="stylesheet" href="../../css/custom.css" />
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? "../../css/print/pdf.css" : "../../css/print/paper.css";
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
 
-    <!--[if lt IE 9]>
-        <script src="../../js/html5shiv.min.js"></script>
-    <![endif]-->
+	<!--[if lt IE 9]>
+		<script src="../../js/html5shiv.min.js"></script>
+	<![endif]-->
 </head>
 
 <body>
+	<script src="../../js/theme.js"></script>
     <div class="reveal">
         <div class="slides">
             <section>
@@ -282,8 +284,7 @@
                         Он может быть пустым, этого всё равно будет достаточно. Система сама сделает всё необходимое
                         на основании методов, полученных от базового класса.
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 using System.Windows;
 
 namespace TestWpfApp1
@@ -295,8 +296,7 @@ namespace TestWpfApp1
     {
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Ключевое слово partial</h2>
@@ -323,8 +323,7 @@ namespace TestWpfApp1
                     <p>
                         Файл app.xaml содержит следующую <span class="purple">разметку</span>:
                     </p>
-                    <pre>
-                        <code class="xaml">
+                    <pre><code class="xaml">
 &lt;Application x:Class="TestWpfApp1.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -334,8 +333,7 @@ namespace TestWpfApp1
         
     &lt;/Application.Resources&gt;
 &lt;/Application&gt;
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Это вторая часть описания класса <span class="turquoise">App</span>, описанная
                         с помощью декларативной разметки XAML.
@@ -368,8 +366,7 @@ namespace TestWpfApp1
                     <p>
                         Изначально в MainWindow.xaml.cs следующий код:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -389,8 +386,7 @@ namespace TestWpfApp1
         }
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Здесь тоже практически ничего нет (но это пока).
                     </p>
@@ -1119,8 +1115,7 @@ namespace TestWpfApp1
                 </section>
                 <section>
                     <h2>Код</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 &lt;Window x:Class="TestWpfApp1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1139,8 +1134,7 @@ namespace TestWpfApp1
 
     &lt;/StackPanel&gt;
 &lt;/Window&gt;                        
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Горизонтальный пример</h2>
@@ -1209,8 +1203,7 @@ namespace TestWpfApp1
                 </section>
                 <section>
                     <h3>Код примера с отступами</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 &lt;Window x:Class="TestWpfApp1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1229,8 +1222,7 @@ namespace TestWpfApp1
     &lt;/StackPanel&gt;
 &lt;/Window&gt;
                         
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Минимальный и максимальный размер</h2>
@@ -1309,8 +1301,7 @@ namespace TestWpfApp1
                 </section>
                 <section>
                     <h3>Код примера</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 &lt;Window x:Class="TestWpfApp1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1328,8 +1319,7 @@ namespace TestWpfApp1
 
     &lt;/DockPanel&gt;
 &lt;/Window&gt;
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -1361,8 +1351,7 @@ namespace TestWpfApp1
                 </section>
                 <section>
                     <h2>Код примера</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 &lt;Window x:Class="TestWpfApp1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1418,8 +1407,7 @@ namespace TestWpfApp1
                 </section>
                 <section>
                     <h3>Код</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 &lt;Window x:Class="TestWpfApp1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1478,8 +1466,7 @@ namespace TestWpfApp1
         &lt;/StackPanel&gt;
     &lt;/DockPanel&gt;
 &lt;/Window&gt;
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -1520,17 +1507,35 @@ namespace TestWpfApp1
             </section>
         </div>
     </div>
-    <aside id="presentable-icon" class="cpp">
-        <a title="Содержание лекции" href="#/0/1">
-            <i class="fa fa-list-ul fa-2x"></i>
-        </a>
-    </aside>
-    <aside id="presentable-icon-close">
-        <a title="К списку материалов" href="../../index.html#/1">
-            <i class="fa fa-times fa-2x"></i>
-        </a>
-    </aside>
-    <script src="../../js/bundle.min.js"></script>
+	<aside id="presentable-icon" class="cpp">
+		<a title="Содержание лекции" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-icon-close">
+		<a title="К списку материалов" href="../../index.html#/1">
+			<i class="fa fa-times fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-theme-picker">
+		<div id="hidden-bar" class="invisible">
+			<div>
+				<div data-theme="beige" class="theme-circle theme-beige"></div>
+				<div data-theme="black" class="theme-circle theme-black"></div>
+				<div data-theme="blood" class="theme-circle theme-blood"></div>
+				<div data-theme="league" class="theme-circle theme-league"></div>
+				<div data-theme="moon" class="theme-circle theme-moon"></div>
+				<div data-theme="night" class="theme-circle theme-night"></div>
+				<div data-theme="serif" class="theme-circle theme-serif"></div>
+				<div data-theme="simple" class="theme-circle theme-simple"></div>
+				<div data-theme="sky" class="theme-circle theme-sky"></div>
+				<div data-theme="solarized" class="theme-circle theme-solarized"></div>
+				<div data-theme="white" class="theme-circle theme-white"></div>
+			</div>
+		</div>
+		<div id="selected-theme" class="theme-circle"></div>
+	</aside>
+	<script src="../../js/bundle.min.js"></script>
 </body>
 
 </html>

@@ -5,28 +5,30 @@
 	<meta charset="utf-8">
 	<title>Объектно-ориентированное программирование</title>
 	<meta name="description" content="oop on c#" />
-	<meta name="author" content="Edward &amp; Albert" />
+	<meta name="author" content="Pavel Karpovich" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
 
 	<link rel="stylesheet" href="css/bundle.min.css">
+	<link rel="stylesheet" href="css/custom.css" />
 
 	<!-- Printing and PDF exports -->
 	<script>
-		var link = document.createElement('link');
-		link.rel = 'stylesheet';
-		link.type = 'text/css';
-		link.href = window.location.search.match( /print-pdf/gi ) ? "../../css/print/pdf.css" : "../../css/print/paper.css";
-		document.getElementsByTagName( 'head' )[0].appendChild( link );
+		let link = document.createElement("link");
+		link.rel = "stylesheet";
+		link.type = "text/css";
+		link.href = window.location.search.match(/print-pdf/gi) ? "css/print/pdf.css" : "css/print/paper.css";
+		document.getElementsByTagName("head")[0].appendChild(link);
 	</script>
-		
+
 	<!--[if lt IE 9]>
 		<script src="js/html5shiv.min.js"></script>
 	<![endif]-->
 </head>
 
 <body>
+	<script src="js/theme.js"></script>
 	<div class="reveal">
 		<div class="slides">
 			<section>
@@ -34,7 +36,7 @@
 					<h1>Объектно-ориентированное программирование</h1>
 					<div>
 						<p style="display: inline-block;">
-							Edward &amp; Albert / 
+							Карпович Павел /
 						</p>
 						<a href="https://github.com/tgjmjgj" class="icon-button github">
 							<i class="fa fa-github"></i><span></span>
@@ -45,7 +47,7 @@
 					</div>
 				</section>
 				<section>
-					<h2>Содержание лекции</h2>
+					<h2>Содержание</h2>
 					<nav id="presentable-toc" class="table-content"></nav>
 				</section>
 			</section>
@@ -87,19 +89,36 @@
 					<li><a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/">Официальная документация</a></li>
 				</ol>
 			</section>
-			
 		</div>
 	</div>
-	<aside id="presentable-icon" class="cpp">
-		<a title="Содержание лекции" href="#/0/1">
-			<i class="fa fa-list-ul fa-2x"></i>
+	<aside id="presentable-icon">
+		<a title="Содержание" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x controls"></i>
 		</a>
 	</aside>
     <aside id="presentable-icon-close">
-        <a title="К списку материалов" href="../../index.html#/1">
-            <i class="fa fa-times fa-2x"></i>
+        <a title="На главную" href="https://tgjmjgj.github.io/">
+            <i class="fa fa-times fa-2x controls"></i>
         </a>
-    </aside>
+	</aside>
+	<aside id="presentable-theme-picker">
+		<div id="hidden-bar" class="invisible">
+			<div>
+				<div data-theme="beige" class="theme-circle theme-beige"></div>
+				<div data-theme="black" class="theme-circle theme-black"></div>
+				<div data-theme="blood" class="theme-circle theme-blood"></div>
+				<div data-theme="league" class="theme-circle theme-league"></div>
+				<div data-theme="moon" class="theme-circle theme-moon"></div>
+				<div data-theme="night" class="theme-circle theme-night"></div>
+				<div data-theme="serif" class="theme-circle theme-serif"></div>
+				<div data-theme="simple" class="theme-circle theme-simple"></div>
+				<div data-theme="sky" class="theme-circle theme-sky"></div>
+				<div data-theme="solarized" class="theme-circle theme-solarized"></div>
+				<div data-theme="white" class="theme-circle theme-white"></div>
+			</div>
+		</div>
+		<div id="selected-theme" class="theme-circle"></div>
+	</aside>
 	<script src="js/bundle.min.js"></script>
 </body>
 

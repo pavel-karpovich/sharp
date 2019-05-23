@@ -10,16 +10,17 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0 ">
-    <link rel="stylesheet" href="../../css/bundle.min.css">
-    
+	<link rel="stylesheet" href="../../css/bundle.min.css">
+	
+	<link rel="stylesheet" href="../../css/custom.css" />
 	<!-- Printing and PDF exports -->
 	<script>
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = window.location.search.match( /print-pdf/gi ) ? "../../css/print/pdf.css" : "../../css/print/paper.css";
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
-    </script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? "../../css/print/pdf.css" : "../../css/print/paper.css";
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
 
 	<!--[if lt IE 9]>
 		<script src="../../js/html5shiv.min.js"></script>
@@ -27,6 +28,7 @@
 </head>
 
 <body>
+	<script src="../../js/theme.js"></script>
 	<div class="reveal">
 		<div class="slides">
 			<section>
@@ -60,14 +62,12 @@
                         Пусть это будут числа алгебры Паши, где не существует числа 5, а операции сложения и
                         вычитания не совсем коммутативны.
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 class PInt
 {
     private int num;
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Как реализовать операции над ним? Самый очевидный ответ - через методы.
                     </p>
@@ -77,8 +77,7 @@ class PInt
                     <p>
                         Например, вот так:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Класс Числа Пашиной алгебры (П-числа)
 class PInt
 {
@@ -134,13 +133,11 @@ class PInt
         return num.ToString() + "p";
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Использование класса PInt</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 static void Main(string[] args)
 {
     // Создаём три числа
@@ -152,8 +149,7 @@ static void Main(string[] args)
     p1 = p1.Plus(p2).Plus(p3);
     p2 = p1.Minus(p3);
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Выглядит очень громоздко. А если ещё нужно добавить операции умножения, деления,
                         возведения в степень и т.д. 
@@ -164,8 +160,7 @@ static void Main(string[] args)
                     <p>
                         Гораздо лучше было бы работать с нашими объектами, как с обыкновенными числами:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Создавать так:
 PInt p1 = 245;
 // А не так:
@@ -180,8 +175,7 @@ p2 = p1.Plus(p3);
 p3 = p1 - p1;
 // А не так:
 p3 = p1.Minus(p1);
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         И этого можно добиться с использованием <span class="purple">перегрузки операторов</span>.
                     </p>
@@ -200,8 +194,7 @@ p3 = p1.Minus(p1);
                 </section>
                 <section>
                     <h2>Что имеется в виду</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Создаём Мишу
 Person person1 = new Person("Misha");
 // Делим Мишу на 2 и получаем полурослика
@@ -222,8 +215,7 @@ if (person1 > halfling)
         Console.WriteLine("Something went wrong...");
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Операторы</h2>
@@ -274,11 +266,9 @@ if (person1 > halfling)
                         Перегрузка оператора описывается в классе (или структуре), для которого она предназначена, и
                         выглядит практически как описание обычного статического метода:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 public static возвр_значение operator знак_оператора (аргументы);
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Вместо имени метода записывается специальное ключевое слово <span class="blue">operator</span>
                         и знак оператора, который нужно переопределить.
@@ -292,8 +282,7 @@ public static возвр_значение operator знак_оператора (
                     <p>
                         У унарных операторов 1 аргумент, у бинарных - 2 аргумента.
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 class Person
 {
     // Перегруженный оператор + для класса Person
@@ -322,8 +311,7 @@ class Player
         return p;
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Как это работает</h2>
@@ -333,21 +321,17 @@ class Player
                     <p>
                         Когда вы складываете 2 числа, и пишете:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 int a = 2;
 int b = 3;
 int c = a + b;
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Но на самом деле это происходит так, только скрыто от программиста:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 int c = Int32.operator+(a, b);
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Вызывается метод соответствующего оператора, а операнды передаются ему в качестве параметров.
                     </p>
@@ -357,16 +341,14 @@ int c = Int32.operator+(a, b);
                     <p>
                         На самом деле всё ещё серьёзнее, и выглядит примерно следующим образом:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 int a;
 Int32.operator=(a, 2);
 int b;
 Int32.operator=(b, 3);
 int c;
 Int32.operator=(c, Int32.operator+(a, b));
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h3>Person и Player</h3>
@@ -374,8 +356,7 @@ Int32.operator=(c, Int32.operator+(a, b));
                         Значит, когда мы будем применять операторы для объектов классов, в которых они перегружены,
                         то просто будут вызываться соответствующие оператору методы этого класса.
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 class Person
 {
     // Перегруженный оператор + для Peroson и Person в классе Person
@@ -418,8 +399,7 @@ class App
         pl++;
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -447,8 +427,7 @@ class App
                     <p>
                         Перегрузки этих операторов могут возвращать <u>любой тип</u>, за исключением void.
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Класс комплексного числа                          
 class Complex
 {
@@ -531,8 +510,7 @@ class MyClient
 
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Операторы ++, --</h2>
@@ -547,8 +525,7 @@ class MyClient
                 </section>
                 <section>
                     <h3>Операторы ++, --</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Класс Муравейника
 class Anthill
 {
@@ -588,8 +565,7 @@ class Program
         }
     }
 }                            
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Операторы true и false</h2>
@@ -613,8 +589,7 @@ class Program
                 </section>
                 <section>
                     <h2>Оператор true</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 class Anthill
 {
     public int AntNumber { get; set; }
@@ -673,8 +648,7 @@ class Program
         }
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -724,8 +698,7 @@ class Program
                     <p>
                         Перепишем класс П-чисел, заменив в нём методы для сложения и вычитания на соответствующие операторы:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Всё тот же класс П-чисел
 class PInt
 {
@@ -796,16 +769,14 @@ class Program
 
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Продолжение</h2>
                     <p>
                         А теперь добавим возможность прибавлять к объекту PInt обычные числа типа int:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // [Внутри класса]
 // Перегрузка оператора +, который принимает в качестве аргументов объект PInt и целое число                 
 public static PInt operator +(PInt left, int right)
@@ -825,8 +796,7 @@ public static PInt operator +(PInt left, int right)
 PInt p4 = p1 + 14;
 // Но такой - вызовет ошибку:
 PInt p5 = 14 + p1;
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Продолжение 2</h2>
@@ -834,8 +804,7 @@ PInt p5 = 14 + p1;
                         Чтобы операция работала в обе стороны, нужно добавить аналогичный метод с обратным
                         порядком аргументов:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // [Внутри класса]
 // Перегрузка PInt + int            
 public static PInt operator +(PInt left, int right)
@@ -866,16 +835,14 @@ public static PInt operator +(int left, PInt right)
 // Оба варианта рабочие:
 PInt p4 = p1 + 14;
 PInt p5 = 14 + p1;
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Продолжение 3</h2>
                     <p>
                         Добавим ещё 2 перегрузки для оператора умножения:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 [Внутри класса]
 // Перегруженный оператор умножения *
 // Для типов PInt и char
@@ -901,8 +868,7 @@ Console.WriteLine(p4);
 Console.WriteLine(p4 * 'П');
 // И так:
 int num = 4 * p4 + 12;
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -922,23 +888,19 @@ int num = 4 * p4 + 12;
                     <p>
                         На самом деле, оператор логического И (&&) это просто замаскированная запись:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 a && b
 // эквивалентно
 operator false(a) ? a : (a & b);
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         А оператор логического ИЛИ (||):
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 a || b
 // эквивалентно
 operator true(a) ? a : (a | b)
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         В C# это единственное место, в котором вызывается оператор false.
                     </p>
@@ -956,8 +918,7 @@ operator true(a) ? a : (a | b)
                 </section>
                 <section>
                     <h3>Демонстрация</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Класс муравейника
 class Anthill
 {
@@ -1042,8 +1003,7 @@ class Program
 
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
 
                 </section>
             </section>
@@ -1065,8 +1025,7 @@ class Program
                 </section>
                 <section>
                     <h2>Больше / меньше</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Класс Комната
 class Room
 {
@@ -1143,8 +1102,7 @@ class Program
         }
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Проверка на равенство</h2>
@@ -1164,8 +1122,7 @@ class Program
                 </section>
                 <section>
                     <h3>Пример</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 class Room
 {
     public float Length { get; set; }
@@ -1252,8 +1209,7 @@ class Program
         }
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
             <section>
@@ -1268,24 +1224,20 @@ class Program
                     Для <span class="purple">явного</span> преобразования необходимо перед 
                     переменной написать в круглых скобках желаемый тип:
                 </p>
-                <pre>
-                    <code class="cs">
+                <pre><code class="cs">
 int a = 2;
 // явное преобразование int в char
 char c = (char)a;
-                    </code>
-                </pre>
+                </code></pre>
                 <p>
                     Для <span class="purple">неявного</span> преобразования ничего 
                     указывать не нужно, оно происходит само на основании типов:
                 </p>
-                <pre>
-                    <code class="cs">
+                <pre><code class="cs">
 int a = 2;
 // неявное преобразование int в double
 double d = a;
-                    </code>
-                </pre>
+                </code></pre>
             </section>
             <section>
                 <section>
@@ -1307,14 +1259,12 @@ double d = a;
                     <p>
                         Методы перегрузки операторов преобразования описываются следующим образом:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 public static [explicit/implicit] operator ToType(fromType param)
 {
     // ...
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         1. Перед словом <span class="blue">operator</span> идёт ключевое слово 
                         <span class="blue">explicit</span> или <span class="blue">implicit</span>,
@@ -1323,14 +1273,12 @@ public static [explicit/implicit] operator ToType(fromType param)
                 </section>
                 <section>
                     <h2>Синтаксис 2</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 public static [explicit/implicit] operator ToType(fromType param)
 {
     // ...
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         2. Параметр - объект, который будет преобразовываться. Тип возвращаемого значения -
                         тип, к которому объект из параметра будет преобразован.
@@ -1349,8 +1297,7 @@ public static [explicit/implicit] operator ToType(fromType param)
                 </section>
                 <section>
                     <h3>Пример</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Класс для примера
 class SampleClass
 {
@@ -1377,13 +1324,11 @@ class MainClass
         // a == 33
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Оператор неявного преобразования</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 class Person
 {
     // Поле и свойство Имя
@@ -1515,8 +1460,7 @@ class Program
         Console.WriteLine(pers3age);
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Неявное преобразование</h2>
@@ -1525,8 +1469,7 @@ class Program
                         в предыдущем примере можно посмотреть на неявное преобразование. Тогда код использования
                         будет выглядеть так:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 static void Main(string[] args)
 {
     // Теперь не нужно указывать тип Person в скобках
@@ -1542,8 +1485,7 @@ static void Main(string[] args)
     int pers3age = pers3;
     Console.WriteLine(pers3age);
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h3>Применение</h3>
@@ -1567,8 +1509,7 @@ static void Main(string[] args)
                 </section>
                 <section>
                     <h3>Финальный пример с П-числами</h3>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // Класс П-числа                            
 class PInt
 {
@@ -1674,22 +1615,39 @@ class Program
 
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
 		</div>
 	</div>
 	<aside id="presentable-icon" class="cpp">
 		<a title="Содержание лекции" href="#/0/1">
-			<i class="fa fa-list-ul fa-2x"></i>
+			<i class="fa fa-list-ul fa-2x controls"></i>
 		</a>
 	</aside>
-    <aside id="presentable-icon-close">
-        <a title="К списку материалов" href="../../index.html#/1">
-            <i class="fa fa-times fa-2x"></i>
-        </a>
-    </aside>
+	<aside id="presentable-icon-close">
+		<a title="К списку материалов" href="../../index.html#/1">
+			<i class="fa fa-times fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-theme-picker">
+		<div id="hidden-bar" class="invisible">
+			<div>
+				<div data-theme="beige" class="theme-circle theme-beige"></div>
+				<div data-theme="black" class="theme-circle theme-black"></div>
+				<div data-theme="blood" class="theme-circle theme-blood"></div>
+				<div data-theme="league" class="theme-circle theme-league"></div>
+				<div data-theme="moon" class="theme-circle theme-moon"></div>
+				<div data-theme="night" class="theme-circle theme-night"></div>
+				<div data-theme="serif" class="theme-circle theme-serif"></div>
+				<div data-theme="simple" class="theme-circle theme-simple"></div>
+				<div data-theme="sky" class="theme-circle theme-sky"></div>
+				<div data-theme="solarized" class="theme-circle theme-solarized"></div>
+				<div data-theme="white" class="theme-circle theme-white"></div>
+			</div>
+		</div>
+		<div id="selected-theme" class="theme-circle"></div>
+	</aside>
 	<script src="../../js/bundle.min.js"></script>
 </body>
 

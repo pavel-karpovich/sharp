@@ -12,6 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0 ">
 	<link rel="stylesheet" href="../../css/bundle.min.css">
 	
+	<link rel="stylesheet" href="../../css/custom.css" />
 	<!-- Printing and PDF exports -->
 	<script>
 		var link = document.createElement('link');
@@ -27,6 +28,7 @@
 </head>
 
 <body>
+	<script src="../../js/theme.js"></script>
 	<div class="reveal">
 		<div class="slides">
 			<section>
@@ -68,14 +70,12 @@
 						Класс - абстрактный тип данных, определяемый пользователем (программистом). Класс может содержать данные (поля) 
 						и функции (методы).
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class имя_класса
 {
 	// члены класса (поля и методы)
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>ООП в C#</h2>
@@ -86,8 +86,7 @@ class имя_класса
 						Точка входа программы в C# <i>Main</i> (тут с большой буквы) также должна являться статическим
 						методом класса,	как правило, класса <i>Program</i>.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Program
 {
     static void Main(string[] args)
@@ -95,8 +94,7 @@ class Program
         // Вы пишите здесь
     }
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -106,8 +104,7 @@ class Program
 						При создании пустого консольного приложения в Visual Studio будет сгенерирован
 						вот такой шаблон приложения:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -123,8 +120,7 @@ namespace TestCon1
         }
     }
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Директива <i>using</i></h2>
@@ -240,8 +236,7 @@ namespace TestCon1
 					<blockquote>
 						Общий способ объявления переменных имеет C-подобный синтаксис:
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 bool isTrue = true;
 int x;
 double y = 3.14;
@@ -249,20 +244,17 @@ string hello = "Hello Invader!";
 char c = 's';
 x = 3;
 int y = x * 5;
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Системные типы</h2>
 					<blockquote>
 						Вместо указания ключевых слов для определения типа можно использовать системные типы:
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 int a = 4;
 System.Int32 b = 4;
-						</code>
-					</pre>
+					</code></pre>
 					<blockquote>
 						Две эти записи будут идентичны.
 					</blockquote>
@@ -275,15 +267,13 @@ System.Int32 b = 4;
 						C# относится к языкам со строгой типизацией, но допускается операция
 						автоматического выведения типа через использование ключевого слова <i>var</i>.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 var str = "string";
 var c = 32;
 
 Console.WriteLine(str.GetType().ToString());
 Console.WriteLine(c.GetType().ToString());
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Ограничения <i>var</i></h3>
@@ -294,14 +284,12 @@ Console.WriteLine(c.GetType().ToString());
 							<span class="blue">null</span>.
 						</p>
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 var c;			// ошибка раз
 c = 144;
 
 var nl = null;		// ошибка два
-						</code>
-					</pre>
+					</code></pre>
 				</section>
             </section>
             <section>
@@ -340,8 +328,7 @@ var nl = null;		// ошибка два
                         Динамические переменные можно использовать как параметры и 
                         возвращаемые значения в методах (функциях).
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 dynamic getSalary(dynamic value, string format)
 {
     if (format=="string")
@@ -357,8 +344,7 @@ dynamic getSalary(dynamic value, string format)
         return 0.0;
     }
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
             </section>
 			<section>
@@ -367,23 +353,20 @@ dynamic getSalary(dynamic value, string format)
 					<blockquote>
 						По арифметическим операциям нет ничего нестандартного:
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 int x = 13;
 int z = x + 3;
 x = 3 * z - 4;
 double y = x / z;
 x++;
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Логическая арифметика</h2>
 					<blockquote>
 						Операторы булевой алгебры также работают по общепринятым сценариям:
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 int x = 3;  		// 011
 int y = 5;		// 101
 int and = x &amp; y;	// 1
@@ -392,8 +375,7 @@ int xor = x ^ y; 	// 110
 uint not = ~ (uint)x; 	// много
 int l = x &lt;&lt; 1;		// 110
 int r = x &gt;&gt; 1;		// 001 
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -402,13 +384,11 @@ int r = x &gt;&gt; 1;		// 001
 					<blockquote>
 						По аналогии с С++ существуют явные и неявные преобразования типов.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 double d = 143.234;
 int c = d;			// неявное приведение типов
 int c = (int)d;		// явное
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Проверка диапазона</h2>
@@ -416,14 +396,12 @@ int c = (int)d;		// явное
                         Есть ключевое слово <i>checked</i>, которое 
                         проверяет диапазоны переполнения, и в случае ошибки генерирует исключение.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 int a = 53;
 int b = 724;
 byte c = checked((byte)(a + b));
 Console.WriteLine(c);
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h1>Класс <i>Convert</i></h1>
@@ -431,8 +409,7 @@ Console.WriteLine(c);
 						Для более корректного преобразования типов можно использовать методы класса <i>Convert</i>, которые позволяют приводить
 						практически любые базовые типы данных друг к другу.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 int x = 34;
 string sd = "31.45326";
 ulong l = 235;
@@ -440,8 +417,7 @@ ulong l = 235;
 byte b = Convert.ToByte(l);
 double d = Convert.ToDouble(sd);
 string s = Convert.ToString(x);
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -451,25 +427,21 @@ string s = Convert.ToString(x);
                         Написание объявлений массивов имеет свои нюансы: квадратные 
                         скобки стоят не после имени переменной, а после типа.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 int[] mas1;
 int[] mas2 = new int[5];
 int[] mas3 = new int[5] { 1, 2, 3, 4, 5 };
 int[] mas3 = new int[] { 1, 2, 3, 4, 5 };
 int[] mas3 = new [] { 1, 2, 3, 4, 5 };
 int[] mas3 = { 1, 2, 3, 4, 5 };
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Многомерные массивы</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 int[,,] cube = new int[2, 3, 4];
 int[,] matrix = new int[2, 3] { { 1, 2, 3 }, { -1, -2, -3 } };
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Массивы массивов</h3>
@@ -478,14 +450,12 @@ int[,] matrix = new int[2, 3] { { 1, 2, 3 }, { -1, -2, -3 } };
                         Многомерные массивы являются "прямоугольными",
 						а каждый массив внутри массива массивов может иметь свой собственный размер.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 int[][] mas = new int[3][];
 mas[0] = new int[3];
 mas[1] = new int[12];
 mas[2] = new int[5];
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -498,22 +468,19 @@ mas[2] = new int[5];
 					<blockquote>
 						Цикл имеет следующую форму записи:
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 foreach (тип_данных имя in контейнер)
 {
 	действия
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Пример</h3>
 					<blockquote>
 						Пример перебора элементов в одномерном и двухмерном массивах:
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9};
 foreach (int element in arr)
 {
@@ -531,8 +498,7 @@ foreach (int[] array in mtr)
 		Console.WriteLine(element);
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Методы массива</h3>
@@ -573,8 +539,7 @@ foreach (int[] array in mtr)
 				</section>
 				<section>
 					<h3>Программа сортировки массива</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 using System;
 namespace SortApp
 {
@@ -613,8 +578,7 @@ namespace SortApp
         }
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -627,31 +591,26 @@ namespace SortApp
 					<blockquote>
 						Конкатенация (объединение) строк представляет из себя тривиальную операцию с оператором +.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 string str1 = " is ";
 string res = "This" + str1 + "string" + "!";
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Формирование строк</h2>
 					<blockquote>
 						Для создания строк из переменных можно воспользоваться специальным префиксным знаком $ :
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
  int[] mas = { 1, 2, 3 };
 string str = mas[1].ToString();
 string st = $"Element {mas[1]} has type: {str} !\n";
 Console.Write(st);
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Использование строк</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -710,8 +669,7 @@ namespace ConsoleApplication1
 
     }
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 
@@ -735,8 +693,7 @@ namespace ConsoleApplication1
 						Это специальные однострочные комментарии, начинающиеся с трех слешей (///) вместо двух. В таких комментариях можно
 						размещать XML-дескрипторы, содержащие документацию по написанному коду.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 namespace ConsoleApplication1
 {
 	/// &lt;summary&gt;
@@ -756,8 +713,7 @@ namespace ConsoleApplication1
 		}
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -779,8 +735,7 @@ namespace ConsoleApplication1
 					<blockquote>
 						При передаче параметров по ссылке перед параметрами используется модификатор <i>ref</i>:
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 static void Main(string[] args)
 {
     int x = 10;
@@ -804,8 +759,7 @@ static void Addition(ref int x, int y)
 						Модификатор <i>out</i> позволяет через параметры метода возвращать значение. Такое часто применяется,
 						если требуется вернуть более одного значения различных типов.
  					</blockquote>
- 					<pre>
- 						<code class="cs">
+ 					<pre><code class="cs">
 static void Main(string[] args)
 {
     int x = 10;
@@ -823,8 +777,7 @@ static void Sum(int x, int y, out int a)
 {
     a = x + y;
 }
- 						</code>
- 					</pre>
+ 					</code></pre>
 				</section>
 				<section>
 					<h2>Необязательные и именованные параметры</h2>
@@ -834,8 +787,7 @@ static void Sum(int x, int y, out int a)
 							При вызове метода можно задавать параметры по внутренним именам, что позволит обойти необходимость очередности передачи.
 						</p>
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 static int OptionalParam(int x, int y, int z=5, int s=4)
 {
     return x + y + z + s;
@@ -848,16 +800,14 @@ static void Main(string[] args)
     OptionalParam(y:2,x:3,s:10);
     Console.ReadLine();
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Переменное число параметров</h2>
 					<blockquote>
 						Используя ключевое слово <i>params</i> в методы можно передавать любое количество параметров заданного типа:
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 static void Addition(params int[] integers)
 {
     int result = 0;
@@ -878,8 +828,7 @@ static void Main(string[] args)
     Addition();
     Console.ReadLine();
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -908,8 +857,7 @@ static void Main(string[] args)
 						Теперь компилятор разрешит использовать в коде указатели, однако только в местах, помеченных 
 						ключевым словом <i>unsafe</i>. 
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 static void Main(string[] args)
 {
     int m = 1;
@@ -926,8 +874,7 @@ unsafe char* Method(int* ch)
     char* nc = (char*)ch;
     return nc;
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -1007,8 +954,7 @@ unsafe char* Method(int* ch)
 				</section>
 				<section>
 					<h3>Пример работы с консолью</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Program
 {
     static void Main(string[] args)
@@ -1039,8 +985,7 @@ class Program
         }    
     }
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -1070,8 +1015,7 @@ class Program
 				</section>
 				<section>
 					<h3>Структура обработки исключений</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 try
 {
 	/* код программы */
@@ -1084,13 +1028,11 @@ finally
 {
 	/* обязательный код */
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 static void Main(string[] args)
 {
     int[] a = new int[4];
@@ -1109,8 +1051,7 @@ static void Main(string[] args)
     }
     Console.ReadLine();
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Блок <i>catch</i></h2>
@@ -1118,8 +1059,7 @@ static void Main(string[] args)
 						Как вы могли заметить, после ключевого слова <i>catch</i> в скобках записывается тип перехватываемых исключений.
 						Для разных исключений можно записывать несколько блоков <i>catch</i>.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 try
 {
      
@@ -1136,8 +1076,7 @@ catch
 {
 	// Обработка любых других исключений
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Фильтры исключений</h2>
@@ -1145,8 +1084,7 @@ catch
 						Существует возможность обрабатывать исключения в зависимости от каких-то заданных условий 
 						при помощи ключевого слова <i>when</i>:
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 int x = 1;
 int y = 0;
  
@@ -1162,16 +1100,14 @@ catch(Exception ex)
 {
     Console.WriteLine(ex.Message);
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h1>Оператор <i>throw</i></h1>
 					<blockquote>
 						Чтобы самому прописывать случаи создания исключений, используется оператор <i>throw</i>.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 static void Main(string[] args)
 {
     try
@@ -1188,8 +1124,7 @@ static void Main(string[] args)
     }
     Console.ReadLine();
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Механизмы встроенной проверки</h2>
@@ -1198,8 +1133,7 @@ static void Main(string[] args)
 						.NET Framework имеется множество методов для выполнения различных проверок, например 
 						метод <i>TryParse()</i> класса <i>Int32</i>.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 void f1()
 {
     Console.WriteLine("Введите число");
@@ -1226,8 +1160,7 @@ void f2()
     }
     Console.Read();
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Вложенность обработчиков исключений</h2>
@@ -1259,15 +1192,13 @@ void f2()
                     <p>
                         Переменная-кортеж определяется через символы круглых скобок:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 (int, int) tuple1;
 (int, int) tuple2 = (5, 12);
 tuple1 = tuple2;
 
 var tuple3 = (1, "Roger Smith", 45);
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Доступ к элементам кортежа</h2>
@@ -1275,15 +1206,13 @@ var tuple3 = (1, "Roger Smith", 45);
                         Для доступа к элементам кортежа по умолчанию используется имена 
                         формата ItemN, где N - номер элемента в кортеже.
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 var some = (43, "name", true);
 Console.WriteLine(some.Item1);      // 43
 Console.WriteLine(some.Item2);      // name
 some.Item3 = false;
 Console.WriteLine(some.Item3);      // False
-                        </code>
-                    </pre>
+                    </code></pre>
                     <p>
                         Кортежи являются строго типизированными, и элемент одного типа нельзя
                         заменить элементом другого типа.
@@ -1298,29 +1227,25 @@ Console.WriteLine(some.Item3);      // False
                     <p>
                         Причём это работает только при использовании автоматического выведения типов с var.
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 // (string, int, double) person = ("Tom", 25, 81.23);   // Так бы не работало
 var person = (name: "Tom", age: 25, weight: 81.23);
 person.age++;
 person.weight = 88.3;
 person.name = Console.ReadLine();
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Раскрытие кортежей</h2>
                     <p>
                         Кортеж можно присвоить группе переменных, чтобы получить разделить его значения.
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 var (name, age) = ("Tom", 23);
 Console.WriteLine(name);    // Tom
 Console.WriteLine(age);     // 23
 Console.Read();
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Применение</h2>
@@ -1340,8 +1265,7 @@ Console.Read();
                     <p>
                         Например:
                     </p>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 static void Main(string[] args)
 {
     var tuple = GetValues();
@@ -1355,13 +1279,11 @@ private static (int, int) GetValues()
     var result = (1, 3);
     return result;
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
                 <section>
                     <h2>Ещё один пример</h2>
-                    <pre>
-                        <code class="cs">
+                    <pre><code class="cs">
 static void Main(string[] args)
 {
     var tuple = GetNamedValues(new int[]{ 1,2,3,4,5,6,7});
@@ -1380,14 +1302,12 @@ private static (int sum, int count) GetNamedValues(int[] numbers)
     }
     return result;
 }
-                        </code>
-                    </pre>
+                    </code></pre>
                 </section>
 			</section>
 			<section>
 				<h2>Камень-Ножницы-Бумага % 3</h2>
-				<pre>
-					<code class="cs">
+				<pre><code class="cs">
 var variants = new List&lt;string&gt;() { "Бумага", "Ножницы", "Камень" };
 while (true)
 {
@@ -1412,8 +1332,7 @@ while (true)
 		WriteLine("Comp win!");
 	}
 }
-					</code>
-				</pre>
+				</code></pre>
 			</section>
 			<section>
 				<h3>История обновлений</h3>
@@ -1427,14 +1346,32 @@ while (true)
 	</div>
 	<aside id="presentable-icon" class="cpp">
 		<a title="Содержание лекции" href="#/0/1">
-			<i class="fa fa-list-ul fa-2x"></i>
+			<i class="fa fa-list-ul fa-2x controls"></i>
 		</a>
 	</aside>
-    <aside id="presentable-icon-close">
-        <a title="К списку материалов" href="../../index.html#/1">
-            <i class="fa fa-times fa-2x"></i>
-        </a>
-    </aside>
+	<aside id="presentable-icon-close">
+		<a title="К списку материалов" href="../../index.html#/1">
+			<i class="fa fa-times fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-theme-picker">
+		<div id="hidden-bar" class="invisible">
+			<div>
+				<div data-theme="beige" class="theme-circle theme-beige"></div>
+				<div data-theme="black" class="theme-circle theme-black"></div>
+				<div data-theme="blood" class="theme-circle theme-blood"></div>
+				<div data-theme="league" class="theme-circle theme-league"></div>
+				<div data-theme="moon" class="theme-circle theme-moon"></div>
+				<div data-theme="night" class="theme-circle theme-night"></div>
+				<div data-theme="serif" class="theme-circle theme-serif"></div>
+				<div data-theme="simple" class="theme-circle theme-simple"></div>
+				<div data-theme="sky" class="theme-circle theme-sky"></div>
+				<div data-theme="solarized" class="theme-circle theme-solarized"></div>
+				<div data-theme="white" class="theme-circle theme-white"></div>
+			</div>
+		</div>
+		<div id="selected-theme" class="theme-circle"></div>
+	</aside>
 	<script src="../../js/bundle.min.js"></script>
 </body>
 

@@ -12,6 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0 ">
 	<link rel="stylesheet" href="../../css/bundle.min.css">
 	
+	<link rel="stylesheet" href="../../css/custom.css" />
 	<!-- Printing and PDF exports -->
 	<script>
 		var link = document.createElement('link');
@@ -27,6 +28,7 @@
 </head>
 
 <body>
+	<script src="../../js/theme.js"></script>
 	<div class="reveal">
 		<div class="slides">
 			<section>
@@ -70,15 +72,13 @@
 					<blockquote>
 						<span class="purple">Объекты</span> - это экземпляры класса, т.е. переменные типа класса.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Объявление класса
 class ИмяКласса
 {
 	// члены класса
 }
-						</code>
-					</pre>
+					</code></pre>
 					<blockquote>
 						Члены класса - это данные и функции для работы с этими данными.
 					</blockquote>
@@ -107,24 +107,19 @@ class ИмяКласса
 					<blockquote>
 						Создание объекта класса осуществляется с помощью оператора <span class="blue">new</span>:
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 ИмяКласса имяОбъекта = new ИмяКласса();
-						</code>
-					</pre>
-					<pre>
-						<code class="cs">
+					</code></pre>
+					<pre><code class="cs">
 Random rand = new Random();
 DateTime dt = new DateTime(1991, 10, 23);
 string[] mas = new string[4];
 List&lt;int&gt; list = new List&lt;int&gt;();
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Класс Dog</h2>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Описание класса Dog
 class Dog
 {
@@ -173,8 +168,7 @@ static void Main(string[] args)
 	// Вызываем для него метод Walk
 	flock[2].Walk();
 }					
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -188,8 +182,7 @@ static void Main(string[] args)
 					В принципе, использовать <span class="blue">this</span> не обязательно, 
 					но это бывает нужно при совпадении имен. Например:
 				</p>
-				<pre>
-					<code class="cs">
+				<pre><code class="cs">
 // Допишем новый метод ChangeOwner
 // который принимает параметр: строку owner
 public bool ChangeOwner(string owner)
@@ -203,8 +196,7 @@ public bool ChangeOwner(string owner)
 	this.owner = owner;
 	return true;
 }
-					</code>
-				</pre>
+				</code></pre>
 			</section>
 			<section>
 				<section>
@@ -224,8 +216,7 @@ public bool ChangeOwner(string owner)
 				</section>
 				<section>
 					<h2>Класс Book</h2>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Описание класса Book
 class Book
 {
@@ -271,8 +262,7 @@ class Book
 		Console.WriteLine($"Книга '{name}' (автор {author}) была издана в {year} году");
 	}   
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -308,8 +298,7 @@ class Book
 					<blockquote>
 						Можно, например, объявить класс, членами которого будут являться только поля:
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Просто класс с полями
 class SimpleClass
 {
@@ -319,8 +308,7 @@ class SimpleClass
 	public const char c = 'A';
 	public string s;
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Константы</h2>
@@ -328,15 +316,13 @@ class SimpleClass
 						Константы - это неизменяемые поля. Объявляются с помощью ключевого
 						слова <span class="blue">const</span>
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Calendar1
 {
 	// Константное поле
 	public const int months = 12;
 }
-						</code>
-					</pre>
+					</code></pre>
 					<p>
 						Константа не может быть объявлена без указания значения.
 					</p>
@@ -349,8 +335,7 @@ class Calendar1
 						инициализации, менять их, так же, как и константы, нельзя. Объявляются
 						с помощью ключевого слова <span class="blue">readonly</span>.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Age
 {
 	// Поле только для чтения
@@ -373,8 +358,7 @@ static void Main()
 	Console.WriteLine(a.year);
 	a.Initialize(1967);		// Ошибка
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -401,8 +385,7 @@ static void Main()
 					<p>
 						Например, здесь описаны два метода: Sum и Sub:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс
 class Calculator
 {
@@ -422,8 +405,7 @@ class Calculator
 		return this.x - this.y;
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -450,13 +432,11 @@ class Calculator
 					Например, как происходит работа с консолью в C#?
 						Что-то наподобие:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 Console.WriteLine("message");
 string input1 = Console.ReadLine();
 Console.Write("end;\n");
-						</code>
-					</pre>
+					</code></pre>
 					<p>
 						Обратите внимание, здесь нигде не создается объект класса 
 						<span class="turquoise">Console</span>, 
@@ -471,8 +451,7 @@ Console.Write("end;\n");
 					<p>
 						Посмотрим на различия между вызовом статических и обыкновенных методов:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс
 class MinMax
 {
@@ -509,8 +488,7 @@ class Progrma
 		instance.Max(a, b);			
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Область применения статики</h2>
@@ -548,8 +526,7 @@ class Progrma
 					<p>
 						Описание свойства имеет следующий синтаксис:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Закрытое поле
 private int name;
 
@@ -567,8 +544,7 @@ public int Name
 		this.name = value; // value - специальное ключевое слово, описывающее присваевоемое значение
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Описание свойства</h2>
@@ -598,8 +574,7 @@ public int Name
 					<p>
 						Работа со свойствами аналогична работе с обычными полями.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс
 class TimePeriod
 {
@@ -636,8 +611,7 @@ static void Main()
 	// Обращаемся к свойствам для получения значений
 	Console.WriteLine("Время: {0} часов {1} минут", t.Hours, t.Minutes);
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Предназначение</h2>
@@ -677,8 +651,7 @@ static void Main()
 					<p>
 						Такой вариант свойства применяется довольно часто:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс Person
 public class Person
 {
@@ -715,13 +688,11 @@ public class Person
 	}
 
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Примеры</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс SomeClass
 class SomeClass
 {
@@ -741,16 +712,14 @@ class SomeClass
 		set { this.name = value; }
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Примеры</h3>
 					<p>
 						Вместо того, чтобы опускать аксессор, можно описать его как приватный:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс Person
 class Person
 {
@@ -784,8 +753,7 @@ class Person
 	// Снаружи между этими двумя вариантами разницы не будет никакой - ни там, ни там нет сеттара.
 	// Но внутри, в первом случае, сеттер будет работать, а во втором - нет
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Свойства со встроенной проверкой</h3>
@@ -793,8 +761,7 @@ class Person
 						При необходимости, внутри свойства можно задавать какие-нибудь проверки,
 						или в принципе писать любой нужный код.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Ещё один класс
 class TryPerson
 {
@@ -839,13 +806,11 @@ class TryPerson
 		// Без сеттера
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Примеры</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Да сколько можно
 public class Date
 {
@@ -871,8 +836,7 @@ public class Date
 		}
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Примеры</h3>
@@ -880,8 +844,7 @@ public class Date
 						Свойство (как и всё остальное) может быть статическим. Тогда оно может
 						ссылаться только на статические поля:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Остановитесь, классы!
 public class Employee
 {
@@ -933,8 +896,7 @@ class TestEmployee
 		System.Console.WriteLine("Employee name: {0}", e1.Name);
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -971,8 +933,7 @@ class TestEmployee
 				</section>
 				<section>
 					<h3>Пример класса с конструктором</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс без конструктора (явного)
 class A
 {
@@ -1007,8 +968,7 @@ class Program
 		B b1 = new B();
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Конструкторы с аргументами</h2>
@@ -1019,8 +979,7 @@ class Program
 				</section>
 				<section>
 					<h3>Пример использования конструкторов с аргументами</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс D
 class D
 {
@@ -1065,8 +1024,7 @@ class Program
 		D fer = new D(7, 2, 6);
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Конструктор копирования</h2>
@@ -1075,8 +1033,7 @@ class Program
 						параметра экземпляр своего класса, и нужен затем, чтобы 
 						создать текущий объект как копию переданного.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Очередной класс
 class ClassC
 {
@@ -1099,8 +1056,7 @@ class ClassC
 		this.z = obj_c.z;
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Применение конструктора копирования</h3>
@@ -1109,8 +1065,7 @@ class ClassC
 						а это означает, что после операции присваивания между двумя объектами класса произойдет копирование ссылки 
 						на один и тот же объект, а не создание объекта-копии. 
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Создаём объект класса ClassC obj1
 ClassC obj1 = new ClassC();
 // Здесь не создаётся новый объект obj2
@@ -1124,8 +1079,7 @@ ClassC obj3 = new C(obj2);
 // obj3 имеет такие же значения полей как и obj2, но является другим объектом
 
 obj3.x = 2000;		// obj2.x == -10
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Статический конструктор</h2>
@@ -1134,8 +1088,7 @@ obj3.x = 2000;		// obj2.x == -10
 						элементов класса, и не может иметь параметров. Он неявно вызывается средой CLR
 						сам, до момента первого использования класса.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс
 class SimpleClass
 {
@@ -1149,13 +1102,11 @@ class SimpleClass
 		baseline = DateTime.Now.Ticks;
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс
 public class Bus
 {
@@ -1221,8 +1172,7 @@ class TestBus
 		System.Console.ReadKey();
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Рекомендации</h2>
@@ -1241,8 +1191,7 @@ class TestBus
 						как Сборщик Мусора соберется удалить ваш объект. Он должен называться
 						так же, как и сам класс, только перед именем должен стоять знак тильды ~.
 					</blockquote>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Car
 {
 	// Финализатор
@@ -1252,13 +1201,11 @@ class Car
 		// Прощаемся с объектом...
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Пример работы финализатора</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс
 class FinalizeObject
 {
@@ -1307,8 +1254,7 @@ class Program
 		// Т.е. удаляются и наши экземпляры класса
     }
 }
-					</code>
-				</pre>
+				</code></pre>
 			</section>
 		</section>
 		<section>
@@ -1322,8 +1268,7 @@ class Program
 					Индексатор по синтаксису напоминает свойство. Он также состоит из методов-аксессоров
 					get и set, только в дополнение принимает параметр - индекс.
 				</p>
-				<pre>
-					<code class="cs">
+				<pre><code class="cs">
 // Пример индексатора 
 public тип_возвращаемого_значения this[тип_индекса j] // Принимает "параметр" - индекс
 {
@@ -1336,8 +1281,7 @@ public тип_возвращаемого_значения this[тип_индек
 		// Установка значения c value
 	}
 }
-					</code>
-				</pre>
+				</code></pre>
 			</section>
 			<section>
 				<h2>Индексатор в классе</h2>
@@ -1345,8 +1289,7 @@ public тип_возвращаемого_значения this[тип_индек
 					Обычно индексаторы используются в классах, которые содержат массив или другую 
 					коллекцию, для простого доступа к их элементам.
 				</p>
-				<pre>
-					<code class="cs">
+				<pre><code class="cs">
 // Класс
 class MyArray
 {
@@ -1383,8 +1326,7 @@ class Program
 		Console.WriteLine(arr[0]);
 	}
 }
-					</code>
-				</pre>
+				</code></pre>
 			</section>
 			<section>
 				<h2>Несколько индексаторов</h2>
@@ -1392,8 +1334,7 @@ class Program
 					Как и методы, индексаторы могут быть перегружены. Т.е. в одном классе может быть
 					сразу несколько индексаторов, различающихся типами индексов и их количеством.
 				</p>
-				<pre>
-					<code class="cs">
+				<pre><code class="cs">
 // Класс Human
 class Human
 {
@@ -1478,8 +1419,7 @@ public class BlaBlaClass
 		}
 	}
 }
-					</code>
-				</pre>
+				</code></pre>
 			</section>
 			<section>
 				<h2>Индексаторы с несколькими индексами</h2>
@@ -1487,8 +1427,7 @@ public class BlaBlaClass
 					Индексатор может принимать не только один индекс, но и сразу несколько, как при
 					использовании многомерных массивов.
 				</p>
-				<pre>
-					<code class="cs">
+				<pre><code class="cs">
 // Класс ячейки шахматного поля
 class ChessBoardCell
 {
@@ -1591,8 +1530,7 @@ class Program
 		ChessPiece myKnight = board['G', 5];
 	}
 }
-					</code>
-				</pre>
+				</code></pre>
 			</section>
 		</section>
 		<section>
@@ -1606,14 +1544,32 @@ class Program
 	</div>
 	<aside id="presentable-icon" class="cpp">
 		<a title="Содержание лекции" href="#/0/1">
-			<i class="fa fa-list-ul fa-2x"></i>
+			<i class="fa fa-list-ul fa-2x controls"></i>
 		</a>
 	</aside>
-    <aside id="presentable-icon-close">
-        <a title="К списку материалов" href="../../index.html#/1">
-            <i class="fa fa-times fa-2x"></i>
-        </a>
-    </aside>
+	<aside id="presentable-icon-close">
+		<a title="К списку материалов" href="../../index.html#/1">
+			<i class="fa fa-times fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-theme-picker">
+		<div id="hidden-bar" class="invisible">
+			<div>
+				<div data-theme="beige" class="theme-circle theme-beige"></div>
+				<div data-theme="black" class="theme-circle theme-black"></div>
+				<div data-theme="blood" class="theme-circle theme-blood"></div>
+				<div data-theme="league" class="theme-circle theme-league"></div>
+				<div data-theme="moon" class="theme-circle theme-moon"></div>
+				<div data-theme="night" class="theme-circle theme-night"></div>
+				<div data-theme="serif" class="theme-circle theme-serif"></div>
+				<div data-theme="simple" class="theme-circle theme-simple"></div>
+				<div data-theme="sky" class="theme-circle theme-sky"></div>
+				<div data-theme="solarized" class="theme-circle theme-solarized"></div>
+				<div data-theme="white" class="theme-circle theme-white"></div>
+			</div>
+		</div>
+		<div id="selected-theme" class="theme-circle"></div>
+	</aside>
 	<script src="../../js/bundle.min.js"></script>
 </body>
 

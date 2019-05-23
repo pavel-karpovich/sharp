@@ -12,6 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0 ">
 	<link rel="stylesheet" href="../../css/bundle.min.css">
 	
+	<link rel="stylesheet" href="../../css/custom.css" />
 	<!-- Printing and PDF exports -->
 	<script>
 		var link = document.createElement('link');
@@ -27,6 +28,7 @@
 </head>
 
 <body>
+	<script src="../../js/theme.js"></script>
 	<div class="reveal">
 		<div class="slides">
 			<section>
@@ -57,8 +59,7 @@
 						Представим, что вам необходимо создать класс коллекции, например, собственную
 						реализацию циклического списка.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс Циклического списка
 public class CyclicalList
 {
@@ -143,8 +144,7 @@ class Program
 		}
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Проблема</h2>
@@ -181,39 +181,33 @@ class Program
 					<p>
 						Форма объявления параметризированного класса:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Имя_класса &lt; список_параметров_типов &gt;
 {
 	// Здесь можно использовать типы из списка параметров
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Пример</h2>
 					<p>
 						Здесь создаётся параметризированный (обобщённый) класс с типом-параметров T:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class GenericClass&lt;T&gt;
 {
 	// ...
 }
-						</code>
-					</pre>
+					</code></pre>
 					<p>
 						А здесь обобщённый интерфейс:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 interface IGeneric&lt;T&gt;
 {
 	// ...
 }
-						</code>
-					</pre>
+					</code></pre>
 					<p>
 						Имя первого параметра-типа принято называть заглавной буквой <span class="blue">T</span>.						
 					</p>
@@ -230,14 +224,12 @@ interface IGeneric&lt;T&gt;
 						В случае с обобщённым методом тип-параметр также указываем в треугольных скобках после
 						имени метода:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 public int GenericMethod&lt;T&gt;(float param1, bool param2)
 {
 	// ...
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Использование типа-параметра</h2>
@@ -245,8 +237,7 @@ public int GenericMethod&lt;T&gt;(float param1, bool param2)
 						Когда тип описан параметризированным, внутри него можно использовать
 						этот тип T(или другое имя), как будто это обычный определённый тип.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Обобщённый класс MyGeneric
 class MyGeneric&lt;T&gt;
 {
@@ -276,22 +267,19 @@ class MyGeneric&lt;T&gt;
 		return Property;
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
 				<section>
 					<h2>Использование обобщений</h2>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 List&lt;int&gt; ls = new List&lt;int&gt;();
 
 Dictionary&lt;string, string&gt; dict = new Dictionary&lt;string, string&gt;();
 
 Stack&lt;double&gt; st1 = new Stack&lt;double&gt;();
-						</code>
-					</pre>
+					</code></pre>
 					<p>
 						Выглядит знакомо? (а должно)
 					</p>
@@ -310,8 +298,7 @@ Stack&lt;double&gt; st1 = new Stack&lt;double&gt;();
 						По факту, использование обобщённого класса в программном коде с указанием
 						какого-либо конкретного типа привод к созданию отдельного класса, специально для этого типа.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Обобщённый класс MyObj с типом-параметром T
 class MyObj&lt;T&gt;
 {
@@ -360,8 +347,7 @@ class Program
 		programGeneric.ShowClassType();
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Обобщения в CLR</h3>
@@ -372,8 +358,7 @@ class Program
 					<p>
 						Фактически, у нас будут вот такие классы:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс MyObj для int-а
 class MyObj&lt;int&gt;
 {
@@ -442,8 +427,7 @@ class MyObj&lt;Program&gt;
 		Console.WriteLine("Generic class type: " + this.GetType() + "\n");
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -452,8 +436,7 @@ class MyObj&lt;Program&gt;
 					Теперь мы можем исправить первый пример, и написать полноценный класс универсального
 					циклического списка.
 				</p>
-				<pre>
-					<code class="cs">
+				<pre><code class="cs">
 // Обобщённый класс Циклического списка с типом-параметром T
 public class CyclicalList&lt;T&gt;
 {
@@ -555,8 +538,7 @@ class Program
 		Console.WriteLine();
 	}
 }
-					</code>
-				</pre>
+				</code></pre>
 			</section>
 			<section>
 				<section>
@@ -566,8 +548,7 @@ class Program
 						обобщений с конкретными типами создаются отдельные классы, для каждого из таких
 						классов будут существовать свои отдельные статические члены.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Обобщённый класс 
 public class StaticDemo&lt;T&gt;
 {
@@ -584,8 +565,7 @@ static void Main(string[] args)
 	// Выведет на консоль 4
 	Console.WriteLine(StaticDemo&lt;string&gt;.X);
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Начальные значения неопределённых типов</h2>
@@ -606,8 +586,7 @@ static void Main(string[] args)
 						Для этих целей существует ключевое слово <span class="blue">default</span>,
 						которое позволяет назначить переменной значение по умолчанию конкретно для её типа.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Обобщённый класс ObEx
 class ObEx&lt;T&gt;
 {
@@ -645,8 +624,7 @@ class Program
 		Console.ReadKey(true);
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -705,8 +683,7 @@ class Program
 				</section>
 				<section>
 					<h2>Демонстрация ограничений</h2>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс Работник
 public class Employee
 {
@@ -784,13 +761,11 @@ public class EmplyeesList&lt;T&gt; where T : Employee
 		return t;
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Ещё один пример</h2>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Интерфейс пользовательских данных
 interface IUserInfo
 {
@@ -899,8 +874,7 @@ class Program
 		Console.ReadKey(true);
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Комплексные ограничения</h2>
@@ -908,14 +882,12 @@ class Program
 						Любые ограничения можно комбинировать между собой. В случае с ограничением
 						на реализуемый интерфейс, например, можно указывать любое количество интерфейсов.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class EmployeeList&lt;T&gt; where T : Employee, IEmployee, System.IComparable&lt;T&gt;, new()
 {
 	// ...
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -927,8 +899,7 @@ class EmployeeList&lt;T&gt; where T : Employee, IEmployee, System.IComparable&lt
 				</section>
 				<section>
 					<h3>Пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Лающий интерфейс
 interface IBarkable
 {
@@ -1003,13 +974,11 @@ class Program
 		SpaceDog dog4 = fabric.CreateDog&lt;SpaceDog&gt;();
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h3>Ещё один пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Обыкновенный необобщённый класс InfoObject
 class InfoObject
 {
@@ -1076,15 +1045,13 @@ class Program
 		Console.ReadKey(true);
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
 				<section>
 					<h2>Обобщённые интерфейсы</h2>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Объявляем обобщенный интерфейс
 public interface IShow&lt;T&gt; 
 	where T : struct
@@ -1150,8 +1117,7 @@ class Program
 
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Пример</h2>
@@ -1160,8 +1126,7 @@ class Program
 						будет в качестве типа возвращаемого значения иметь тип, в котором этот
 						интерфейс реализовывается.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Обобщённый интерфейс с типом-параметром T
 // С ограничением, что тип T должен быть классом, реализующим этот интерфейс
 interface ICloneable&lt;T&gt; where T : class, ICloneable&lt;T&gt;
@@ -1178,8 +1143,7 @@ class Foo : ICloneable&lt;Foo&gt;
 		// …
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Ковариантность и контравариантность</h2>
@@ -1206,8 +1170,7 @@ class Foo : ICloneable&lt;Foo&gt;
 						Инвариантность обобщённых интерфейсов заключается в отсутствии возможности
 						использовать полиморфизм для конкретных типов со связанными типами параметрами.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Класс Банковского счёта
 class Account
 {
@@ -1272,8 +1235,7 @@ class Program
 		
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Ковариантность интерфейсов</h2>
@@ -1282,8 +1244,7 @@ class Program
 						конкретным типом в виде интерфейсов с менее конкретным типом. Ковариантные типы 
 						в методах интерфейса можно использовать только для возвращаемых значений в методах.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Account
 {
 	public decimal Balance { get; set; }
@@ -1330,8 +1291,7 @@ class Program
 		
 	}
 }					
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Контравариантность интерфейсов</h2>
@@ -1340,8 +1300,7 @@ class Program
 						с менее конкретным типом в виде интерфейсов с более конкретным типом. Допускает использование
 						контравариантных типов только в параметрах методов интерфейса.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Обобщённый интерфейс с контравариантным параметром типа
 interface ITransaction&lt;in T&gt;
 {
@@ -1376,8 +1335,7 @@ static void Main(string[] args)
     depAccTransaction.DoOperation(new DepositAccount(), 450);
 
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -1400,14 +1358,12 @@ static void Main(string[] args)
 					<p>
 						Несколько типов параметров перечисляются в треугольных скобках через запятую:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class EnormousClass&lt;T, U, V, W&gt;
 {
 	// ...
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Ограничения для нескольких типов-параметров</h2>
@@ -1415,8 +1371,7 @@ class EnormousClass&lt;T, U, V, W&gt;
 						Для каждого из типов-параметров можно задавать свои ограничения отдельной секцией
 						<span class="blue">where</span>:
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 class Base { }
 
 class Test&lt;T, U&gt;
@@ -1425,8 +1380,7 @@ class Test&lt;T, U&gt;
 { 
 	// ...
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Пример</h2>
@@ -1441,8 +1395,7 @@ class Test&lt;T, U&gt;
 				</section>
 				<section>
 					<h3>Пример</h3>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Обобщённый класс Словаря с 2 типами-параметрами T и U
 // Реализован на основе циклического списка
 // Причём на тип T наложено ограничение по реализации интерфейса
@@ -1596,8 +1549,7 @@ class Program
 		dict.Print();
 	}
 }	
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 				<section>
 					<h2>Ошибки при использовании нескольких параметров типов</h2>
@@ -1606,8 +1558,7 @@ class Program
 						можно допустить ошибку неоднозначности перегрузок, в случае, когда у вас есть несколько
 						перегрузок методов, отличающихся только типами-параметрами.
 					</p>
-					<pre>
-						<code class="cs">
+					<pre><code class="cs">
 // Обобщённый класс с двумя типами-параметрами
 class Gen&lt;T, V&gt;
 {
@@ -1643,8 +1594,7 @@ class Gen&lt;T, V&gt;
 		}
 	}
 }
-						</code>
-					</pre>
+					</code></pre>
 				</section>
 			</section>
             <section>
@@ -1655,14 +1605,32 @@ class Gen&lt;T, V&gt;
 	</div>
 	<aside id="presentable-icon" class="cpp">
 		<a title="Содержание лекции" href="#/0/1">
-			<i class="fa fa-list-ul fa-2x"></i>
+			<i class="fa fa-list-ul fa-2x controls"></i>
 		</a>
 	</aside>
-    <aside id="presentable-icon-close">
-        <a title="К списку материалов" href="../../index.html#/1">
-            <i class="fa fa-times fa-2x"></i>
-        </a>
-    </aside>
+	<aside id="presentable-icon-close">
+		<a title="К списку материалов" href="../../index.html#/1">
+			<i class="fa fa-times fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-theme-picker">
+		<div id="hidden-bar" class="invisible">
+			<div>
+				<div data-theme="beige" class="theme-circle theme-beige"></div>
+				<div data-theme="black" class="theme-circle theme-black"></div>
+				<div data-theme="blood" class="theme-circle theme-blood"></div>
+				<div data-theme="league" class="theme-circle theme-league"></div>
+				<div data-theme="moon" class="theme-circle theme-moon"></div>
+				<div data-theme="night" class="theme-circle theme-night"></div>
+				<div data-theme="serif" class="theme-circle theme-serif"></div>
+				<div data-theme="simple" class="theme-circle theme-simple"></div>
+				<div data-theme="sky" class="theme-circle theme-sky"></div>
+				<div data-theme="solarized" class="theme-circle theme-solarized"></div>
+				<div data-theme="white" class="theme-circle theme-white"></div>
+			</div>
+		</div>
+		<div id="selected-theme" class="theme-circle"></div>
+	</aside>
 	<script src="../../js/bundle.min.js"></script>
 </body>
 

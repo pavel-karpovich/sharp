@@ -6,10 +6,16 @@
 
     Reveal.initialize({
         controls: true,
-        progress: true,
+        controlsTutorial: true,
+        controlsBackArrows: "faded",
+        progress: false,
+        slideNumber: true,
         history: true,
+        keyboard: true,
         center: true,
-        slideNumber: false,
+        touch: true,
+        hideInactiveCursor: true,
+        hideAddressBar: true,
         transition: "slide", // none/fade/slide/convex/concave/zoom
     });
     Reveal.addEventListener("ready", function (event) {
@@ -26,7 +32,6 @@
 
         }
         let codeBlocks = document.getElementsByTagName("code");
-        debugger;
         if (codeBlocks) {
 
             let worker = new Worker("../../js/worker.js");

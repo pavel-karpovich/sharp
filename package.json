@@ -1,11 +1,12 @@
 {
   "name": "csharp",
-  "version": "1.0.0",
-  "description": "Swallow dive into .NET and OOP",
+  "version": "2.0.0",
+  "description": "Swallow dive into OOP and .NET",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx gulp"
+    "start": "npx gulp",
+    "ya": "npx gulp ya"
   },
   "repository": {
     "type": "git",
