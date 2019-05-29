@@ -6,11 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx gulp",
-    "ya": "npx gulp ya"
+    "ya": "npx gulp ya",
+    "build": "npx gulp build"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tgjmjgj/csharp.git"
+    "url": "https://github.com/tgjmjgj/sharp.git"
   },
   "author": "Pavel Karpovich",
   "license": "MIT",
