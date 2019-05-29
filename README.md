@@ -68,6 +68,14 @@
 
 [Лекция](https://tgjmjgj.github.io/sharp/dist/lecture/11_wpf_events/index.html "Лекция")
 
+***
+
+## Разработка WPF приложения с базой данных
+
+[Супер подробная и детальная инструкция](https://docs.google.com/document/d/117o1NBz7VZCqW__zUwwifplguABsLs84oAXoTzf3pOE/edit?usp=sharing "Переходи, не пожалееешь")
+
+***
+
 ## Задания
 
 * Задание 1.
