@@ -1,6 +1,14 @@
 
 let linkTheme = null;
 let head = document.getElementsByTagName("head")[0];
+
+let isMainPage = false;
+if (document.body.children[0].getAttribute('src') === 'js/theme.js') {
+    isMainPage = true;
+}
+function resolvePath(path) {
+    return (isMainPage ? '' : '../../') + path;
+}
 function setTheme(themeName) {
     if (linkTheme) {
         head.removeChild(linkTheme);
@@ -9,11 +17,7 @@ function setTheme(themeName) {
     linkTheme.rel = "stylesheet";
     linkTheme.id = "theme";
     linkTheme.type = "text/css";
-    if (document.body.children[0].getAttribute('src') === 'js/theme.js') {
-        linkTheme.href = `css/theme/${themeName}.css`;
-    } else {
-        linkTheme.href = `../../css/theme/${themeName}.css`;
-    }
+    linkTheme.href = resolvePath(`css/theme/${themeName}.css`);
     head.appendChild(linkTheme);
 }
 const defaultTheme = "beige";
