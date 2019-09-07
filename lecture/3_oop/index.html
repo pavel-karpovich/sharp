@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Object-oriented programming</title>
+	<meta name="description" content="programming paradigm OOP in C#, concept of classes and objects, attributes and methods">
+	<meta name="keywords" content="c#, oop, class, object, interface">
+	<meta name="author" content="Pavel Karpovich">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0 ">
+	<link rel="icon" type="image/png" href="../../icon.png">
+	<link rel="stylesheet" href="../../css/bundle.min.css">
+	
+	<link rel="stylesheet" href="../../css/custom.css" />
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? "../../css/print/pdf.css" : "../../css/print/paper.css";
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="../../js/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<script src="../../js/theme.js"></script>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+                <section>
+                    <h1>Объектно-ориентированное программирование</h1>
+                    <h3>Введение в объектно-ориентированное программирование</h3>
+					<div>
+						<p style="display: inline-block;">
+							Edward &amp; Albert / 
+						</p>
+						<a href="https://github.com/tgjmjgj" class="icon-button github">
+							<i class="fa fa-github"></i><span></span>
+						</a>
+						<a href="https://facebook.com/paradox7master" class="icon-button facebook">
+							<i class="fa fa-facebook"></i><span></span>
+						</a>
+					</div>
+                </section>
+				<section>
+					<h2>Содержание лекции</h2>
+					<nav id="presentable-toc" class="table-content"></nav>
+				</section>
+			</section>
+			<section>
+				<h1>Объектно-ориентированное программирование</h1>
+				<blockquote>
+					Объектно-ориентированное программирование - подход к написанию программ, когда
+					мы оперируем не базовыми элементами - числами, строками, символами, а построенными
+					на их основе абстрактными высокоуровневыми сущностями.
+				</blockquote>
+			</section>
+			<section>
+				<section>
+					<h2>Архитектура</h2>
+					<blockquote>
+						Главное в объектно-ориентированном программировании - архитектура, т.е. проектирование
+						структуры кода.
+					</blockquote>
+					<p>
+						Вы не просто пишите программу как последовательность действий и набор функций,
+						а проектируете элементы системы, объединяете логически связанные компоненты,
+						описываете принципы их взаимодействия.
+					</p>
+				</section>
+				<section>
+					<h2>Моделирование</h2>
+					<p>
+						ООП - это не просто написание программ. Это их моделирование и структурирование.
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h3>Например</h3>
+					<p>
+						Пусть вы разрабатываете сервис для онлайн заказов такси. Вместо того,
+						чтобы писать функции "<span class="blue">Свободно Ли Это Такси</span>",
+						"<span class="blue">Поиск Ближайшей Машины</span>",
+						"<span class="blue">Заказать Такси</span>",
+						"<span class="blue">Получить Время До Прибытия</span>" и использовать
+						целый набор глобальных переменных, 
+					</p>
+					<p>
+						у вас будет набор сущностей "<span class="purple">Клиент</span>",
+						"<span class="purple">Такси</span>", "<span class="purple">Менеджер Такси</span>",
+						"<span class="purple">Сервис</span>", которые будут связываться
+						и общаться между собой.
+					</p>
+				</section>
+			</section>
+			<section>
+				<h1>Принципы ООП</h1>
+				<blockquote>
+					<ul>
+						<li>Абстракция</li>
+						<li>Инкапсуляция</li>
+						<li>Наследование</li>
+						<li>Полиморфизм</li>
+					</ul>
+				</blockquote>
+			</section>
+			<section>
+				<section>
+					<h1>Абстракция</h1>
+					<img src="img/abstraction.jpg">
+				</section>
+				<section>
+					<h2>Абстракция</h2>
+					<blockquote>
+						Абстракция данных - это принцип описания программных компонентов с привязкой к 
+						конкретной предметной области и чётким определением их концептуальных границ.
+					</blockquote>
+					<p>
+						Элементы программы разделяется на уровни абстракции, 
+						что позволяет работать с объектами, не вдаваясь 
+						в особенности их реализации, и упрощает их использование в прикладном коде.
+					</p>
+				</section>
+				<section>
+					<h3>А по-человечески?</h3>
+					<p>
+						Например:
+					</p>
+					<p>
+						Вместо того, чтобы обращаться с консолью напрямую через низкоуровневые механизмы ввода-вывода,
+						весь низкоуровневый сложный код спрятан внутри класса 
+						<span class="turquoise">Console</span>, который имеет простой и
+						понятный интерфейс для чтения и записи.
+					</p>
+					<p>
+						Строка, по сути, это массив символов, с которым очень неудобно работать. Поэтому вокруг него 
+						построен класс <span class="turquoise">String</span>, который прячет внутри 
+						себя всю работу с посимвольным перебором, и 
+						предоставляет готовый набор основных методов для работы со строкой.
+					</p>
+				</section>
+				<section>
+					<h3>Ещё примеры</h3>
+					<p>
+						Допустим, у вас сервис по продаже автомобилей. И чтобы было удобнее работать 
+						на уровне целого автомобиля, вы описываете абстракцию машины, внутри которой 
+						уже будет содержаться информация о всех его комплектующих: двигателе, коробке
+						передач, электронике, тормозной системе, амортизации и т.д.
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Инкапсуляция</h1>
+					<img src="img/encapsulation.jpg">
+				</section>
+				<section>
+					<h2>Инкапсуляция</h2>
+					<blockquote>
+						Инкапсуляцией называется объединение логически связанных данных и функций для их обработки. 
+						Также в C# под инкапсуляцией понимается механизм, 
+						позволяющий ограничить доступ одних компонентов программы к другим.
+					</blockquote>
+				</section>
+				<section>
+					<h3>А по-человечески?</h3>
+					<p>
+						Все функции для работы со строкой находятся внутри 
+						класса строки <span class="turquoise">String</span>.
+					</p>
+					<p>
+						Все функции для работы с массивом находятся внутри 
+						класса массива <span class="turquoise">Array</span>.
+					</p>
+					<p>
+						Все функции для работы с датой находятся внутри 
+						класса даты <span class="turquoise">DateTime</span>.
+					</p>
+				</section>
+				<section>
+					<h3>Вне зоны доступа</h3>
+					<p>
+						Сущность может состоять из элементов, доступ к которым не должен
+						получить никто кроме самой этой сущности.
+					</p>
+					<p>
+						Например, хоть строка и состоит из набора символов, но перезаписать
+						значения этих символов при работе со строкой нельзя, эта операция скрыта.
+					</p>
+				</section>
+				<section>
+					<h3>Ещё примеры</h3>
+					<p>
+						Представим, что вы создаёте систему для учёта книг в библиотеке. У каждой
+						книги есть набор характеристик: название, автор, ISBN номер, состояние. Эти 
+						характеристики должны быть объединены в одну сущность. Причём все перечисленные
+						свойства, кроме состояния, должны быть скрыты от изменения извне.
+					</p>
+					<p>
+						Также у вас есть база книг библиотеки, в которой хранится информация обо всех
+						подотчётных книгах. Для каждой книги должна храниться история держателей, и данные
+						текущего носителя. Также должен быть функционал назначения нового держателя, или
+						удаление и перенос текущего в историю. Все эти данные и функции могут быть 
+						размещены вместе в одной сущности База Книг.
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Наследование</h1>
+					<img src="img/inheritance.jpg">
+				</section>
+				<section>
+					<h2>Наследование</h2>
+					<blockquote>
+						Наследованием называется возможность абстрактной сущности перенимать данные и 
+						функциональность некоторой другой сущности, способствуя повторному использованию программного кода. 
+					</blockquote>
+					<p>
+						Так, начиная с самых абстрактных понятий и сущностей, может формироваться 
+						иерархия классов, переходя от полной абстракции к частным случаям реализации.
+					</p>
+				</section>
+				<section>
+					<h2>А по-человечески?</h2>
+					<p>
+						Можно создавать классы по шаблону других классов, т.е. чтобы они сразу были не 
+						пустыми, а уже содержали какую-то начальную логику, от которой начиналась выстраиваться
+						их собственная. 
+					</p>
+					<p>
+						Например, базовый класс фигуры, у которого будут свойства координат, масштаба и вращения.
+						И от этого класса будут наследоваться более конкретные классы прямоугольника, эллипса и
+						параллелограмма, у которых останутся их "свойства по наследству", а также добавятся свои
+						собственные.
+					</p>
+				</section>
+				<section>
+					<h2>Библиотека BCL</h2>
+					<p>
+						Все классы из всех библиотек .NET составляют единую гигантскую иерархию классов.
+					</p>
+					<p>
+						Базовым классом для всего является класс <span class="tuquoise">Object</span>.
+					</p>
+					<p>
+						Например, все простые типы данных - int, char, double и т.д. (структуры), 
+						наследуются от класса <span class="turquoise">ValueType</span>, который уже
+						наследуется от класса <span class="turquoise">Object</span>.
+					</p>
+					<p>
+						А классы <span class="turquoise">String</span> и <span class="turquoise">Array</span>
+						наследуются от <span class="turquoise">Object</span> напрямую.
+					</p>
+				</section>
+				<section>
+					<h3>Ещё примеры</h3>
+					<p>
+						Представим, что вы разрабатываете программу для формирования отчётности по сертификации
+						оборудования на промышленном заводе. У вас в коде фигурируют классы 
+						<span class="turquoise">Сертификата соответствия ГОСТ-у</span>
+						, <span class="turquoise">Декларации соответствия</span> и 
+						<span class="turquoise">Сертификата на серийный выпуск</span>. Все эти сущности
+						имеют некоторый набор одинаковых характеристик, поэтому логично выделить их общую часть
+						в отдельный класс <span class="turquoise">Базовый сертификат</span>, 
+						от которого будут наследоваться все три, и добавлять
+						к основным характеристикам что-то сугубо своё.
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Полиморфизм</h1>
+					<img src="img/polymorphism.jpg">
+				</section>
+				<section>
+					<h2>Полиморфизм</h2>
+					<p>
+						Полиморфизм - способность функции обрабатывать данные разных типов, имеющих одинаковый
+						интерфейс (базовый класс).
+					</p>
+				</section>
+				<section>
+					<h2>А если по-человечески?</h2>
+					<p>
+						Если функция принимает объект типа <span class="turquoise">
+						Музыкальный инструмент</span>. Она может принять и объект типа 
+						<span class="turquoise">Фортепиано</span>, и объект типа 
+						<span class="turquoise">Виолончель</span>, и объект типа 
+						<span class="turquoise">Туба</span>. Потому что все эти типы являются
+						потоками класса <span class="turquoise">Музыкальный инструмент</span>.
+					</p>
+					<p>
+						Функция, которая работает с потоком вывода, может работать с потоком вывода
+						на консоль, с потоком вывода в файл, а также с любым другим потоком вывода - 
+						с каким угодно классом, который является производным от базового потока вывода.
+					</p>
+				</section>
+				<section>
+					<h2>Ещё примеры</h2>
+					<p>
+						Например, у нас есть приложение интернет-магазина смешенной продукции. Пусть здесь
+						будут продаваться корма для животных, косметика и канцтовары. Вместо того, чтобы 
+						писать методы "Купить Корм", "Купить Косметику" и "Купить Канцтовары"
+						следует определить всего один метод, который будет работать с базовым классом всех
+						наших товаров: "Купить Товар". 
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>На вырост</h2>
+					<p>
+						*Изучать следующие темы необходимо только зрелым ООП программистам.
+					</p>
+				</section>
+				<section>
+					<h2>S.O.L.I.D.</h2>
+					<blockquote>
+						Принципы объектно-ориентированного дизайна систем.
+					</blockquote>
+					<a href="https://habr.com/company/mailru/blog/412699/">
+						5 принципов правильного дизайна программ</a>
+				</section>
+				<section>
+					<h2>Паттерны проектирования</h2>
+					<blockquote>
+						Устоявшиеся и общепризнанные архитектурные конструкции, решающие часто
+						возникающие проблемы проектирования сложных систем.
+					</blockquote>
+					<p>
+						Книга: Head First. Design Pattern
+						[<a href="https://drive.google.com/uc?export=view&id=1PaO7JT4EJdEVcgoGYuq2nK7xO8Ql5Nlt">EN</a>] 
+						[<a href="https://drive.google.com/uc?export=view&id=10WJSvjsHirJpxBygBWLtve7BKFUBu7rt">RU</a>]
+					</p>
+					<p>
+						Хорошие разъяснения на YouTube:
+						<a href="https://www.youtube.com/watch?list=PLrhzvIcii6GNjpARdnO4ueTUAVR9eMBpc&v=v9ejT8FO-7I">Ссылка [EN]</a>
+					</p>
+					<p>
+						Сайт с кратким описанием всех паттернов и <ins>антипаттернов</ins>:
+						<a href="https://sourcemaking.com/">Ссылка [EN]</a>
+					</p>
+				</section>
+			</section>
+		</div>
+	</div>
+	<aside id="presentable-icon" class="cpp">
+		<a title="Содержание лекции" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-icon-close">
+		<a title="К списку материалов" href="../../index.html#/1">
+			<i class="fa fa-times fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-theme-picker">
+		<div id="hidden-bar" class="invisible">
+			<div>
+				<div data-theme="beige" class="theme-circle theme-beige"></div>
+				<div data-theme="black" class="theme-circle theme-black"></div>
+				<div data-theme="blood" class="theme-circle theme-blood"></div>
+				<div data-theme="league" class="theme-circle theme-league"></div>
+				<div data-theme="moon" class="theme-circle theme-moon"></div>
+				<div data-theme="night" class="theme-circle theme-night"></div>
+				<div data-theme="serif" class="theme-circle theme-serif"></div>
+				<div data-theme="simple" class="theme-circle theme-simple"></div>
+				<div data-theme="sky" class="theme-circle theme-sky"></div>
+				<div data-theme="solarized" class="theme-circle theme-solarized"></div>
+				<div data-theme="white" class="theme-circle theme-white"></div>
+			</div>
+		</div>
+		<div id="selected-theme" class="theme-circle"></div>
+	</aside>
+	<script src="../../js/bundle.min.js"></script>
+</body>
+
+</html>

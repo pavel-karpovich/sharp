@@ -1,0 +1,1638 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Object-oriented programming</title>
+	<meta name="description" content="programming paradigm OOP in C#, concept of classes and objects, attributes and methods">
+	<meta name="keywords" content="c#, oop, class, object, interface">
+	<meta name="author" content="Pavel Karpovich">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0 ">
+	<link rel="icon" type="image/png" href="../../icon.png">
+	<link rel="stylesheet" href="../../css/bundle.min.css">
+	
+	<link rel="stylesheet" href="../../css/custom.css" />
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? "../../css/print/pdf.css" : "../../css/print/paper.css";
+		document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+
+	<!--[if lt IE 9]>
+		<script src="../../js/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<script src="../../js/theme.js"></script>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+                <section>
+                    <h1>Объектно-ориентированное программирование</h1>
+                    <h3>Обобщения</h3>
+					<div>
+						<p style="display: inline-block;">
+							Edward &amp; Albert / 
+						</p>
+						<a href="https://github.com/tgjmjgj" class="icon-button github">
+							<i class="fa fa-github"></i><span></span>
+						</a>
+						<a href="https://facebook.com/paradox7master" class="icon-button facebook">
+							<i class="fa fa-facebook"></i><span></span>
+						</a>
+					</div>
+                </section>
+				<section>
+					<h2>Содержание лекции</h2>
+					<nav id="presentable-toc" class="table-content"></nav>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Задача</h2>
+					<p>
+						Представим, что вам необходимо создать класс коллекции, например, собственную
+						реализацию циклического списка.
+					</p>
+					<pre><code class="cs">
+// Класс Циклического списка
+public class CyclicalList
+{
+	// Вложенный приватный класс Элемент
+	private class Node
+	{
+		// Ссылка на следующий элемент
+		public Node Next { get; set; }
+		// Данные элемента типа int
+		public int Data { get; set; }
+	}
+
+	// Ссылка на текущий указатель списка
+	private Node head;
+
+	// Свойство для количества элементов в списке
+	public int Count { get; set; }
+	
+	// Конструктор по умолчанию
+	public CyclicalList()
+	{
+		// Задаёт ссылку нулевой
+		head = null;
+		// И количество элементов - 0
+		Count = 0;
+	}
+	
+	// Метод для добавления нового числа в список
+	public void Add(int newVal)
+	{
+		// Создаём новый объект класса Элемент списка
+		Node n = new Node();
+		// Записываем в него числовое значение
+		n.Data = newVal;
+		// Если в списке ещё нет ни одного элемента
+		if (head == null)
+		{
+			// Зацикливаем новый элемент
+			n.Next = n;
+			// Устанавливаем указатель списка на него
+			head = n;
+		}
+		else
+		{
+			// Иначе ставим следующим после нового элемента элемент следующий за указателем списка
+			n.Next = head.Next;
+			// А следующим за указателем списка - новый элемент
+			head.Next = n;
+		}
+		// Увеличиваем количество элементов в списке
+		++Count;
+	}
+
+	// Метод для перемещения указателя списка и получения значения
+	public int Next()
+	{
+		// Устанавливаем указатель списка на следующий элемент за текущим указателем списка
+		head = head.Next;
+		// Возвращаем значение из него
+		return head.Data;
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём объект циклического списка
+		CyclicalList cList = new CyclicalList();
+		// Добавляем в него разные числа
+		cList.Add(1);
+		cList.Add(2);
+		cList.Add(3);
+		cList.Add(4);
+		cList.Add(5);
+		cList.Add(6);
+		// По циклу, для количества элементов в списке
+		for (int i = 0; i < cList.Count; ++i)
+		{
+			// Выводим каждый последующий элемент на консоль
+			Console.Write("{0}  ", cList.Next());
+		}
+	}
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Проблема</h2>
+					<p>
+						Ну и что мы имеем?
+					</p>
+					<p>
+						Класс работает, всё отлично, но... Он работает только для int-ов.
+						А что если нам нужно сделать список строк? Можно создать такой же
+						класс, только для строк...
+					</p>
+					<p>
+						А потом такой же для double, дат, вашего собственного класса и т.д.
+					</p>
+				</section>
+				<section>
+					<h2>Проблему нужно решать</h2>
+					<p>
+						Так дела не пойдут. Нам нужны обобщённые типы!
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Обобщения</h1>
+					<blockquote>
+						<span class="purple">Обобщения</span> (или шаблоны) - это параметризированные типы.
+					</blockquote>
+					<p>
+						Механизм параметризированных типов позволяет создавать классы, структуры,
+						интерфейсы и методы, в которых используемые типы данных могут указываться
+						в виде параметров.
+					</p>
+					<p>
+						Форма объявления параметризированного класса:
+					</p>
+					<pre><code class="cs">
+class Имя_класса &lt; список_параметров_типов &gt;
+{
+	// Здесь можно использовать типы из списка параметров
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Пример</h2>
+					<p>
+						Здесь создаётся параметризированный (обобщённый) класс с типом-параметров T:
+					</p>
+					<pre><code class="cs">
+class GenericClass&lt;T&gt;
+{
+	// ...
+}
+					</code></pre>
+					<p>
+						А здесь обобщённый интерфейс:
+					</p>
+					<pre><code class="cs">
+interface IGeneric&lt;T&gt;
+{
+	// ...
+}
+					</code></pre>
+					<p>
+						Имя первого параметра-типа принято называть заглавной буквой <span class="blue">T</span>.						
+					</p>
+				</section>
+				<section>
+					<h2>Обобщённые типы</h2>
+					<p>
+						Когда у имени класса после имени стоят треугольные скобки с параметром (T или др.), такой
+						класс называется <span class="purple">обобщённым классом</span>. По аналогии с классом,
+						бывают <span class="purple">обобщённые структуры</span>, <span class="purple">
+						обобщённые интерфейсы</span> и <span class="purple">обобщённые методы</span>.
+					</p>
+					<p>
+						В случае с обобщённым методом тип-параметр также указываем в треугольных скобках после
+						имени метода:
+					</p>
+					<pre><code class="cs">
+public int GenericMethod&lt;T&gt;(float param1, bool param2)
+{
+	// ...
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Использование типа-параметра</h2>
+					<p>
+						Когда тип описан параметризированным, внутри него можно использовать
+						этот тип T(или другое имя), как будто это обычный определённый тип.
+					</p>
+					<pre><code class="cs">
+// Обобщённый класс MyGeneric
+class MyGeneric&lt;T&gt;
+{
+	// Свойство целочисленного типа 
+	public int IntProperty { get; set; }
+
+	// Поле типа-параметра
+	private T field;
+	// Свойство типа-параметра для этого поля
+	public T Property
+	{
+		get { return field; }
+		set { field = value; }
+	}
+
+	// Конструктор, принимающий число и объект типа-параметра
+	public MyGeneric(int a, T b)
+	{
+		IntProperty = a;
+		Property = b;
+	}
+
+	// Метод, возвращающий объект типа-параметра
+	public T PowerfulMethod(char a)
+	{
+		// ...
+		return Property;
+	}
+}
+					</code></pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Использование обобщений</h2>
+					<pre><code class="cs">
+List&lt;int&gt; ls = new List&lt;int&gt;();
+
+Dictionary&lt;string, string&gt; dict = new Dictionary&lt;string, string&gt;();
+
+Stack&lt;double&gt; st1 = new Stack&lt;double&gt;();
+					</code></pre>
+					<p>
+						Выглядит знакомо? (а должно)
+					</p>
+					<p>
+						Вот так и используются обобщения.
+					</p>
+					<p>
+						При создании объекта класса (структуры) после имени класса в треугольных скобках
+						записывается конкретное значение типа для типа-параметра. И объект создаётся
+						именно для работы с указанным типом.
+					</p>
+				</section>
+				<section>
+					<h2>Обобщения в CLR</h2>
+					<p>
+						По факту, использование обобщённого класса в программном коде с указанием
+						какого-либо конкретного типа привод к созданию отдельного класса, специально для этого типа.
+					</p>
+					<pre><code class="cs">
+// Обобщённый класс MyObj с типом-параметром T
+class MyObj&lt;T&gt;
+{
+	// Приватное поле типа типа-параметра
+	private T obj;
+
+	// Конструктор
+	public MyObj(T obj)
+	{
+		this.obj = obj;
+	}
+
+	// Метод для вывода на консоль информации о типе-параметре
+	public void ShowParamType()
+	{
+		Console.WriteLine("Type parameter: " + typeof(T));
+	}
+
+	// Метод для вывода на консоль информации о типе класса
+	public void ShowClassType()
+	{
+		Console.WriteLine("Generic class type: " + this.GetType() + "\n");
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём класс MyObj для типа int
+		MyObj&lt;int&gt; intGeneric = new MyObj&lt;int&gt;(2);
+		// Смотрим на его типы
+		intGeneric.ShowParamType();
+		intGeneric.ShowClassType();
+
+		// Создаём класс MyObj для типа string
+		MyObj&lt;string&gt; stringGeneric = new MyObj&lt;string&gt;("dwada");
+		// Смотрим на его типы
+		stringGeneric.ShowParamType();
+		stringGeneric.ShowClassType();
+
+		// Создаём класс MyObj для типа Program
+		MyObj&lt;Program&gt; programGeneric = new MyObj&lt;Program&gt;(new Program());
+		// Смотрим на его типы
+		programGeneric.ShowParamType();
+		programGeneric.ShowClassType();
+	}
+}
+					</code></pre>
+				</section>
+				<section>
+					<h3>Обобщения в CLR</h3>
+					<p>
+						В том примере среда CLR сама создаст в памяти три варианта класса для используемых
+						типов, код обобщения будет выступать для неё в качестве шаблона.
+					</p>
+					<p>
+						Фактически, у нас будут вот такие классы:
+					</p>
+					<pre><code class="cs">
+// Класс MyObj для int-а
+class MyObj&lt;int&gt;
+{
+	// Поле типа int
+	private int obj;
+
+	// Конструктор с параметром int
+	public MyObj(int obj)
+	{
+		this.obj = obj;
+	}
+
+	public void ShowParamType()
+	{
+		Console.WriteLine("Type parameter: " + typeof(int));
+	}
+
+	public void ShowClassType()
+	{
+		Console.WriteLine("Generic class type: " + this.GetType() + "\n");
+	}
+}
+
+// Класс MyObj для string-а
+class MyObj&lt;string&gt;
+{
+	// Поле типа string
+	private string obj;
+
+	// Конструктор с параметром string
+	public MyObj(string obj)
+	{
+		this.obj = obj;
+	}
+
+	public void ShowParamType()
+	{
+		Console.WriteLine("Type parameter: " + typeof(string));
+	}
+
+	public void ShowClassType()
+	{
+		Console.WriteLine("Generic class type: " + this.GetType() + "\n");
+	}
+}
+
+// Класс MyObj для класса Program
+class MyObj&lt;Program&gt;
+{
+	// Поле типа Program
+	private Program obj;
+
+	// Конструктор с параметром типа Program
+	public MyObj(Program obj)
+	{
+		this.obj = obj;
+	}
+
+	public void ShowParamType()
+	{
+		Console.WriteLine("Type parameter: " + typeof(Program));
+	}
+
+	public void ShowClassType()
+	{
+		Console.WriteLine("Generic class type: " + this.GetType() + "\n");
+	}
+}
+					</code></pre>
+				</section>
+			</section>
+			<section>
+				<h2>Обобщённый циклический список</h2>
+				<p>
+					Теперь мы можем исправить первый пример, и написать полноценный класс универсального
+					циклического списка.
+				</p>
+				<pre><code class="cs">
+// Обобщённый класс Циклического списка с типом-параметром T
+public class CyclicalList&lt;T&gt;
+{
+	private class Node
+	{
+		public Node Next { get; set; }
+		// Теперь данные в элементе представлены в виде типа T
+		public T Data { get; set; }
+	}
+	
+	private Node head;
+	
+	public int Count { get; set; }
+	
+	public CyclicalList()
+	{
+		head = null;
+		Count = 0;
+	}
+	
+	// Метод добавления элемента принимает значение типа типа-параметра T
+	public void Add(T newVal)
+	{
+		Node n = new Node();
+		// Записывает его в Элемент списка
+		n.Data = newVal;
+		if (head == null)
+		{
+			n.Next = n;
+			head = n;
+		}
+		else
+		{
+			n.Next = head.Next;
+			head.Next = n;
+		}
+		++Count;
+	}
+	
+	// Метод теперь возвращает объект типа T
+	public T Next()
+	{
+		head = head.Next;
+		return head.Data;
+	}
+}
+
+// Просто какой-то класс
+class Auto
+{
+	// ...
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём объект циклического списка для типа int
+		CyclicalList&lt;int&gt; iList = new CyclicalList&lt;int&gt;();
+		// Добавляем в него разные числа
+		iList.Add(1);
+		iList.Add(2);
+		iList.Add(3);
+		iList.Add(4);
+		iList.Add(5);
+		iList.Add(6);
+		for (int i = 0; i < iList.Count; ++i)
+		{
+			// Выводим каждый последующий элемент на консоль
+			Console.Write("{0}  ", iList.Next());
+		}
+		Console.WriteLine();
+
+		// Создаём объект циклического списка для типа string
+		CyclicalList&lt;string&gt; sList = new CyclicalList&lt;string&gt;();
+		// Этот список должен содержать строки
+		sList.Add("white");
+		sList.Add("brown");
+		sList.Add("red");
+		sList.Add("yellow");
+		for (int i = 0; i < sList.Count; ++i)
+		{
+			// Выводим каждый последующий элемент на консоль
+			Console.Write("{0}  ", sList.Next());
+		}
+		Console.WriteLine();
+
+		// Создаём объект циклического списка для типа Auto
+		CyclicalList&lt;Auto&gt; aList = new CyclicalList&lt;Auto&gt;();
+		// Добавляем в него объекты класса Auto
+		aList.Add(new Auto());
+		aList.Add(new Auto());
+		aList.Add(new Auto());
+		for (int i = 0; i < aList.Count; ++i)
+		{
+			// Выводим каждый последующий элемент на консоль
+			Console.Write("{0}  ", aList.Next());
+		}
+		Console.WriteLine();
+	}
+}
+				</code></pre>
+			</section>
+			<section>
+				<section>
+					<h2>Статические члены обобщённых классов</h2>
+					<p>
+						Статические члены обобщенных классов требуют особого внимания. Из-за того, что для
+						обобщений с конкретными типами создаются отдельные классы, для каждого из таких
+						классов будут существовать свои отдельные статические члены.
+					</p>
+					<pre><code class="cs">
+// Обобщённый класс 
+public class StaticDemo&lt;T&gt;
+{
+	// Статическое свойство
+	public static int X { get; set; }
+}
+
+static void Main(string[] args)
+{
+	// Одно статическое свойство
+	StaticDemo&lt;string&gt;.X = 4;
+	// Другое статическое свойство
+	StaticDemo&lt;int&gt;.X = 5;
+	// Выведет на консоль 4
+	Console.WriteLine(StaticDemo&lt;string&gt;.X);
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Начальные значения неопределённых типов</h2>
+					<p>
+						В конструкторах принято инициализировать свойства класса/структуры.
+						А как быть если нужно инициализировать свойство типа-параметра? В обобщении
+						мы не можем знать, каким типом он будет выступать.
+					</p>
+					<p>
+						Типам значений можно присвоить 0, но нельзя присвоить <span class="blue">null</span>,
+						а ссылочным типам, наоборот: можно присвоить <span class="blue">null</span>,
+						нельзя присвоить 0.
+					</p>
+				</section>
+				<section>
+					<h2>Ключевое слово default</h2>
+					<p>
+						Для этих целей существует ключевое слово <span class="blue">default</span>,
+						которое позволяет назначить переменной значение по умолчанию конкретно для её типа.
+					</p>
+					<pre><code class="cs">
+// Обобщённый класс ObEx
+class ObEx&lt;T&gt;
+{
+	// Свойство типа T
+	public T Obj { get; set; }
+
+	// Конструктор по умолчанию
+	public ObEx()
+	{
+		// Свойство неопределённого типа инциализируется значением по умолчанию
+		Obj = default(T);
+	}
+}
+
+class Program
+{
+	static void Main()
+	{
+		// Создаём объект класса ObEx для ссылочного типа Random
+		ObEx&lt;Random&gt; a = new ObEx&lt;Random&gt;();
+		// Создаём объект класса ObEx для типа по значению int
+		ObEx&lt;int&gt; b = new ObEx&lt;int&gt;();
+
+		// Если значение null, выводим сообщение об этом
+		if (a.Obj == null)
+		{
+			Console.WriteLine("a.obj = null");
+		}
+		// Если значение 0, выводим сообщение об этом
+		if (b.Obj == 0)
+		{
+			Console.WriteLine("b.obj = 0");
+		}
+
+		Console.ReadKey(true);
+	}
+}
+					</code></pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Неопределённость типа-параметра</h2>
+					<p>
+						Поскольку до момента выполнения программы не известно, какой конкретно тип
+						будет использоваться в качестве типа-параметра, накладываются большие
+						ограничения по его использованию.
+					</p>
+					<p>
+						Чем шире возможный диапазон допустимых типов, тем меньше между ними общего, что
+						может использоваться с этим типом. Так, по умолчанию, для типа T доступны
+						только основные методы класса Object и даже нельзя создать его экземпляр.
+					</p>
+				</section>
+				<section>
+					<h2>Ограничения типа-параметра</h2>
+					<p>
+						Но на тип-параметр можно накладывать определённые ограничения, тем самым, во-первых,
+						сужая для него перечень возможных типов, и, во-вторых, уточняя этот тип, т.е.
+						позволяя использовать с ним больший набор операций.
+					</p>
+				</section>
+				<section>
+					<h2>Виды ограничений</h2>
+					<p>
+						Ограничения типа-параметра могут быть следующими:
+					</p>
+					<table>
+						<tr>
+							<td><span class="blue">where T : struct</span></td>
+							<td>Допускаются только структуры</td>
+						</tr>
+						<tr>
+							<td><span class="blue">where T : class</span></td>
+							<td>Допускаются только классы</td>
+						</tr>
+						<tr>
+							<td><span class="blue">where T : имя_базового_класса</span></td>
+							<td>Допускаются только потомки указанного класса</td>
+						</tr>
+						<tr>
+							<td><span class="blue">where T : имя_интерфейса</span></td>
+							<td>Допускаются только классы, реализующие указанный интерфейс</td>
+						</tr>
+						<tr>
+							<td><span class="blue">where T : new()</span></td>
+							<td>Допускаются только типы с конструктором по умолчанию</td>
+						</tr>
+						<tr>
+							<td><span class="blue">where T : unmanaged</span></td>
+							<td>Допускаются только структуры без ссылок внутри</td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<h2>Демонстрация ограничений</h2>
+					<pre><code class="cs">
+// Класс Работник
+public class Employee
+{
+	// Свойство Идентификатор
+	public int ID { get; set; }
+	// Свойство Имя
+	public string Name { get; set; }
+
+	// Конструктор
+	public Employee(string s, int i)
+	{
+		Name = s;
+		ID = i;
+	}
+}
+
+// Обобщённый класс Списка Работников
+// Наложенное ограничение указывает, что в качестве типа T
+// может выступать только производный класс от класса Работник или он сам
+public class EmplyeesList&lt;T&gt; where T : Employee
+{
+	// Приватный класс Элемента Списка
+	private class Node
+	{
+		// Конструктор
+		public Node(T t)
+		{
+			Next = null;
+			Data = t;
+		}
+
+		// Свойства для ссылки и для данных
+		public Node Next { get; set; }
+		public T Data { get; set; }
+	}
+
+	// Приватная ссылка на начало списка
+	private Node head;
+
+	// Метод для добавления нового элемента в начало списка
+	public void AddHead(T t)
+	{
+		Node n = new Node(t);
+		n.Next = head;
+		head = n;
+	}
+
+	// Метод для поиска в списке первого Работника с заданным именем
+	public T FindFirstOccurrence(string s)
+	{
+		// Ссылка на начало списка
+		Node current = head;
+		// Ссылка на объект типа-параметра
+		T t = null;
+
+		// Пока не дойдём до конца списка
+		while (current != null)
+		{
+			// Благодаря ограничению, мы можем получить доступ к содержимому класса Employee в
+			// объекте типа T, и проверить свойство Name
+			if (current.Data.Name == s)
+			{
+				// Если имя совпало, запоминаем этого работника
+				t = current.Data;
+				// И выходим из цикла
+				break;
+			}
+			else
+			{
+				// Или переходим к следующему работнику
+				current = current.Next;
+			}
+		}
+		// Возвращаем объект t (null или найденный работник)
+		return t;
+	}
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Ещё один пример</h2>
+					<pre><code class="cs">
+// Интерфейс пользовательских данных
+interface IUserInfo
+{
+	// Свойства для Имени и Возраста пользователя
+	string Name { get; set; }
+	int Age { get; set; }
+}
+
+// Класс Базовой информации о пользователе
+// Реализует интерфейс IUserInfo
+class SimpleUserInfo : IUserInfo
+{
+	// Свойства Имя и Возраст
+	public string Name { get; set; }
+	public int Age { get; set; }
+
+	// Конструктор
+	public SimpleUserInfo(string name, int age)
+	{
+		this.Name = name;
+		this.Age = age;
+	}
+
+}
+
+// Класс Полной информации о пользователе
+// Также реализует интерфейс IUserInfo
+class FullUserInfo : IUserInfo
+{
+	// Свойства Имя, Возраст и Семья
+	public string Name { get; set; }
+	public int Age { get; set; }
+	public string Surname { get; set; }
+
+	// Конструктор
+	public FullUserInfo(string surname, string name, int age)
+	{
+		this.Name = name;
+		this.Age = age;
+		this.Surname = surname;
+	}
+
+	// Переопределён метод ToString
+	public override string ToString()
+	{
+		// Формирует и возвращает строку из всех свойств этогокласса
+		string s = String.Format("Информация о пользователе: \n{0} {1} {2}\n", Name, Surname, Age);
+		return s;
+	}
+}
+
+// Обобщенный класс, использующий ограничение на реализуемый интерфейс
+// Объект этого класса можно создать только для типов, которые реализуют интерфейс IUserInfo
+class Info&lt;T&gt; where T : IUserInfo
+{
+	// Два приватных поля: массив из объектов T и фактическое количество элементов в нём
+	private T[] userList;
+	private int i;
+
+	// Конструктор по умолчанию
+	public Info()
+	{
+		// Создаём массив из 3 элементов типа T
+		userList = new T[3];
+		// Изначально количество элементов равно 0
+		i = 0;
+	}
+
+	// Метод Добавления нового элемента
+	public void Add(T obj)
+	{
+		// Если ещё не 3 элемента
+		if (i < 3)
+		{
+			// В i-ый элемент массива записываем переданный
+			userList[i] = obj;
+			// Увеличиваем количество/индекс
+			i++;
+		}
+	}
+
+	// Метод для вывода массива на консоль
+	public void ShowAll()
+	{
+		// Перебираются и выводятся элементы в массиве
+		foreach (T t in userList)
+		{
+			Console.WriteLine(t.ToString());
+		}
+	}
+}
+
+class Program
+{
+	static void Main()
+	{
+		// Создаём объект Info для типа FullUserInfo
+		Info&lt;FullUserInfo&gt; database1 = new Info&lt;FullUserInfo&gt;();
+		// Добавляем в него 3 объекта
+		database1.Add(new FullUserInfo(name: "Marlyn", surname: "Erwyn", age: 26));
+		database1.Add(new FullUserInfo(name: "Lex", surname: "Freeday", age: 28));
+		database1.Add(new FullUserInfo(name: "Amanta", surname: "Joseph", age: 50));
+		// Вызываем метод вывода на консоль
+		database1.ShowAll();
+
+		Console.ReadKey(true);
+	}
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Комплексные ограничения</h2>
+					<p>
+						Любые ограничения можно комбинировать между собой. В случае с ограничением
+						на реализуемый интерфейс, например, можно указывать любое количество интерфейсов.
+					</p>
+					<pre><code class="cs">
+class EmployeeList&lt;T&gt; where T : Employee, IEmployee, System.IComparable&lt;T&gt;, new()
+{
+	// ...
+}
+					</code></pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Обобщённые методы</h2>
+					<p>
+						Обобщённые методы могут быть определены внутри необобщённого класса.
+					</p>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre><code class="cs">
+// Лающий интерфейс
+interface IBarkable
+{
+	// ...
+}
+
+// Класс собаки
+class Dog : IBarkable
+{
+	// ...
+}
+
+// Класс полицейской собаки
+class PoliceDog : Dog
+{
+	// ...
+}
+
+// Класс собаки-космонавта
+class SpaceDog : Dog
+{
+	// ...
+}
+
+// Обычный класс фабрики по производству собак
+class DogFabric
+{
+	// Обобщённый метод создания собаки, возвращает объект типа-параметра T
+	// Ограничение: T может быть только типом собаки и должен иметь конструктор по умолчанию
+	public T CreateDog&lt;T&gt;()
+		where T : Dog, new()
+	{
+		Console.WriteLine("Creating new {0}....", typeof(T));
+		Thread.Sleep(1000);
+		Console.WriteLine("All right, it's done!");
+		// Создаём новый объект типа T и возвращаем его
+		return new T();
+	}
+
+	// Обычный метод создания собаки, возвращает объект собаки
+	public Dog JustCreateDog()
+	{
+		Console.WriteLine("Creating new {0}....", typeof(Dog));
+		Thread.Sleep(1000);
+		Console.WriteLine("All right, it's done!");
+		// Создаём новый объект типа собаки и возвращаем его
+		return new Dog();
+	}
+
+}
+
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём фабрику собак
+		DogFabric fabric = new DogFabric();
+
+		// Вызываем метод простого создания собак
+		// И принимаем новый экземпляр
+		Dog dog1 = fabric.JustCreateDog();
+		// Этот метод не может создать ничего другого, только обыкновенных собак
+
+		// Вызываем метод фабрики по созданию собаки, указывая в качестве типа-параметра тип обычной собаки Dog
+		// Принимаем экземпляр обычной собаки, которую вернул метод
+		Dog dog2 = fabric.CreateDog&lt;Dog&gt;();
+		// А теперь указываем в качестве типа-параметра тип полицейской собаки PoliceDog
+		// И получаем объект полицейской собаки
+		PoliceDog dog3 = fabric.CreateDog&lt;PoliceDog&gt;();
+		// Точно так же с космической собакой
+		SpaceDog dog4 = fabric.CreateDog&lt;SpaceDog&gt;();
+	}
+}
+					</code></pre>
+				</section>
+				<section>
+					<h3>Ещё один пример</h3>
+					<pre><code class="cs">
+// Обыкновенный необобщённый класс InfoObject
+class InfoObject
+{
+	// Обобщенный метод с ограничением на производный тип
+	public static string Info&lt;T&gt;(T obj) 
+		where T : User
+	{
+		return obj.ToString();
+	}
+}
+
+// Класс Пользователя
+class User
+{
+	// Свойства Имени и Возраста
+	public string Name { get; set; }
+	public int Age { get; set; }
+
+	// Конструктор
+	public User(string Name, int Age)
+	{
+		this.Name = Name;
+		this.Age = Age;
+	}
+
+}
+
+// Класс Пользователя с паролем, дочерний от класса Пользователь
+class UserWithPass : User
+{
+	// Дополнительное свойство - пароль
+	public string Password { get; set; }
+
+	// Конструктор
+	public UserWithPass(string Name, int Age, string Pass)
+		: base(Name, Age)
+	{
+		Password = Pass;
+	}
+
+	// Переопределён метод ToString
+	public override string ToString()
+	{
+		// @ перед строкой позволяет записывать многострочные строки и игнорировать спец.символы
+		return String.Format(@"Информация о пользователе:
+**************************
+Имя: {0}
+Возраст: {1}
+Пароль: {2}", Name, Age, Password);
+	}
+}
+
+class Program
+{
+	static void Main()
+	{
+		// Создаём пользователя с очень надёжным паролем
+		UserWithPass user1 = new UserWithPass(Name: "Martin", Age: 26, Pass: "12345");
+
+		// Вызываем обобщенный метод для класса UserWithPass
+		string s = InfoObject.Info&lt;UserWithPass&gt;(user1);
+		Console.WriteLine(s);
+
+		Console.ReadKey(true);
+	}
+}
+					</code></pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Обобщённые интерфейсы</h2>
+					<pre><code class="cs">
+// Объявляем обобщенный интерфейс
+public interface IShow&lt;T&gt; 
+	where T : struct
+{
+	void ReWrite();
+}
+
+// Реализуем интерфейс в классе MyObj с ограничением допустимых типов на структуры
+class MyObj&lt;T&gt; : IShow&lt;T&gt; where T : struct
+{
+	// Свойство для хранения количества элементов массива 
+	public int LongOb { get; set; }
+	// Приватное поле для самого массива
+	private T[] myarr;
+
+	// Конструктор с один параметром
+	public MyObj(int i)
+	{
+		LongOb = i;
+	}
+
+	// Конструктор с двумя параметрами
+	public MyObj(int i, T[] arr)
+	{
+		// Записываем размер
+		LongOb = i;
+		// Создаём новый массив указанного размера
+		myarr = new T[i];
+		// Копируем значения из входного массива во внутренний
+		for (int j = 0; j < arr.Length; j++)
+			myarr[j] = arr[j];
+	}
+
+	// Метод из интерфейса IShow
+	public void ReWrite()
+	{
+		// Выводим всё на консоль
+		Console.WriteLine("Тип: {0}",typeof(T));
+		Console.WriteLine("Массив объектов: ");
+		foreach (T t in myarr)
+			Console.Write("{0}\t",t);
+		Console.WriteLine("\n");
+	}
+}
+
+class Program
+{
+	static void Main()
+	{
+		// Создаём массива байт
+		byte[] MyArrByte = new byte[5] {4, 5, 18, 56, 8};
+		// Создаём объект класса MyObj для байт, и передаём в его конструктор массив и его размер
+		MyObj&lt;byte&gt; ByteConst = new MyObj&lt;byte&gt;(MyArrByte.Length, MyArrByte);
+		// Вызываем метод вывода на консоль
+		ByteConst.ReWrite();
+
+		// Создаём массив числе с плавающей точкой
+		float[] MyArrFloat = new float[8] { 12.0f, 1f, 3.4f, 2.8f, -334.7f, -2f, 7.89f, 0 };
+		// Создаём объект класса MyObj для float, и передаём в его конструктор массив и его размер
+		MyObj&lt;float&gt; FloatConst = new MyObj&lt;float&gt;(MyArrFloat.Length, MyArrFloat);
+		// Вызываем метод вывода на консоль
+		FloatConst.ReWrite();
+
+	}
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Пример</h2>
+					<p>
+						Сделав интерфейс обобщённым, можно, например, описать в нём такой метод, который
+						будет в качестве типа возвращаемого значения иметь тип, в котором этот
+						интерфейс реализовывается.
+					</p>
+					<pre><code class="cs">
+// Обобщённый интерфейс с типом-параметром T
+// С ограничением, что тип T должен быть классом, реализующим этот интерфейс
+interface ICloneable&lt;T&gt; where T : class, ICloneable&lt;T&gt;
+{
+	// Метод возвращает объект типа T
+	public T Clone();
+}
+// Класс Foo, который реализует этот обобщённый интерфейса и в качестве типа-параметра использует свой тип Foo
+class Foo : ICloneable&lt;Foo&gt;
+{
+	// Значит, этот метод должен возвращать объект этого же типа Foo
+	public Foo Clone()
+	{
+		// …
+	}
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Ковариантность и контравариантность</h2>
+					<p>
+						Понятие ковариантности связано с возможностью методов обобщённого интерфейса
+						использовать значения разных типов, связанных между собой наследованием.
+					</p>
+					<p>
+						Есть 3 варианта этого поведения:
+					</p>
+					<ul>
+						<li>Инвариантность (по умолчанию)</li>
+						<li>Ковариантность (ключевое слово <span class="blue">out</span>)</li>
+						<li>Контравариантность (ключевое слово <span class="blue">in</span>)</li>
+					</ul>
+					<p>
+						Упрощая, можно сказать, что ковариантность позволяет настраивать полиморфизм
+						для обобщённых интерфейсов (и делегатов).
+					</p>
+				</section>
+				<section>
+					<h2>Инвариантность интерфейсов</h2>
+					<p>
+						Инвариантность обобщённых интерфейсов заключается в отсутствии возможности
+						использовать полиморфизм для конкретных типов со связанными типами параметрами.
+					</p>
+					<pre><code class="cs">
+// Класс Банковского счёта
+class Account
+{
+	// Свойсто Баланс на счету
+	public decimal Balance { get; set; }
+
+	// Метод Перевода суммы на этот счёт
+	public void DoTransfer(decimal sum)
+	{
+		Console.WriteLine("Transfering {0}$....", sum);
+		Balance += sum;
+	}
+}
+
+// Производный класс от Банковского счёта - депозит
+class DepositAccount : Account
+{
+	// ...
+}
+
+// Обобщённый интерфейс Банка с типом-параметром T
+interface IBank&lt;T&gt;
+{
+	// Метод для создания аккаунта, возвращает объект типа T
+	T CreateAccount(int sum);
+}
+
+// Обобщённый класс Банк с типом-параметром T
+// Реализует интерфейс Банка с этим же типом-параметром
+// И на тип-параметр наложены ограничение на наличие конструктора по умолчанию
+// и соответсвие классу Account, либо производным от него классам
+class Bank&lt;T&gt; : IBank&lt;T&gt;
+	where T : Account, new()
+{
+	// Реализация метода CreateAccount из интерфейса IBank
+	public T CreateAccount(int sum)
+	{
+		// Создаём новый счёт
+		T acc = new T();
+		// Выполняем начальный перевод
+		acc.DoTransfer(sum);
+		// Возвращаем объект счёта
+		return acc;
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создадим объект Банка для типа DepositAccount
+		// Полученный класс будет реализовывать интерфейс IBank&lt;DepositAccount&gt;
+		IBank&lt;DepositAccount&gt; depositBank = new Bank&lt;DepositAccount&gt;();
+		Account acc1 = depositBank.CreateAccount(34);
+
+		// Ошибка
+		// Мы не можем представить этот объект в виде интерфейса IBank&lt;Account&gt;
+		// Потому что depositBank реализует интерфейс IBank&lt;DepositAccount&gt;
+		// А IBank&lt;Account&gt; и IBank&lt;DepositAccout&gt; - это 2 разных интерфейса
+		IBank&lt;Account&gt; ordinaryBank = depositBank;
+		Account acc2 = ordinaryBank.CreateAccount(45);
+		
+	}
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Ковариантность интерфейсов</h2>
+					<p>
+						Ковариантность интерфейса позволяет представлять объекты с интерфейсом с более
+						конкретным типом в виде интерфейсов с менее конкретным типом. Ковариантные типы 
+						в методах интерфейса можно использовать только для возвращаемых значений в методах.
+					</p>
+					<pre><code class="cs">
+class Account
+{
+	public decimal Balance { get; set; }
+
+	public void DoTransfer(decimal sum)
+	{
+		Console.WriteLine("Transfering {0}$....", sum);
+		Balance += sum;
+	}
+}
+
+class DepositAccount : Account
+{
+	// ...
+}
+
+// Интерфейс с ковариантным параметром типа
+interface IBank&lt;out T&gt;
+{
+	T CreateAccount(int sum);
+}
+
+class Bank&lt;T&gt; : IBank&lt;T&gt;
+	where T : Account, new()
+{
+	public T CreateAccount(int sum)
+	{
+		T acc = new T();
+		acc.DoTransfer(sum);
+		return acc;
+	}
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		IBank&lt;DepositAccount&gt; depositBank = new Bank&lt;DepositAccount&gt;();
+		Account acc1 = depositBank.CreateAccount(34);
+
+		// Теперь всё работает - это эффект ковариантности
+		IBank&lt;Account&gt; ordinaryBank = depositBank;
+		Account acc2 = ordinaryBank.CreateAccount(45);
+		
+	}
+}					
+					</code></pre>
+				</section>
+				<section>
+					<h2>Контравариантность интерфейсов</h2>
+					<p>
+						Контравариантность интерфейса, наоборот, позволяет представлять объекты с интерфейсом 
+						с менее конкретным типом в виде интерфейсов с более конкретным типом. Допускает использование
+						контравариантных типов только в параметрах методов интерфейса.
+					</p>
+					<pre><code class="cs">
+// Обобщённый интерфейс с контравариантным параметром типа
+interface ITransaction&lt;in T&gt;
+{
+	// Метод принимает объект контравариантного типа
+	void DoOperation(T account, int sum);
+}
+
+// Обобщённый класс, реализующий интерфейс ITransaction для тип T
+// С ограничением, что тип T должен быть потомком класса Account
+class Transaction&lt;T&gt; : ITransaction&lt;T&gt;
+	where T : Account
+{
+	// Реализация метода из интерфейса
+	public void DoOperation(T account, int sum)
+	{
+		account.DoTransfer(sum);
+	}
+}
+
+static void Main(string[] args)
+{
+	// Создаём класс Transaction для типа Account
+	ITransaction&lt;Account&gt; accTransaction = new Transaction&lt;Account&gt;();
+	// И передаём в него объект класса Account
+    accTransaction.DoOperation(new Account(), 400);
+ 
+	// Также создаём класс Transaction для типа Account,
+	// Но записываем его в тип интерфейса ITransaction для более конкретного типа DepositAccount
+	ITransaction&lt;DepositAccount&gt; depAccTransaction = new Transaction&lt;Account&gt;();
+	// Хоть объект и был создан для типа Account
+	// За счёт контравариантности мы можем передавать в его метод объекты типа DepositAccount
+    depAccTransaction.DoOperation(new DepositAccount(), 450);
+
+}
+					</code></pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Обобщённые делегаты</h2>
+					<p>
+						Ещё обобщёнными могут быть делегаты.
+					</p>
+					<p>
+						Но мы пока не знаем, что такое делегаты.
+					</p>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h2>Несколько типов-параметров</h2>
+					<p>
+						В принципе, для обобщений можно определять сколько угодно типов-параметров.
+					</p>
+					<p>
+						Несколько типов параметров перечисляются в треугольных скобках через запятую:
+					</p>
+					<pre><code class="cs">
+class EnormousClass&lt;T, U, V, W&gt;
+{
+	// ...
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Ограничения для нескольких типов-параметров</h2>
+					<p>
+						Для каждого из типов-параметров можно задавать свои ограничения отдельной секцией
+						<span class="blue">where</span>:
+					</p>
+					<pre><code class="cs">
+class Base { }
+
+class Test&lt;T, U&gt;
+	where U : struct
+	where T : Base, new()
+{ 
+	// ...
+}
+					</code></pre>
+				</section>
+				<section>
+					<h2>Пример</h2>
+					<p>
+						Когда это может быть нужно?
+					</p>
+					<p>
+						Ну, например, при реализации своего класса словаря, или какой-нибудь структуры в этом духе
+						- коллекций, элементами которых являются пары значений. Или не для коллекций, всё зависит
+						от задачи.
+					</p>
+				</section>
+				<section>
+					<h3>Пример</h3>
+					<pre><code class="cs">
+// Обобщённый класс Словаря с 2 типами-параметрами T и U
+// Реализован на основе циклического списка
+// Причём на тип T наложено ограничение по реализации интерфейса
+// Это нужно для того чтобы можно было корректно сравнивать элементы этого типа
+public class Dict&lt;T, U&gt;
+    where T : IEquatable&lt;T&gt;
+{
+	// Приватный класс Элемент словаря
+	private class DictNode
+	{
+		// Указатель на следующий элемент
+		public DictNode Next { get; set; }
+		// Указатель на предыдущий элемент
+		public DictNode Prev { get; set; }
+		// Ключ, по которому осуществляется доступ
+		// Имеет тип параметр T
+		public T Key { get; set; }
+		// Значение типа U
+		public U Data { get; set; }
+	}
+	
+	// Ссылка на какой-нибудь элемент для доступа
+	private DictNode head;
+
+	// Свойство для количества элементов
+	public int Count { get; set; }
+
+	// Конструктор по умолчанию
+	public Dict()
+	{
+		head = null;
+		Count = 0;
+	}
+
+	// Приватный метод поиска элемента DictNode по ключу
+	// Ключ имеет тип параметр T
+	private DictNode FindElementByKey(T key)
+	{
+		// Перебираем все элементы
+		for (int i = 0; i < Count; ++i)
+		{
+			// Двигаем указатель
+			head = head.Prev;
+			// Если находим совпадение ключей
+			if (head.Key.Equals(key))
+			{
+				// Возвращаем найденный элемент
+				return head;
+			}
+		}
+		// Если ничего не нашли, возвращаем null
+		return null;
+	}
+
+	// Приватный метод Добавления или замены значения по ключу
+	private void AddOrReplace(T key, U value)
+	{
+		// Пытаемся найти элемент с таким ключом
+		DictNode found = FindElementByKey(key);
+		// Если не нашли
+		if (found == null)
+		{
+			// Создаём новый элемент
+			DictNode newElement = new DictNode();
+			newElement.Data = value;
+			newElement.Key = key;
+			// Если наш словарь пуст
+			if (head == null)
+			{
+				// Записываем новый элемент в указатель списка
+				head = newElement;
+				// И зацикливаем его
+				head.Next = head.Prev = head;
+			}
+			else
+			{
+				// Если в словаре уже что-то есть
+				// Добавляем новый элемент перед head
+				head.Prev.Next = newElement;
+				newElement.Prev = head.Prev;
+				newElement.Next = head;
+				head.Prev = newElement;
+			}
+			// Увеличиваем количество на 1
+			++Count;
+		}
+		else
+		{
+			// Когда элемент с заданным ключом найден в словаре
+			// Просто перезаписываем у него значение на новое
+			found.Data = value;
+		}
+	}
+
+	// Публичный индексатор для доступа к элементам словаря по ключу
+	// Возвращает значение, т.е. тип U, принимает индекс-ключ, т.е. тип T
+	public U this[T key]
+	{
+		get
+		{
+			// Пытаемся найти элемент с заданным ключом
+			DictNode found = FindElementByKey(key);
+			// Если не находим
+			if (found == null)
+			{
+				// Возвращаем значение по умолчанию для типа значения U
+				return default(U);
+			}
+			// А если находим, возвращаем из него значение
+			return found.Data;
+		}
+		set
+		{
+			// Добавляем или заменяем значение по ключу
+			AddOrReplace(key, value);
+		}
+	}
+
+	// Публичный метод Вывода на консоль
+	public void Print()
+	{
+		Console.WriteLine("Dictionary:");
+		// Перебираем все элементы словаря
+		for (int i = 0; i < Count; ++i)
+		{
+			// Перемещаем указатель
+			head = head.Next;
+			// И выводим каждый элемент на консоль
+			Console.WriteLine("  [{0}] : {1}", head.Key, head.Data);
+		}
+		Console.WriteLine();
+	}
+	
+}
+
+class Program
+{
+	static void Main(string[] args)
+	{
+		// Создаём новый объект класса Dict с типом ключа string и типом значения float
+		Dict&lt;string, float&gt; dict = new Dict&lt;string, float&gt;();
+		// Добавляем в него элементы через индексатор
+		dict["pi"] = 3.1415926f;
+		dict["e"] = 2.7182818284f;
+		dict["Na"] = 6.022e+23f;
+		dict["h"] = 6.6260e-34f;
+		dict["G"] = 6.674e-11f;
+		dict["c"] = 299_792_458f;
+
+		// Выводим словарь на консоль
+		dict.Print();
+	}
+}	
+					</code></pre>
+				</section>
+				<section>
+					<h2>Ошибки при использовании нескольких параметров типов</h2>
+					<p>
+						При использовании перегрузок методов в обобщённых классах с несколькими параметрами типов
+						можно допустить ошибку неоднозначности перегрузок, в случае, когда у вас есть несколько
+						перегрузок методов, отличающихся только типами-параметрами.
+					</p>
+					<pre><code class="cs">
+// Обобщённый класс с двумя типами-параметрами
+class Gen&lt;T, V&gt;
+{
+	// Два поля
+	private T ob1;
+	private V ob2;
+	
+	// Метод Set с типом параметра T
+	public void Set(T о)
+	{
+		ob1 = о;
+	}
+	
+	// Перегрузка метода Set с типом параметра V
+	public void Set(V о)
+	{
+		ob2 = о;
+	}
+	
+	class AmbiguityExample
+	{
+		static void Main()
+		{
+			// Создаём объект класса Gen для типов int и double
+			Gen&lt;int, double&gt; ok = new Gen&lt;int, double&gt;();
+			// И другой - для типов int и int
+			Gen&lt;int, int&gt; notOK = new Gen&lt;int, int&gt;();
+
+			// В случае с первым объектом всё будет работать, потому что понятно какой метод вызывать
+			ok.Set(10);
+			// Здесь будет ошибка из-за неоднозначности. В классе 2 метода с одинаковой сигнатурой!
+			notOK.Set(10);
+		}
+	}
+}
+					</code></pre>
+				</section>
+			</section>
+            <section>
+                <h3>Просто давно не было картинок</h3>
+                <img src="img/brain_explosion.jpg" />
+            </section>
+		</div>
+	</div>
+	<aside id="presentable-icon" class="cpp">
+		<a title="Содержание лекции" href="#/0/1">
+			<i class="fa fa-list-ul fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-icon-close">
+		<a title="К списку материалов" href="../../index.html#/1">
+			<i class="fa fa-times fa-2x controls"></i>
+		</a>
+	</aside>
+	<aside id="presentable-theme-picker">
+		<div id="hidden-bar" class="invisible">
+			<div>
+				<div data-theme="beige" class="theme-circle theme-beige"></div>
+				<div data-theme="black" class="theme-circle theme-black"></div>
+				<div data-theme="blood" class="theme-circle theme-blood"></div>
+				<div data-theme="league" class="theme-circle theme-league"></div>
+				<div data-theme="moon" class="theme-circle theme-moon"></div>
+				<div data-theme="night" class="theme-circle theme-night"></div>
+				<div data-theme="serif" class="theme-circle theme-serif"></div>
+				<div data-theme="simple" class="theme-circle theme-simple"></div>
+				<div data-theme="sky" class="theme-circle theme-sky"></div>
+				<div data-theme="solarized" class="theme-circle theme-solarized"></div>
+				<div data-theme="white" class="theme-circle theme-white"></div>
+			</div>
+		</div>
+		<div id="selected-theme" class="theme-circle"></div>
+	</aside>
+	<script src="../../js/bundle.min.js"></script>
+</body>
+
+</html>
